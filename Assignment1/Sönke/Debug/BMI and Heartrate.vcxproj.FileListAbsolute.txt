@@ -1,0 +1,2 @@
+E:\mod7\programming\Code\BMI and Heartrate\Debug\BMI and Heartrate.exe
+E:\mod7\programming\Code\BMI and Heartrate\Debug\BMI and Heartrate.pdb
