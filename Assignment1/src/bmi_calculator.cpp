@@ -35,6 +35,7 @@ void Calculator::evaluateAndPrintBMI()
 
 void Calculator::printBMICategory(double bmi)
 {
+    std::cout << "Soenke was here" << std::endl;
     if(bmi < 18.5) { std::cout << "You are underweight" << std::endl; return;}
     if(bmi < 24.9) { std::cout << "Your weight is normal" << std::endl; return;}
     if(bmi < 29.9) { std::cout << "You are underweight" << std::endl; return;}
