@@ -9,16 +9,16 @@
 //The constructor gets the current date and based on that informatuion calculations are done regarding the users heart rate values.
 human::human(date birthday, name Name) : m_bday(birthday.day), m_bmonth(birthday.month), m_byear(birthday.year), m_firstName(Name.FirstName), m_lastName(Name.LastName)
 {
-	date currentDate = getCurrentDateAutomated(); //gets systemtime
-	m_age = calcage(currentDate);
+	//initializes member variables
+	m_age = calcage();
 	m_max_heartrate = calcMax(m_age);
 	m_lowertargert = calcLower(m_max_heartrate);
 	m_uppertarget = calcUpper(m_max_heartrate);
 }
 
-//calculates the age of user by comparing the current date to the birth date
-int human::calcage(date currentDate)
+int human::calcage()
 {
+	date currentDate = getCurrentDateAutomated(); //gets systemtime
 	int age;
 	int yearDiff = currentDate.year - m_byear;
 	int monthDiff = currentDate.month - m_bmonth;
@@ -44,7 +44,6 @@ int human::calcUpper(int max_heartrate)
 	return floor(0.5 * max_heartrate);
 }
 
-//uses the internal info of class human in order to print personalized heart info message to user
 void human::printHeartRateInfo()
 {
 	std::cout << m_firstName << " " << m_lastName << " your maximum heart rate is " << m_max_heartrate <<
@@ -52,7 +51,6 @@ void human::printHeartRateInfo()
 
 }
 
-//asks the user to enter its full name and returns a name structure
 name getFullName()
 {
 	name n;
@@ -114,7 +112,7 @@ date human::getCurrentDateAutomated()
 {
 	date d;
 	COleDateTime time;
-	time = COleDateTime::GetCurrentTime();
+	time = COleDateTime::GetCurrentTime(); //reads system time
 	d.day = time.GetDay();
 	d.month = time.GetMonth();
 	d.year = time.GetYear();
