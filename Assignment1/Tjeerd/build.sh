@@ -1,1 +1,1 @@
-g++ -o run *.cpp src/*.cpp src/*.hpp
+g++ -std=c++14 -pthread -lpthread -o run *.cpp src/*.cpp src/*.hpp

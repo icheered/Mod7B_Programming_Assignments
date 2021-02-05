@@ -1,3 +1,11 @@
+//==============================================================
+// Filename:
+// Authors:
+// Version:
+// License:
+// Description:
+//==============================================================
+
 #include "heartrate_monitor.hpp"
 
 // Constructor. Get all the information and call its own setters.

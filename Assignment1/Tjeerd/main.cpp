@@ -1,8 +1,18 @@
+//==============================================================
+// Filename:
+// Authors:
+// Version:
+// License:
+// Description:
+//==============================================================
+
+
+
 #include <iostream>
 #include <string>
 #include "src/heartrate_monitor.hpp"
 
-int main()
+int also_not_main()
 {
     std::string firstname;
     std::string lastname;
@@ -15,9 +25,9 @@ int main()
 
         
         std::cout << "Enter your first name: ";
-        std::cin >> firstname;
+        std::getline(std::cin, firstname);
         std::cout << "Enter your last name: ";
-        std::cin >> lastname;
+        std::getline(std::cin, lastname);
 
         std::cout << "Enter your year of birth: ";
         std::cin >> birthyear;
