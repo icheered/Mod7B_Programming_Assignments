@@ -15,6 +15,7 @@ bool Human::setName(std::string first, std::string last)
 {
     m_firstname = first;
     m_lastname = last;
+    return true;
 };
 
 bool Human::setBirthdate(int day, int month, int year)

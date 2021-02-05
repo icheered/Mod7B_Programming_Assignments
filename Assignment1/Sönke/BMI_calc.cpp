@@ -13,7 +13,7 @@ void BMI_calc::evaluateAndPrintBMI()
 	m_bmi = calculateBMI();
 	std::cout << "Your BMI is: " << m_bmi << std::endl;
 	if (m_bmi <= 0) std::cout << "error: invalid bmi value" << std::endl;
-	else if (m_bmi <= 18.5) std::cout << "You are underweight" << std::endl;
+	else if (m_bmi <= 18.5) std::cout << "You are underweight" << std::endl; //using elsif as wen want to terminate function once desired value is read and response printed
 	else if (m_bmi <= 24.9) std::cout << "You are normalweight" << std::endl;
 	else if (m_bmi <= 29.9) std::cout << "You are overweight" << std::endl;
 	else if (m_bmi >= 30)   std::cout << "You are obese" << std::endl;

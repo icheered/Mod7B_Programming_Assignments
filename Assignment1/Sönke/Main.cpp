@@ -8,15 +8,15 @@ void BMI(); // can be called in main in order to use the BMI_calc class
 
 int main() {
 	BMI();
+	heartrate();
+	std::cin.get(); //waits for user input before closing the console
 }
 
 void heartrate()
 {
 	std::cout << "Welcome to your personal heart rate advisor, we will first need some personal data in order to proceed: " << std::endl;
 	date birthday = getDateOfBirth();
-	//date birthday = { 2000, 7, 20 };
 	name Name = getFullName();
-	//name Name = { "Soenke", "van Loh" };
 	human h = human(birthday, Name);
 	h.printHeartRateInfo();
 }

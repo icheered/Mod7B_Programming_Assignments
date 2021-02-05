@@ -7,4 +7,5 @@ int not_main()
     calculator.getInfo();
     calculator.evaluateAndPrintBMI();
     calculator.printInfo();
+    return 0;
 }

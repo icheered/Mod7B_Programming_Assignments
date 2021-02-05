@@ -6,7 +6,6 @@
 
 
 //constructor for class human taking in a date structure containing the birth date of the user and a name struct with the users full name.
-//The constructor gets the current date and based on that informatuion calculations are done regarding the users heart rate values.
 human::human(date birthday, name Name) : m_bday(birthday.day), m_bmonth(birthday.month), m_byear(birthday.year), m_firstName(Name.FirstName), m_lastName(Name.LastName)
 {
 	//initializes member variables
@@ -18,7 +17,7 @@ human::human(date birthday, name Name) : m_bday(birthday.day), m_bmonth(birthday
 
 int human::calcage()
 {
-	date currentDate = getCurrentDateAutomated(); //gets systemtime
+	date currentDate = getCurrentDateAutomated(); //gets Date from Systemtime info
 	int age;
 	int yearDiff = currentDate.year - m_byear;
 	int monthDiff = currentDate.month - m_bmonth;
@@ -55,6 +54,8 @@ name getFullName()
 {
 	name n;
 	using namespace std;
+	string dump;
+	getline(cin, dump); //clears the cin and discards everything that might be in it before reading the name
 	cout << "Please enter your first and last Name: " << endl;
 	cout << "First Name:";
 	getline(cin, n.FirstName);
