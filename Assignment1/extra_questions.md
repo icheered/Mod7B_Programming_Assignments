@@ -1,5 +1,5 @@
 # Code Explanation
-By Soenke Van Lohn and Tjeerd Bakker
+By Soenke Van Loh and Tjeerd Bakker
 Design choices are explained as comments in the code
 The page is a little over 1 page, but there's some code examples that take up space.
 #### Why did you have to include ```iostream``` in your code?
