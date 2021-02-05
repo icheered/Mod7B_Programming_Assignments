@@ -140,7 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BMI_calc.cpp" />
-    <ClCompile Include="Heartrate.cpp" />
+    <ClCompile Include="Heartrate_calc.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>

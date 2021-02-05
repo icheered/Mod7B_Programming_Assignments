@@ -21,7 +21,7 @@
     <ClCompile Include="BMI_calc.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Heartrate.cpp">
+    <ClCompile Include="Heartrate_calc.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
