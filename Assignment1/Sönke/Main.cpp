@@ -23,6 +23,7 @@ void heartrate()
 
 void BMI()
 {
+	std::cout << "Welcome to your personal BMI calculator. First a table of the used BMI values is showen and after that you can calculate yoour own BMI value." << std::endl;
 	BMI_calc c;
 	c.printInfo();
 	c.evaluateAndPrintBMI();
