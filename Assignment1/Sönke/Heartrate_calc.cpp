@@ -54,8 +54,6 @@ name getFullName()
 {
 	name n;
 	using namespace std;
-	string dump;
-	getline(cin, dump); //clears the cin and discards everything that might be in it before reading the name
 	cout << "Please enter your first and last Name: " << endl;
 	cout << "First Name:";
 	getline(cin, n.FirstName);
@@ -77,6 +75,7 @@ date getDateOfBirth()
 	cin >> localMonth;
 	cout << "Day (in range of 1-31): ";
 	cin >> localDay;
+	cin.get();
 	if (localMonth > 0 && localMonth < 13 && localDay > 0 && localDay < 32) { //checks that the entered values are in valid ranges before assigning them
 		b.day = localDay;
 		b.month = localMonth;
@@ -99,6 +98,7 @@ date human::getCurrentDate()
 	cin >> localMonth;
 	cout << "Day (in range of 1-31): ";
 	cin >> localDay;
+	cin.get();
 	if (localMonth > 0 && localMonth < 13 && localDay > 0 && localDay < 32) { //checks that the entered values are in valid ranges before assigning them
 		d.year = localYear;
 		d.month = localMonth;
