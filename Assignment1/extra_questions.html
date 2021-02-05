@@ -268,7 +268,9 @@ pre[data-line] .line-highlight[data-end]:after {
       <div class="mume markdown-preview  ">
       <h1 class="mume-header" id="code-explanation">Code Explanation</h1>
 
-<p>By Soenke Van Lohn and Tjeerd Bakker</p>
+<p>By Soenke Van Lohn and Tjeerd Bakker<br>
+Design choices are explained as comments in the code<br>
+The page is a little over 1 page, but there&apos;s some code examples that take up space.</p>
 <h4 class="mume-header" id="why-did-you-have-to-include-iostream-in-your-code">Why did you have to include <code>iostream</code> in your code?</h4>
 
 <p>IOStream is a part of the standard library that handles IO to the terminal. Since the user needs to input information into the terminal, and the program prints output to the terminal, we need IOStream to interface with the terminal.</p>
@@ -302,13 +304,14 @@ std<span class="token operator">::</span>cout <span class="token operator">&lt;&
 <h4 class="mume-header" id="give-the-output-of-the-following-code-and-explain">Give the output of the following code and explain</h4>
 
 <p>This question covers the concept of scopes. A variable defined globally is accesible everywhere (<code>int a = 20;</code>), but a variable defined locally is only accesible from the local scope (<code>int a = 10;</code>). Local scope takes presedence over global scope.</p>
+<p>The output will first print <code>20</code> and <code>10</code></p>
 <pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
 <span class="token keyword">void</span> <span class="token function">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// Declare the function</span>
 <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>             <span class="token comment">// Globally declare and define &apos;a&apos;</span>
 <span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    
     <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>         <span class="token comment">// Locally declare and define &apos;a&apos;</span>
     <span class="token function">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">// Print &apos;a&apos; (20) from global scope</span>
-    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> a<span class="token punctuation">;</span>     <span class="token comment">// Print &apos;a&apos; (10) from local scope (takes presedence over global scope)</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> a<span class="token punctuation">;</span>     <span class="token comment">// Print &apos;a&apos; (10) from local scope </span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span class="token keyword">void</span> <span class="token function">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>

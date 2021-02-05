@@ -1,5 +1,7 @@
 # Code Explanation
 By Soenke Van Lohn and Tjeerd Bakker
+Design choices are explained as comments in the code
+The page is a little over 1 page, but there's some code examples that take up space.
 #### Why did you have to include ```iostream``` in your code?
 IOStream is a part of the standard library that handles IO to the terminal. Since the user needs to input information into the terminal, and the program prints output to the terminal, we need IOStream to interface with the terminal.
 
@@ -49,7 +51,7 @@ int a = 20;             // Globally declare and define 'a'
 int main() {    
     int a = 10;         // Locally declare and define 'a'
     function();         // Print 'a' (20) from global scope
-    std::cout << a;     // Print 'a' (10) from local scope (takes presedence over global scope)
+    std::cout << a;     // Print 'a' (10) from local scope 
     return 0;
 }
 void function() {
