@@ -1,7 +1,7 @@
 #include <iostream>
 #include "src/bmi_calculator.hpp"
 
-int main()
+int not_main()
 {
     Calculator calculator;
     calculator.getInfo();
