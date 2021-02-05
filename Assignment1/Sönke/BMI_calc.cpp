@@ -1,3 +1,11 @@
+//==============================================================
+// Filename: BMI_calc.cpp
+// Authors: Soenke Van Loh and Tjeerd Bakker 
+// Version: V0.1
+// License: GNU GENERAL PUBLIC LICENSE
+// Description: Assignment 1
+//==============================================================
+
 #include "BMI_calc.h"
 
 // implementation of the functions used in the BMI calculator

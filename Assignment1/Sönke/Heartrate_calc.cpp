@@ -1,3 +1,11 @@
+//==============================================================
+// Filename: Heartrate_calc.cpp
+// Authors: Soenke Van Loh and Tjeerd Bakker 
+// Version: V0.1
+// License: GNU GENERAL PUBLIC LICENSE
+// Description: Assignment 1
+//==============================================================
+
 //This file includes the sourcecode for the interface Heartrate_calc
 
 
@@ -119,6 +127,3 @@ date human::getCurrentDateAutomated()
 	d.year = time.GetYear();
 	return d;
 }
-
-
-

@@ -1,3 +1,11 @@
+//==============================================================
+// Filename: Heartrate_calc.hpp
+// Authors: Soenke Van Loh and Tjeerd Bakker 
+// Version: V0.1
+// License: GNU GENERAL PUBLIC LICENSE
+// Description: Assignment 1
+//==============================================================
+
 #pragma once  //makes sure headers are not copied multiple times
 #include <string>
 #include <iostream>

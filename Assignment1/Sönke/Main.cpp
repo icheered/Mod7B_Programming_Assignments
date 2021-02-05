@@ -1,3 +1,11 @@
+//==============================================================
+// Filename: main.cpp
+// Authors: Soenke Van Loh and Tjeerd Bakker 
+// Version: V0.1
+// License: GNU GENERAL PUBLIC LICENSE
+// Description: Assignment 1
+//==============================================================
+
 #include <iostream>
 #include <string.h>
 #include "BMI_calc.h"
@@ -12,6 +20,7 @@ int main() {
 	std::cin.get(); //waits for user input before closing the console
 }
 
+// Execute the heartrate assignment
 void heartrate()
 {
 	std::cout << "Welcome to your personal heart rate advisor, we will first need some personal data in order to proceed: " << std::endl;
@@ -21,6 +30,7 @@ void heartrate()
 	h.printHeartRateInfo();
 }
 
+// Execute the BMI calculator assignment
 void BMI()
 {
 	std::cout << "Welcome to your personal BMI calculator. First a table of the used BMI values is showen and after that you can calculate yoour own BMI value." << std::endl;
