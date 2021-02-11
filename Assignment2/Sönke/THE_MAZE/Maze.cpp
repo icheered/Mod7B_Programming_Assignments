@@ -8,6 +8,7 @@ Maze::Maze(std::array<std::array<char, 12>, 12> MazeIn, std::array<unsigned int,
 
 Maze::Maze() {
 	assignStandartMaze();
+	determineStart();
 	m_Player.x = m_startingPoint[1];
 	m_Player.y = m_startingPoint[0];
 }
@@ -41,6 +42,19 @@ void Maze::moveForward()
 	case right:
 		m_Player.x++;
 		break;
+	}
+}
+
+void Maze::determineStart()
+{
+	for (int i = 0; i < m_Maze.size(); i++) {
+		for (int j = 0; j < m_Maze.at(i).size(); j++) {
+			if (m_Maze.at(i).at(j) == 'x' || m_Maze.at(i).at(j) == 'X') {
+				std::cout << "start at: " << j << " " << i << std::endl;
+				m_startingPoint.at(0) = i;
+				m_startingPoint.at(1) = j;
+			}
+		}
 	}
 }
 
@@ -113,12 +127,11 @@ void Maze::PrintMaze()
 
 void Maze::assignStandartMaze()
 { 
-	m_startingPoint[0] = 4; m_startingPoint[1] = 11;
 	m_Maze[0][0] = '#';  m_Maze[0][1] = '#';  m_Maze[0][2] = '#';  m_Maze[0][3] = '#';  m_Maze[0][4] = '#';  m_Maze[0][5] = '#';  m_Maze[0][6] = '#';  m_Maze[0][7] = '#';  m_Maze[0][8] = '#';  m_Maze[0][9] = '#';  m_Maze[0][10] = '#'; m_Maze[0][11] = '#';
 	m_Maze[1][0] = '#';  m_Maze[1][1] = '.';  m_Maze[1][2] = '.';  m_Maze[1][3] = '.';  m_Maze[1][4] = '#';  m_Maze[1][5] = '.';  m_Maze[1][6] = '.';  m_Maze[1][7] = '.';  m_Maze[1][8] = '.';  m_Maze[1][9] = '.';  m_Maze[1][10] = '.'; m_Maze[1][11] = '#';
 	m_Maze[2][0] = '.';  m_Maze[2][1] = '.';  m_Maze[2][2] = '#';  m_Maze[2][3] = '.';  m_Maze[2][4] = '#';  m_Maze[2][5] = '.';  m_Maze[2][6] = '#';  m_Maze[2][7] = '#';  m_Maze[2][8] = '#';  m_Maze[2][9] = '#';  m_Maze[2][10] = '.'; m_Maze[2][11] = '#';
 	m_Maze[3][0] = '#';  m_Maze[3][1] = '#';  m_Maze[3][2] = '#';  m_Maze[3][3] = '.';  m_Maze[3][4] = '#';  m_Maze[3][5] = '.';  m_Maze[3][6] = '.';  m_Maze[3][7] = '.';  m_Maze[3][8] = '.';  m_Maze[3][9] = '#';  m_Maze[3][10] = '.'; m_Maze[3][11] = '#';
-	m_Maze[4][0] = '#';  m_Maze[4][1] = '.';  m_Maze[4][2] = '.';  m_Maze[4][3] = '.';  m_Maze[4][4] = '.';  m_Maze[4][5] = '#';  m_Maze[4][6] = '#';  m_Maze[4][7] = '#';  m_Maze[4][8] = '.';  m_Maze[4][9] = '#';  m_Maze[4][10] = '.'; m_Maze[4][11] = '.';
+	m_Maze[4][0] = '#';  m_Maze[4][1] = '.';  m_Maze[4][2] = '.';  m_Maze[4][3] = '.';  m_Maze[4][4] = '.';  m_Maze[4][5] = '#';  m_Maze[4][6] = '#';  m_Maze[4][7] = '#';  m_Maze[4][8] = '.';  m_Maze[4][9] = '#';  m_Maze[4][10] = '.'; m_Maze[4][11] = 'x';
 	m_Maze[5][0] = '#';  m_Maze[5][1] = '#';  m_Maze[5][2] = '#';  m_Maze[5][3] = '#';  m_Maze[5][4] = '.';  m_Maze[5][5] = '#';  m_Maze[5][6] = '.';  m_Maze[5][7] = '#';  m_Maze[5][8] = '.';  m_Maze[5][9] = '#';  m_Maze[5][10] = '.'; m_Maze[5][11] = '#';
 	m_Maze[6][0] = '#';  m_Maze[6][1] = '.';  m_Maze[6][2] = '.';  m_Maze[6][3] = '#';  m_Maze[6][4] = '.';  m_Maze[6][5] = '#';  m_Maze[6][6] = '.';  m_Maze[6][7] = '#';  m_Maze[6][8] = '.';  m_Maze[6][9] = '#';  m_Maze[6][10] = '.'; m_Maze[6][11] = '#';
 	m_Maze[7][0] = '#';  m_Maze[7][1] = '#';  m_Maze[7][2] = '.';  m_Maze[7][3] = '#';  m_Maze[7][4] = '.';  m_Maze[7][5] = '#';  m_Maze[7][6] = '.';  m_Maze[7][7] = '#';  m_Maze[7][8] = '.';  m_Maze[7][9] = '#';  m_Maze[7][10] = '.'; m_Maze[7][11] = '#';
@@ -137,12 +150,12 @@ void Maze::solveMaze()
 	else if (m_Player.x == 11) m_Player.o = left;
 	else if (m_Player.y == 0) m_Player.o = down;
 	else m_Player.o = up;
+	PrintMaze();
 	solveMazeRecursive();
 }
 
 bool Maze::solveMazeRecursive()
 {
-	PrintMaze();
 	if (finsihed()) {
 		std::cout << "Maze solved, jey!" << std::endl;
 		return true;
@@ -156,12 +169,14 @@ bool Maze::solveMazeRecursive()
 			}
 			else {
 				moveForward();
+				PrintMaze();
 				solveMazeRecursive();
 			}
 		}
 		else {
 			turnRight();
 			moveForward();
+			PrintMaze();
 			solveMazeRecursive();
 		}
 	}
