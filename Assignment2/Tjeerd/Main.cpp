@@ -2,8 +2,8 @@
 
 int main() {
 	Maze amazingMaze;
-	std::cin.get();
+	//std::cin.get();
 	amazingMaze.solveMaze();
-	//test.rintMaze();
+	std::cout << "Solved!" << std::endl;
 	return 0;
 }

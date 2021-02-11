@@ -15,9 +15,9 @@ private:
 	// Functions needed in order to solve the maze 
 	void createMaze();
 	void findEntrance();
-	
+
 	// movePlayer Will be called recursively
-	bool movePlayer(std::array<unsigned int, 2> position, std::array<unsigned int, 2> previous_position); 
+	bool traverseMaze(std::array<unsigned int, 2> position, std::array<unsigned int, 2> previous_position); 
 	bool finished(std::array<unsigned int, 2> position);
 public:
 	Maze();
