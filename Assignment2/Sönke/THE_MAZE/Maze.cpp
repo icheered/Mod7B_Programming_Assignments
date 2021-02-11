@@ -113,7 +113,7 @@ bool Maze::finsihed()
 void Maze::PrintMaze()
 {
 	bool valid = false;
-	if (m_Player.x < m_Maze.at(0).size() && m_Player.x >= 0 && m_Player.y < m_Maze.size() && m_Player.y >= 0) { m_Maze.at(m_Player.y).at(m_Player.x) = 'X'; valid = true; }
+	if (m_Player.x < m_Maze.at(0).size() && m_Player.x >= 0 && m_Player.y < m_Maze.size() && m_Player.y >= 0) { m_Maze.at(m_Player.y).at(m_Player.x) = 'X'; valid = true; } //put the x where the player is
 	else std::cout << "Player position invalid" << std::endl;
 	for (int i = 0; i < m_Maze.size(); i++) {
 		for (int j = 0; j < m_Maze.at(i).size(); j++) {
@@ -122,7 +122,7 @@ void Maze::PrintMaze()
 		std::cout << std::endl;
 	}
 	std::cout << std::endl;
-	if (valid) m_Maze.at(m_Player.y).at(m_Player.x) = '.';
+	if (valid) m_Maze.at(m_Player.y).at(m_Player.x) = '.'; //remove x again after printing
 }
 
 void Maze::assignStandartMaze()
@@ -142,7 +142,7 @@ void Maze::assignStandartMaze()
 }
 
 
-void Maze::solveMaze()
+void Maze::solveMaze()  //initialize the solving process
 {
 	m_Player.x = m_startingPoint[1];
 	m_Player.y = m_startingPoint[0];
@@ -156,7 +156,7 @@ void Maze::solveMaze()
 
 bool Maze::solveMazeRecursive()
 {
-	if (finsihed()) { //check if task is done and
+	if (finsihed()) { //check if task is done
 		std::cout << "Maze solved, jey!" << std::endl;
 		return true;
 	}
@@ -165,20 +165,18 @@ bool Maze::solveMazeRecursive()
 		if (wallRight()) { //when there is a wall on the right try to go forward
 			if (wallFront()) { 
 				turnLeft(); //If a wall is blocking the way turn left 
-				solveMazeRecursive();
 			}
 			else {
 				moveForward(); //otherwise move forward
 				PrintMaze();
-				solveMazeRecursive();
 			}
 		}
 		else {
 			turnRight(); //when there is no wall on your right turn right and move a step forward (get arround corners)
 			moveForward();
 			PrintMaze();
-			solveMazeRecursive();
 		}
+		solveMazeRecursive();
 	}
 }
 

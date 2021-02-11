@@ -2,9 +2,9 @@
 
 #include <array>
 #include <iostream>
-#include <chrono>
-#include <thread>
 
+//class for storing a maze and solving it.
+//The player got an orientation in order to closely simulate how a real person would use the right hand rule.
 class Maze {
 private:
 	enum m_Orientation : unsigned int {
@@ -26,13 +26,13 @@ private:
 	void determineStart();
 
 	bool solveMazeRecursive(); //this will be called after solving is startet in order to increase performance
-	bool wallFront();
-	bool wallRight();
+	bool wallFront(); //check if wall in direction of orientation one step forward
+	bool wallRight(); //check if wall right relative to the player
 	bool finsihed(); //true if the player reaches a field at the site of the maze which is not the starting point
 public:
 	Maze();
 	Maze(std::array<std::array<char, 12>, 12>, std::array<unsigned int, 2>);
 	void PrintMaze(); //prints the maze with the current player position in it
-	void solveMaze(); //this is the starting point of solving the maze, it prints the movement of the "player" 
+	void solveMaze(); //this is the starting point of solving the maze
 };
 
