@@ -89,8 +89,9 @@ bool Maze::wallRight()
 bool Maze::finsihed()
 {
 	if (m_Player.x != m_startingPoint[1] && m_Player.y != m_startingPoint[0]) {
-		if (m_Player.x == 0 || m_Player.x )
+		if (m_Player.x == 0 || m_Player.x == 11 || m_Player.y == 0 || m_Player.y == 11) return true;
 	}
+	return false;
 }
 
 void Maze::solveMaze()
