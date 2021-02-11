@@ -156,25 +156,25 @@ void Maze::solveMaze()
 
 bool Maze::solveMazeRecursive()
 {
-	if (finsihed()) {
+	if (finsihed()) { //check if task is done and
 		std::cout << "Maze solved, jey!" << std::endl;
 		return true;
 	}
 	else
 	{
-		if (wallRight()) {
-			if (wallFront()) {
-				turnLeft();
+		if (wallRight()) { //when there is a wall on the right try to go forward
+			if (wallFront()) { 
+				turnLeft(); //If a wall is blocking the way turn left 
 				solveMazeRecursive();
 			}
 			else {
-				moveForward();
+				moveForward(); //otherwise move forward
 				PrintMaze();
 				solveMazeRecursive();
 			}
 		}
 		else {
-			turnRight();
+			turnRight(); //when there is no wall on your right turn right and move a step forward (get arround corners)
 			moveForward();
 			PrintMaze();
 			solveMazeRecursive();
