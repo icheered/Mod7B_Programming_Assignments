@@ -25,7 +25,7 @@ The `std::array` is a thin wrapper around the standard c array which adds safety
 Two different solutions were implemented. Soenke's solution focusses on realism and tries to emulate the right-hand-rule. Tjeerd's solution just tries everything until it finds something that works.
 For both solutions the constructor of the Maze class will 1) Create the maze and store it in a 2D array, 2) Find the entrance, 3) Print the maze. The main function will instantiate the Maze class, and then try to solve the maze. We both implemented our own solution to solve the maze.
 
-### Tjeerd's solution
+### Tjeerd's Solution
 The traverseMaze receives a `position` and a `previousPosition`. If possible (new position != previous position, and new position is not a wall) it will try to move 1 space up (call traverseMaze with the new position), if that's not possible it will try to move 1 space left, then try down, then try right. If none of the options are possible it will mark the current position as "dead end" ('-') and return false. If the position is the endpoint (at the very edge and not starting position) it has solved the maze and will return true.
 
 ### Soenke's Solution
