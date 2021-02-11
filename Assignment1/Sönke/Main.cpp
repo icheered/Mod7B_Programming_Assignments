@@ -15,7 +15,7 @@ void heartrate(); //can be called in main to use the heartrate_calc class
 void BMI(); // can be called in main in order to use the BMI_calc class
 
 int main() {
-	BMI();
+	//BMI();
 	heartrate();
 	std::cin.get(); //waits for user input before closing the console
 }

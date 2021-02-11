@@ -1,4 +1,2 @@
-﻿  Heartrate_calc.cpp
-E:\mod7\programming\Code\Mod7B_Programming_Assignments\Assignment1\Sönke\Heartrate_calc.cpp(37,14): warning C4244: "return": Konvertierung von "double" in "int", möglicher Datenverlust
-E:\mod7\programming\Code\Mod7B_Programming_Assignments\Assignment1\Sönke\Heartrate_calc.cpp(43,14): warning C4244: "return": Konvertierung von "double" in "int", möglicher Datenverlust
+﻿  Main.cpp
   BMI and Heartrate.vcxproj -> E:\mod7\programming\Code\Mod7B_Programming_Assignments\Assignment1\Sönke\x64\Debug\BMI and Heartrate.exe
