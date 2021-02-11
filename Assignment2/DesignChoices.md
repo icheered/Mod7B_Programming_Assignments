@@ -1,4 +1,6 @@
 # Assignment 2: The Maze
+Tjeerd Bakker - s2097966
+Soenke van Loh - s2270862
 ##### What is recursion
 A function that calls itself.
 ##### Why recursion isn't great for maze-solving
