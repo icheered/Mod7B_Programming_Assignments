@@ -3,23 +3,30 @@
 
 int main() {
 
-	bool Soenke = false;
-	bool Tjeerd = false;
+	// Show a prompt for which solution to show
+	char which_solution;
+	bool running = true;
+	while(running){
+		which_solution = 'a';
+		std::cout << "Which solution do you want to see: (s)oenke's or (t)jeerd's?";
+		std::cin >> which_solution;
 
 
-	if(Soenke){
-		Maze test;
-		test.solveMaze();
+		if(which_solution == 't'){
+			// Show Tjeerd's solution
+			Maze_Tjeerd amazingMaze;
+			amazingMaze.solveMaze_Tjeerd();
+			std::cout << "Solved!" << std::endl;
+		}else if(which_solution == 's'){
+			// Show Soenke's solution
+			Maze test;
+			test.solveMaze();
+		} else {
+			std::cout << "Please enter 's' or 't' to pick which solution to try" << std::endl;
+		}
 	}
-	if(Tjeerd){
-		Maze_Tjeerd amazingMaze;
-		amazingMaze.solveMaze_Tjeerd();
-		std::cout << "Solved!" << std::endl;
-	}
-	
-	if(!Soenke && !Tjeerd) {
-		std::cout << "Please set one of the booleans to 'true' in main.cpp" << std::endl;
-	}
+
+
 
 	return 0;
 }
