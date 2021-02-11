@@ -6,7 +6,7 @@ Recursive functions are especially good at traversing many different paths simul
 
 ##### Range-based loop using auto-keyword
 ```c++
-for(const auto &cnt : a) {var = cnt}
+for(const auto &cnt : a) {readValue = cnt;}
 ```
 
 ##### When to use const keyword
