@@ -46,18 +46,19 @@ void Maze::moveForward()
 
 bool Maze::wallFront()
 {
+	Player dummy = m_Player;
 	switch (m_Player.o) {
 	case up:
-		if (m_Maze.at(--m_Player.y).at(m_Player.x) == '#') return true;
+		if (m_Maze.at(--dummy.y).at(dummy.x) == '#') return true;
 		break;
 	case left:
-		if (m_Maze.at(m_Player.y).at(--m_Player.x) == '#') return true;
+		if (m_Maze.at(dummy.y).at(--dummy.x) == '#') return true;
 		break;
 	case down:
-		if (m_Maze.at(++m_Player.y).at(m_Player.x) == '#') return true;
+		if (m_Maze.at(++dummy.y).at(dummy.x) == '#') return true;
 		break;
 	case right:
-		if (m_Maze.at(m_Player.y).at(++m_Player.x) == '#') return true;
+		if (m_Maze.at(dummy.y).at(++dummy.x) == '#') return true;
 		break;
 	default:
 		return false;
@@ -67,18 +68,19 @@ bool Maze::wallFront()
 
 bool Maze::wallRight()
 {
+	Player dummy = m_Player;
 	switch (m_Player.o) {
 	case left:
-		if (m_Maze.at(--m_Player.y).at(m_Player.x) == '#') return true;
+		if (m_Maze.at(--dummy.y).at(dummy.x) == '#') return true;
 		break;
 	case down:
-		if (m_Maze.at(m_Player.y).at(--m_Player.x) == '#') return true;
+		if (m_Maze.at(dummy.y).at(--dummy.x) == '#') return true;
 		break;
 	case right:
-		if (m_Maze.at(++m_Player.y).at(m_Player.x) == '#') return true;
+		if (m_Maze.at(++dummy.y).at(dummy.x) == '#') return true;
 		break;
 	case up:
-		if (m_Maze.at(m_Player.y).at(++m_Player.x) == '#') return true;
+		if (m_Maze.at(dummy.y).at(++dummy.x) == '#') return true;
 		break;
 	default:
 		return false;
@@ -92,14 +94,6 @@ bool Maze::finsihed()
 		if (m_Player.x == 0 || m_Player.x == 11 || m_Player.y == 0 || m_Player.y == 11) return true;
 	}
 	return false;
-}
-
-void Maze::solveMaze()
-{
-}
-
-void Maze::solveMazeRecursive()
-{
 }
 
 void Maze::PrintMaze()
@@ -133,3 +127,43 @@ void Maze::assignStandartMaze()
 	m_Maze[10][0] = '#'; m_Maze[10][1] = '.'; m_Maze[10][2] = '.'; m_Maze[10][3] = '.'; m_Maze[10][4] = '.'; m_Maze[10][5] = '.'; m_Maze[10][6] = '.'; m_Maze[10][7] = '.'; m_Maze[10][8] = '.'; m_Maze[10][9] = '.'; m_Maze[10][10] = '.'; m_Maze[10][11] = '#';
 	m_Maze[11][0] = '#'; m_Maze[11][1] = '#'; m_Maze[11][2] = '#'; m_Maze[11][3] = '#'; m_Maze[11][4] = '#'; m_Maze[11][5] = '#'; m_Maze[11][6] = '#'; m_Maze[11][7] = '#'; m_Maze[11][8] = '#'; m_Maze[11][9] = '#'; m_Maze[11][10] = '#'; m_Maze[11][11] = '#';
 }
+
+
+void Maze::solveMaze()
+{
+	m_Player.x = m_startingPoint[1];
+	m_Player.y = m_startingPoint[0];
+	if (m_Player.x == 0) m_Player.o = right;
+	else if (m_Player.x == 11) m_Player.o = left;
+	else if (m_Player.y == 0) m_Player.o = down;
+	else m_Player.o = up;
+	solveMazeRecursive();
+}
+
+bool Maze::solveMazeRecursive()
+{
+	PrintMaze();
+	if (finsihed()) {
+		std::cout << "Maze solved, jey!" << std::endl;
+		return true;
+	}
+	else
+	{
+		if (wallRight()) {
+			if (wallFront()) {
+				turnLeft();
+				solveMazeRecursive();
+			}
+			else {
+				moveForward();
+				solveMazeRecursive();
+			}
+		}
+		else {
+			turnRight();
+			moveForward();
+			solveMazeRecursive();
+		}
+	}
+}
+

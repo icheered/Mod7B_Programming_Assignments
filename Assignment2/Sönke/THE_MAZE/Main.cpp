@@ -3,6 +3,6 @@
 
 int main() {
 	Maze test;
-	test.PrintMaze();
+	test.solveMaze();
 	return 0;
 }

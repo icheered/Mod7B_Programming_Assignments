@@ -1,6 +1,5 @@
-﻿  Main.cpp
-  Maze.cpp
-E:\mod7\programming\Code\Mod7B_Programming_Assignments\Assignment2\Sönke\THE_MAZE\Maze.cpp(93,2): error C2059: syntax error: '}'
-E:\mod7\programming\Code\Mod7B_Programming_Assignments\Assignment2\Sönke\THE_MAZE\Maze.cpp(109,20): warning C4018: '<': signed/unsigned mismatch
-E:\mod7\programming\Code\Mod7B_Programming_Assignments\Assignment2\Sönke\THE_MAZE\Maze.cpp(110,21): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
+﻿  Maze.cpp
+E:\mod7\programming\Code\Mod7B_Programming_Assignments\Assignment2\Sönke\THE_MAZE\Maze.cpp(104,20): warning C4018: '<': signed/unsigned mismatch
+E:\mod7\programming\Code\Mod7B_Programming_Assignments\Assignment2\Sönke\THE_MAZE\Maze.cpp(105,21): warning C4018: '<': signed/unsigned mismatch
+E:\mod7\programming\Code\Mod7B_Programming_Assignments\Assignment2\Sönke\THE_MAZE\Maze.cpp(168): warning C4715: 'Maze::solveMazeRecursive': not all control paths return a value
+  THE_MAZE.vcxproj -> E:\mod7\programming\Code\Mod7B_Programming_Assignments\Assignment2\Sönke\THE_MAZE\Debug\THE_MAZE.exe

@@ -21,7 +21,7 @@ private:
 	void turnLeft();
 	void turnRight();
 	void moveForward();
-	void solveMazeRecursive(); //this will be called after solving is startet in order to increase performance
+	bool solveMazeRecursive(); //this will be called after solving is startet in order to increase performance
 
 	bool wallFront();
 	bool wallRight();
