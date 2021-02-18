@@ -1,3 +1,11 @@
+//==============================================================
+// Filename : Listmain.cpp
+// Authors : Soenke van Loh, Tjeerd Bakker
+// Version : 1
+// License : none
+// Description : source file including main function for the lists
+//==============================================================
+
 #include "List.h"
 #include <string>
 #include <iostream>
