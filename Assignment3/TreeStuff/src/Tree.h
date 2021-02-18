@@ -1,10 +1,22 @@
 // Fig. 19.22: Tree.h
 // Template Tree class definition.
+
+//==============================================================
+// Filename : Tree.h
+// Authors :  Tjeerd Bakker and Soenke van Loh
+// Version :
+// License :
+// Description :
+//==============================================================
+
+
+
 #ifndef TREE_H
 #define TREE_H
 
 #include "TreeNode.h"
 #include <iostream>
+#include <string>
 
 // Tree class-template definition
 template <typename NODETYPE> class Tree
@@ -37,8 +49,77 @@ template <typename NODETYPE> class Tree
         postOrderHelper(rootPtr);
     } // end function postOrderTraversal
 
+    TreeNode<NODETYPE>* search(NODETYPE value)
+    {
+        return searchHelper(&rootPtr, value);
+    }
+
+    void printTree() const
+    {
+        printTreeHelper(rootPtr, 0);
+    }
+
+
   private:
     TreeNode<NODETYPE> *rootPtr;
+
+
+    // Perform a binary search
+    TreeNode<NODETYPE>* searchHelper(TreeNode<NODETYPE> **ptr, NODETYPE value)
+    {  
+        if (*ptr == nullptr){
+            return nullptr;
+        }
+        else{
+            // Check if the current node has the desired value
+            if(value == (*ptr)->data){
+                return *ptr;
+            }
+
+            // If the desired value is smaller than the value of the current node, go to the left node
+            else if(value < (*ptr)->data){
+                return searchHelper(&((*ptr)->leftPtr), value);
+            }
+            // If the desired value is larger than the value of the current node, go to the right node
+            else if(value > (*ptr)->data){
+                return searchHelper(&((*ptr)->rightPtr), value);
+            }
+            else {
+                return nullptr;
+            }
+        }
+    }
+
+
+    void printTreeHelper(TreeNode<NODETYPE> *ptr, int depth) const
+    {
+
+        // If right node is not a nullpointer
+            // Go into right node with increased depth
+        if(ptr->rightPtr != nullptr){
+            printTreeHelper(ptr->rightPtr, depth + 1);
+        }
+
+        // Print own number
+        for(int i = depth; i > 0; i--)
+        {
+            std::cout << "  ";
+        }
+        std::cout << ptr->getData() << std::endl;
+
+
+        // If left node is not a nullpointer
+            // Go into left node with increased depth
+        if(ptr->leftPtr != nullptr){
+            printTreeHelper(ptr->leftPtr, depth + 1);
+        }
+        return;
+    }
+
+
+
+
+
 
     // utility function called by insertNode; receives a pointer
     // to a pointer so that the function can modify pointer's value
