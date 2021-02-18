@@ -1,0 +1,15 @@
+Everything is clearly explained in the comments of the code but these are the main takeaways:
+- You can use an arrow operator to quickly dereference a pointer and access its data
+- Template classes are classes that handle parameters of a type that can be defined at compile time. This allows multiple class instantiation that can handle different types without having to write a new class for each new type.
+
+- The implemented search function works as follows:
+    - If the value of the current node is the desired value, return this node
+    - If the desired value is larger than the desired value, move to the right node
+        - If this node does not exist, the number is not in the tree
+    - If the desired value is smaller than the desired value, move to the left node
+        - If this node does not exist, the number is not in the tree
+
+- The implemented tree print function works as follows:
+    - If the right subnode is not a nullpointer, move to the right node
+    - Print the current node's value
+    - If the left subnode is not a nullpointer, move to the left node
