@@ -1,0 +1,24 @@
+questions challenge 3
+a)
+Linked list can go forward and access,add,remove any element. There are different subtypes differing in functionality
+a Stack is a FIFO data struct, only the top element is accessible and elements are put ontop of the stack.
+a queue is a LIFO data struct, only the top element is accessible and elements are put at the end of the queue.
+A tree is a branched data struct, in order to be usefull to the user it should be ordered which allows for easy and efficient searching.
+There are multiple types of trees.
+
+b)
+Linked List for most dynamic cases, can be used when values have to be accessed but there is no certain order.
+stack can be used like a stack of cards where I always want to work with the most recent object
+Queue can be used for queuing of stuff like threads or users.
+trees (mostly binary trees) are good for storing alot of sorted data which has to be accessed frequently
+
+c)
+Singly Linked List -> Doubly Linked List: add reference to prior object
+Linked List -> ciruclar linked list: lastptr->nextptr = firstptr
+
+e)
+nullptr as this way when a function calls that pointer there is an easy check to see if the call is valid.
+
+f)
+The destructors are called in opposite constructor call order after the last line of code in the scope is executed.
+ 

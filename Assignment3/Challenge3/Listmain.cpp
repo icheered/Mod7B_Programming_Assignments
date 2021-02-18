@@ -9,7 +9,7 @@ int main()
 {
 	std::cout << "started" << std::endl;
 	//c
-	List<char> List1, List2, List3, List4;
+	List<char> List4, List3, List2, List1;
 	fillList(List1, "singlylinkedList");
 	fillList(List2, "abcdefg");
 	std::cout << "List1" << std::endl;
