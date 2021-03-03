@@ -1,0 +1,10 @@
+Inheritance
+
+1. In order to reduce code redundancy as the different package types pretty much only differ in cost
+2. protected can be accessed by classes who inherit the class. Public is accessible by everyone and private only by the class itself.
+3. There can be conflictiing definitions in the multiple classes one inherits.
+4. A computer is composed by different components as cpu, memory or mainboard. There are different types of Pc's as for example a
+   gaming Pc which has everything a common Pc has and an additional graphics card. Thereby it can inherit everything from the PC ad just add the graphics card.
+5. At the end of the scope which determines the objects lifetime. this assumes normal stack allocation otherwise it is called with the delete keyword.
+6. When we use polymorphism and assign an inherited object to a base class memory leaks can occur. When we use a virtual destructor the object will definetely be removed.
+   This behaviour is very similar to how virtual is used in functions aswell. 
