@@ -22,8 +22,8 @@
 
 constexpr bool capFramerate = false;
 //constexpr float thresholds[] = [0.015];
-// constexpr float thresholds[] = {0.015, 0.02, 0.03};
-constexpr float thresholds[] = {0.015};
+//constexpr float thresholds[] = {0.015, 0.02, 0.03};
+constexpr float thresholds[] = {0.010};
 
 
 
@@ -75,12 +75,16 @@ void drawContourScanning(UI &ui, Blob &blob, float threshold = 0.015)
     const int sizeY = ui.sizeY;
 
     //int counter = 0;
+    bool prevVal = false;
+    bool val = false;
     for(int i = -sizeX/2; i < sizeX/2; i++){
         for(int j = -sizeY/2; j < sizeY/2; j++){
             //counter++;
-            if(blob.potential(i, j) > threshold){
+            val = (blob.potential(i, j) > threshold);
+            if(val != prevVal){
                 ui.drawPixel(i,j);
             }
+            prevVal = val;
         }
     }
     //std::cout << "Counter: " << counter << std::endl;
@@ -141,9 +145,13 @@ void drawContourMarchingBetter(UI &ui, Blob &blob, float threshold = 0.015)
                     }
                     searching = false;
                     Point firstPoint;
-                    firstPoint.x = posX;
-                    firstPoint.y = posY;
-                    worklist.emplace_back(firstPoint);
+                    for(int a = -2; a < 3; a++){
+                        for(int b = -2; b < 3; b++){
+                            firstPoint.x = posX + a;
+                            firstPoint.y = posY + b;
+                            worklist.emplace_back(firstPoint);
+                        }
+                    }
                     break;
                 }
                 if(!searching) break;
@@ -171,7 +179,7 @@ void drawContourMarchingBetter(UI &ui, Blob &blob, float threshold = 0.015)
         }
 
         if(wasVisited) continue;
-        workCounter++;
+        
 
         visitedlist.emplace_back(point);
 
@@ -184,10 +192,10 @@ void drawContourMarchingBetter(UI &ui, Blob &blob, float threshold = 0.015)
 
         std::vector<bool> cornerBools;
         cornerBools.reserve(4);
-        cornerBools.emplace_back((corners.at(0) > threshold));
-        cornerBools.emplace_back((corners.at(1) > threshold));
-        cornerBools.emplace_back((corners.at(2) > threshold));
-        cornerBools.emplace_back((corners.at(3) > threshold));
+        cornerBools.emplace_back((corners.at(0) >= threshold));
+        cornerBools.emplace_back((corners.at(1) >= threshold));
+        cornerBools.emplace_back((corners.at(2) >= threshold));
+        cornerBools.emplace_back((corners.at(3) >= threshold));
 
 
         // If not all pixel corners are the same color (black/white), it's an edge
@@ -197,84 +205,112 @@ void drawContourMarchingBetter(UI &ui, Blob &blob, float threshold = 0.015)
                         (cornerBools.at(0) == cornerBools.at(3)));
         
         if(!crossesBorder) continue;
+        workCounter++;
+
+        // Line passed through an edge, draw pixel
+        ui.drawPixel(point.x,point.y);
 
 
 
-        if(crossesBorder){
-            // Line passed through an edge, draw pixel
-            ui.drawPixel(point.x,point.y);
+        // Add only the pixels that could possibly be an edge
+        // Edges: 1200-1300, Time: 14k - 16k
+        // Edges: 2200-2500, Time: 48k - 60k
 
-            // Add all 8 neightbours of pixel to worklist
-
-
-            // Edges: 1200-1300, Time: 14k - 16k
-            // Edges: 2200-2500, Time: 48k - 60k
-            if(cornerBools.at(0) != cornerBools.at(1)) {
-                Point newPixel;
-                newPixel.x = point.x;
-                newPixel.y = point.y - 1;
-                worklist.emplace_back(newPixel);
-            }
-            if(cornerBools.at(1) != cornerBools.at(2)){
-                Point newPixel;
-                newPixel.x = point.x + 1;
-                newPixel.y = point.y;
-                worklist.emplace_back(newPixel);
-            }
-            if(cornerBools.at(2) != cornerBools.at(3)){
-                Point newPixel;
-                newPixel.x = point.x;
-                newPixel.y = point.y + 1;
-                worklist.emplace_back(newPixel);
-            }
-            if(cornerBools.at(3) != cornerBools.at(0)){
-                Point newPixel;
-                newPixel.x = point.x - 1;
-                newPixel.y = point.y;
-                worklist.emplace_back(newPixel);
-            }
-            if( (cornerBools.at(0) == cornerBools.at(2)) &&
-                (cornerBools.at(1) != cornerBools.at(3))){
-                Point newPixel;
-                newPixel.x = point.x - 1;
-                newPixel.y = point.y - 1;
-                worklist.emplace_back(newPixel);
-                newPixel.x = point.x + 1;
-                newPixel.y = point.y + 1;
-                worklist.emplace_back(newPixel);
-            }
-            if( (cornerBools.at(1) == cornerBools.at(3)) &&
-                (cornerBools.at(0) != cornerBools.at(2))){
-                Point newPixel;
-                newPixel.x = point.x - 1;
-                newPixel.y = point.y + 1;
-                worklist.emplace_back(newPixel);
-                newPixel.x = point.x + 1;
-                newPixel.y = point.y - 1;
-                worklist.emplace_back(newPixel);
-            }
-
-
-
-
-            // Edges: 1800-1900, Time: 40k - 50k
-            // Edges: 3000-3500, Time: 100k - 120k
-
-            // for(int a = -1; a < 2; a++){
-            //     for(int b = -1; b < 2; b++){
-            //         if(a != b){
-            //             Point newPixel;
-            //             newPixel.x = point.x + a;
-            //             newPixel.y = point.y + b;
-            //             worklist.emplace_back(newPixel);
-            //         }
-            //     }
-            // }
+        Point newPixel;
+        if(cornerBools.at(0) != cornerBools.at(1)) {
+            newPixel.x = point.x;
+            newPixel.y = point.y - 1;
+            worklist.emplace_back(newPixel);
         }
+        if(cornerBools.at(1) != cornerBools.at(2)){
+            newPixel.x = point.x + 1;
+            newPixel.y = point.y;
+            worklist.emplace_back(newPixel);
+        }
+        if(cornerBools.at(2) != cornerBools.at(3)){
+            newPixel.x = point.x;
+            newPixel.y = point.y + 1;
+            worklist.emplace_back(newPixel);
+        }
+        if(cornerBools.at(3) != cornerBools.at(0)){
+            newPixel.x = point.x - 1;
+            newPixel.y = point.y;
+            worklist.emplace_back(newPixel);
+        }
+        
+
+
+        // If a line crosses through a corner, the diagonal block should also be drawn
+
+        // Decreasing this value will speed up the render but may result in lower quality
+        // (Lines not fully drawn)
+        float limit = 0.00008;
+
+        if(corners.at(0) < (threshold + limit) && corners.at(0) > (threshold - limit)){
+            newPixel.x = point.x - 1;
+            newPixel.y = point.y - 1;
+            worklist.emplace_back(newPixel);
+        }
+        if(corners.at(1) < (threshold + limit) && corners.at(1) > (threshold - limit)){
+            newPixel.x = point.x + 1;
+            newPixel.y = point.y - 1;
+            worklist.emplace_back(newPixel);
+        }
+        if(corners.at(2) < (threshold + limit) && corners.at(2) > (threshold - limit)){
+            newPixel.x = point.x - 1;
+            newPixel.y = point.y + 1;
+            worklist.emplace_back(newPixel);
+        }
+        if(corners.at(3) < (threshold + limit) && corners.at(3) > (threshold - limit)){
+            newPixel.x = point.x + 1;
+            newPixel.y = point.y + 1;
+            worklist.emplace_back(newPixel);
+        }
+
+
+        // if( /*(cornerBools.at(0) == cornerBools.at(2)) &&*/
+        //     (cornerBools.at(1) != cornerBools.at(3))){
+        //     newPixel.x = point.x - 1;
+        //     newPixel.y = point.y - 1;
+        //     worklist.emplace_back(newPixel);
+        //     newPixel.x = point.x + 1;
+        //     newPixel.y = point.y + 1;
+        //     worklist.emplace_back(newPixel);
+        // }
+        // if( /*(cornerBools.at(1) == cornerBools.at(3)) &&*/
+        //     (cornerBools.at(0) != cornerBools.at(2))){
+        //     newPixel.x = point.x - 1;
+        //     newPixel.y = point.y + 1;
+        //     worklist.emplace_back(newPixel);
+        //     newPixel.x = point.x + 1;
+        //     newPixel.y = point.y - 1;
+        //     worklist.emplace_back(newPixel);
+        // }
+
+
+
+        // Add all 8 neightbours of pixel to worklist
+        // Edges: 1800-1900, Time: 40k - 50k
+        // Edges: 3000-3500, Time: 100k - 120k
+
+        // for(int a = -1; a < 2; a++){
+        //     for(int b = -1; b < 2; b++){
+        //         if(a != b){
+        //             Point newPixel;
+        //             newPixel.x = point.x + a;
+        //             newPixel.y = point.y + b;
+        //             worklist.emplace_back(newPixel);
+        //         }
+        //     }
+        // }
+
     }
     std::cout << "Pixels checked: " << counter <<"\t Edge pixels: " << workCounter << "  \t Time: ";
 }
 
+
+
+/* NON-OPTIMIZED SOLUTION BELOW THIS POINT
 
 /// Scans screen area until it finds a pixel on the edge.
 /// From then on, uses marching squares algorithm to find other pixels on the edge.
@@ -367,6 +403,10 @@ void drawContourMarching(UI &ui, Blob &blob, float threshold = 0.015)
     std::cout << "Pixels checked: " << counter <<", Workcounter: " << workCounter << std::endl;
 }
 
+NON-OPTIMIZED SOLUTION ABOVE THIS POINT */
+
+
+
 int main(int /*argc*/, char ** /*argv*/)
 {
     using namespace std::chrono;
@@ -400,7 +440,16 @@ int main(int /*argc*/, char ** /*argv*/)
         high_resolution_clock::time_point t2 = high_resolution_clock::now();
         gui.present();
         auto duration = duration_cast<microseconds>(t2 - t1).count();
-        std::cout << duration << " ms" << std::endl;
+        if(duration < 10000){
+            std::cout << "  "<< duration << " ms" << std::endl;
+        }
+        else if(duration < 100000){
+            std::cout << " "<< duration << " ms" << std::endl;
+        }
+        else{
+            std::cout << duration << " ms" << std::endl;
+        }
+        
 
         // Handle the input.
         SDL_Event event;
