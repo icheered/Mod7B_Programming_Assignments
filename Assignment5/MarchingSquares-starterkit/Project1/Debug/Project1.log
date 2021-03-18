@@ -1,0 +1,2 @@
+﻿SDL2main.lib(SDL_windows_main.obj) : error LNK2019: unresolved external symbol __imp__CommandLineToArgvW@8 referenced in function _main_getcmdline
+C:\Users\soenk\Documents\mod7\programming\Code\Mod7B_Programming_Assignments\Assignment5\MarchingSquares-starterkit\Project1\Debug\Project1.exe : fatal error LNK1120: 1 unresolved externals
