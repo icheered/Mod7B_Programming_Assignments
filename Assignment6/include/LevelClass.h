@@ -19,12 +19,12 @@ private:
         // set pacman + ghosts location to spawn
         // set lives = 3
 
-    void reset();
+    void resetLevel();
         // Set pacman and ghost location to spawn location
         // Wait for user input to start
 
 
-    void pacmanMurdered();
+    void hitGhost(Ghost &g);
         // lives--
         // If no lives left
             // game Over

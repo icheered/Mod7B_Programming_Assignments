@@ -143,11 +143,14 @@ bool Ghost::getFrightened() { return frightened; }
 void Ghost::setFrightened(bool newHuntStatus) { 
     frightened = newHuntStatus;
     if(frightened) type = SCARED;
-    
+
     }
 
 void Ghost::setTimeout(int newTimeout) { timeOut = newTimeout; }
 
 int Ghost::getTimeout() { return timeOut; }
 
-void Ghost::die() { setPos(getSpawnX(), getSpawnY()); }
+void Ghost::die() { 
+    type = SCAREDINV;
+    setPos(getSpawnX(), getSpawnY()); 
+}

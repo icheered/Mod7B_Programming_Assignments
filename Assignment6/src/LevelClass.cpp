@@ -164,6 +164,26 @@ void LevelClass::ateEnergizer() {
     }
 }
 
+void LevelClass::hitGhost(Ghost &g) {
+    if(pacman.isChungus() && g.getType() == SCARED){
+        g.die();
+        score += 100;
+    }
+    else if(g.getType() != SCAREDINV){
+        pacman.die();
+    }
+}
+
+
+
+void LevelClass::resetLevel() {
+    lives--;
+    pacman.die();
+    for (auto &g : ghosts) {
+        g.respawn();
+    }
+}
+
 void LevelClass::checkCollision() {
     double px = pacman.getX();
     double py = pacman.getY();
@@ -176,22 +196,8 @@ void LevelClass::checkCollision() {
                 // Pacman collides with ghost
                 // Check if Pacman is bigChungus
                 //std::cout << "Ghost Collision" << std::endl;
-                if(pacman.isChungus() && g.getFrightened()){
-                    g.die();
-                    score += 100;
-                }
-                else{
-                    doReset = true;
-                    break;
-                }
+                LevelClass::hitGhost(g);
             }
-        }
-    }
-    if(doReset){
-        lives--;
-        pacman.die();
-        for (auto &g : ghosts) {
-            g.respawn();
         }
     }
 

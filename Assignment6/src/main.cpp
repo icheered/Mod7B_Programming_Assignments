@@ -53,9 +53,8 @@ int main(int /*argc*/, char ** /*argv*/)
         #include "board.def"
     }};
 
-    map[1][4] = 2;
     
-
+    // Fill board with dots
     for(auto &row : map) {
         for(auto &col : row) {
             if(col == 0){
@@ -65,17 +64,20 @@ int main(int /*argc*/, char ** /*argv*/)
         }
         std::cout << std::endl;
     }
+
+    // Create an energizer
+    map[1][4] = 2;
     
-    // Create a new ui object
-    UI ui(&map); // <-- use map from your game objects.
+
+    // Create a new ui object, pass pointer to map
+    UI ui(&map);
     
 
     
-    // Call game init code here
-    // Create pacman, ghosts, lives, score
-    // Example object, this can be removed later
 
+    // Create all game objects, pass pointer to map
     LevelClass level = LevelClass(&map);
+
 
     // Start timer for game update, call this function every 100 ms.
     SDL_TimerID timer_id =
