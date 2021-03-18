@@ -46,9 +46,9 @@ enum Direction { UP, DOWN, LEFT, RIGHT };
 /// This represents an item that is drawn onto the screen.
 struct GameObjectStruct {
     /// x-position of the item.
-    int x;
+    double x;
     /// y-position of the item.
-    int y;
+    double y;
     /// The appearance of the item (sprite set).
     Type type;
     /// The direction of the item (sprite selection).
