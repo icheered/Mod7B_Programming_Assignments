@@ -49,9 +49,9 @@ private:
         // Wait for user input to restart
 
 public:
-    // move()
+    void move();
         // Check if not moving into a wall
-    // pacmanCollission()
+    void checkCollision();
         // If pacman hit a ghost
             // If pacman = big chungus
                 // killGhost()
