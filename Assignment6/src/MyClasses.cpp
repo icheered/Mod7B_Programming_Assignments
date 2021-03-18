@@ -18,6 +18,10 @@ void Entity::setDirectin(Direction direc) { dir = direc; }
 
 Direction Entity::getDirection() { return dir; }
 
+void Entity::setType(Type newType) { type = newType; }
+
+Type Entity::getType() { return type; }
+
 void Entity::respawn() { setPos((double)getSpawnX(), (double)getSpawnY()); }
 
 int Entity::getX() { return x; }
@@ -55,51 +59,55 @@ void Entity::die() { return ; }
 
 //----------------------------------------------------Pacman_section---------------------------------------------------------------
 
-Pacman::Pacman(double x, double y, std::string name) : Entity(x,y,name) , chungus(false), lives(3){}
-
-void Pacman::eatDot()
+Pacman::Pacman(double x, double y, std::string name)
+    : Entity(x, y, name), chungus(false), lives(3)
 {
-    points += 10;
-    dotsEaten++;
+    type = PACMAN;
 }
 
-void Pacman::eatFruit(Type fruitEaten)
+//void Pacman::eatDot()
+//{
+//    points += 10;
+//    dotsEaten++;
+//}
+
+int Pacman::eatFruit(Type fruitEaten)
 {
     switch (fruitEaten) {
     case CHERRY:
-        points += 100;
+        return 100;
         break;
     case STRAWBERRY:
-        points += 300;
+        return 300;
         break;
     case ORANGE:
-        points += 500;
+        return 500;
         break;
     case APPLE:
-        points += 700;
+        return 700;
         break;
     case LEMON:
-        points += 1000;
+        return 1000;
         break;
     case GRAPES:
-        points += 2000;
+        return 2000;
         break;
     default:
         break;
     }
 }
 
-void Pacman::eatPowerrup()
+int Pacman::eatPowerrup()
 {
-    points += 50;
     chungus = true;
+    return 50;
 }
 
 void Pacman::removePowerup() { chungus = false; }
 
 bool Pacman::isChungus() { return chungus; }
 
-int Pacman::getDotsEaten() { return dotsEaten; }
+//int Pacman::getDotsEaten() { return dotsEaten; }
 
 void Pacman::extraLife() { lives++; }
 
@@ -120,11 +128,16 @@ void Pacman::die()
     setPos(getSpawnX(), getSpawnY());
 }
 
-Ghost::Ghost(double x, double y, std::string name) : Entity(x,y,name) , frightened(false), timeOut(0) {}
+//----------------------------------------------------Ghost_section---------------------------------------------------------------
+
+Ghost::Ghost(double x, double y, std::string name, Type ghostType)
+    : Entity(x, y, name), frightened(false), timeOut(0)
+{
+    setType(ghostType);
+}
 
 void Ghost::Behaviour() {} // needs implementation
 
-//----------------------------------------------------Ghost_section---------------------------------------------------------------
 bool Ghost::getFrightened() { return frightened; }
 
 void Ghost::setFrightened(bool newHuntStatus) { frightened = newHuntStatus; }

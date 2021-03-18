@@ -19,6 +19,8 @@ public:
   void setName(std::string newName);
   void setDirectin(Direction direc);
   Direction getDirection();
+  void setType(Type newType);
+  Type getType();
   void respawn(); //sets the entity back to spawn, animationless
   int getX();
   int getY();
@@ -46,8 +48,8 @@ class Pacman : public Entity
   public:
     Pacman(double x, double y, std::string name);
     //void eatDot(); 
-    void eatFruit(Type fruitEaten);
-    void eatPowerrup();
+    int eatFruit(Type fruitEaten);
+    int eatPowerrup();
     void removePowerup();
     bool isChungus();
     //int getDotsEaten();
@@ -63,7 +65,7 @@ class Ghost : public Entity
     bool frightened;
     int timeOut; //subject to change, maybe bool is suited better later on
   public:
-    Ghost(double x, double y, std::string name);
+    Ghost(double x, double y, std::string name, Type ghostType);
     void Behaviour(); //quite complex, still has to be overriden.
     bool getFrightened();
     void setFrightened(bool newHuntStatus);
