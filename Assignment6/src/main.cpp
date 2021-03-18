@@ -58,6 +58,9 @@ int main(int /*argc*/, char ** /*argv*/)
 
     for(auto &row : map) {
         for(auto &col : row) {
+            if(col == 0){
+                col = 3;
+            }
             std::cout << col << " ";
         }
         std::cout << std::endl;

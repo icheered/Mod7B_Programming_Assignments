@@ -140,7 +140,11 @@ void Ghost::Behaviour() {} // needs implementation
 
 bool Ghost::getFrightened() { return frightened; }
 
-void Ghost::setFrightened(bool newHuntStatus) { frightened = newHuntStatus; }
+void Ghost::setFrightened(bool newHuntStatus) { 
+    frightened = newHuntStatus;
+    if(frightened) type = SCARED;
+    
+    }
 
 void Ghost::setTimeout(int newTimeout) { timeOut = newTimeout; }
 

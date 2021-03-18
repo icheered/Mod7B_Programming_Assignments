@@ -201,6 +201,11 @@ void LevelClass::checkCollision() {
         LevelClass::ateEnergizer();
     }
 
+    if((*map)[round(py)][round(px)] == 3){
+        (*map)[round(py)][round(px)] = 0;
+        score += 10;
+    }
+
     
     // Check collision with powerups
     // Check collision with fruits
