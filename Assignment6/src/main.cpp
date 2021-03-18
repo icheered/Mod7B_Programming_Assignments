@@ -11,6 +11,7 @@
 #include "UI.h"
 #include <SDL2/SDL.h>
 #include <vector>
+#include <iostream>
 
 /// Callback function to update the game state.
 ///
@@ -20,9 +21,15 @@
 /// should use mutexes to access shared data.
 /// Read the documentation of SDL_AddTimer for more information and for tips
 /// regarding multithreading issues.
-Uint32 gameUpdate(Uint32 interval, void * /*param*/)
+Uint32 gameUpdate(Uint32 interval, void * params)
 {
     // Do game loop update here
+    GameObjectStruct* p = (GameObjectStruct*)params;
+
+    std::cout << p->x << std::endl;
+    // Move objects
+    // Check for collission
+
     return interval;
 }
 
@@ -33,13 +40,22 @@ int main(int /*argc*/, char ** /*argv*/)
         #include "board.def"
     }};
 
+    for(auto &row : map) {
+        for(auto &col : row) {
+            std::cout << col << " ";
+        }
+        std::cout << std::endl;
+    }
+    
+
+
     // Create a new ui object
     UI ui(map); // <-- use map from your game objects.
+    
 
-    // Start timer for game update, call this function every 100 ms.
-    SDL_TimerID timer_id =
-        SDL_AddTimer(100, gameUpdate, static_cast<void *>(nullptr));
-
+    
+    // Call game init code here
+    // Create pacman, ghosts, lives, score
     // Example object, this can be removed later
     GameObjectStruct pacman;
     pacman.x = 1;
@@ -47,9 +63,12 @@ int main(int /*argc*/, char ** /*argv*/)
     pacman.type = PACMAN;
     pacman.dir = UP;
 
-    // Call game init code here
 
+    // Start timer for game update, call this function every 100 ms.
+    SDL_TimerID timer_id =
+        SDL_AddTimer(100, gameUpdate, &pacman);
 
+    
     bool quit = false;
     while (!quit) {
         // set timeout to limit frame rate
@@ -67,12 +86,20 @@ int main(int /*argc*/, char ** /*argv*/)
             if (e.type == SDL_KEYDOWN) {
                 switch (e.key.keysym.sym) {
                 case SDLK_LEFT: // YOUR CODE HERE
+                    pacman.dir = LEFT;
+                    pacman.x -= 0.1;
                     break;
                 case SDLK_RIGHT: // YOUR CODE HERE
+                    pacman.dir = RIGHT;
+                    pacman.x += 0.1;
                     break;
                 case SDLK_UP: // YOUR CODE HERE
+                    pacman.dir = UP;
+                    pacman.y -= 0.1;
                     break;
                 case SDLK_DOWN: // YOUR CODE HERE
+                    pacman.dir = DOWN;
+                    pacman.y += 0.1;
                     break;
                 case SDLK_ESCAPE:
                     quit = true;
