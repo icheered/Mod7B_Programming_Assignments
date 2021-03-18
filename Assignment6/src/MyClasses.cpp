@@ -97,7 +97,7 @@ int Pacman::eatFruit(Type fruitEaten)
     }
 }
 
-int Pacman::eatPowerrup()
+int Pacman::eatPowerup()
 {
     chungus = true;
     return 50;

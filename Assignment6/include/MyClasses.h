@@ -41,18 +41,14 @@ class Pacman : public Entity
 {
   private:
     bool chungus;
-    //int points;
-    //int dotsEaten;
     int lives;
 
   public:
     Pacman(double x, double y, std::string name);
-    //void eatDot(); 
     int eatFruit(Type fruitEaten);
-    int eatPowerrup();
+    int eatPowerup();
     void removePowerup();
     bool isChungus();
-    //int getDotsEaten();
     void extraLife();
     int getLives();
     bool isDead();

@@ -11,14 +11,14 @@
 
 #include <iostream>
 
-UI::UI(std::vector<std::vector<int>> map)
+UI::UI(std::vector<std::vector<int>> *newmap)
 {
     // Initialize and load textures.
     this->init();
     this->loadTextures();
 
     // Set the map
-    this->map = std::move(map);
+    map = newmap;
 }
 
 UI::~UI()
@@ -32,6 +32,7 @@ UI::~UI()
 void UI::update(std::vector<GameObjectStruct> objects)
 {
     // Clear the current renderer.
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     SDL_RenderClear(renderer);
 
     // Draw the walls.
@@ -247,16 +248,25 @@ void UI::loadMaps()
     }
 }
 
-void UI::drawBackground(std::vector<std::vector<int>> &map)
+void UI::drawBackground(std::vector<std::vector<int>> *map)
 {
+    //std::cout << "Drawing background" << std::endl;
     // Draw a wall on each position containing a one
-    for (size_t i = 0; i < map.size(); i++) {
-        for (size_t j = 0; j < map[i].size(); j++) {
-            if (map[i][j] == 1) {
+    for (size_t i = 0; i < (*map).size(); i++) {
+        for (size_t j = 0; j < (*map)[i].size(); j++) {
+            if ((*map)[i][j] == 1) {
                 SDL_Rect dst = {static_cast<int>(j) * TILESIZE,
                                 static_cast<int>(i) * TILESIZE, TILESIZE,
                                 TILESIZE};
                 SDL_RenderCopy(renderer, sheet, &clips[WALL][DOWN], &dst);
+            }
+            else if((*map)[i][j] == 2) {
+
+                //std::cout << "Energizer drawn" << std::endl;
+                SDL_Rect dst = {static_cast<int>(j) * TILESIZE,
+                                static_cast<int>(i) * TILESIZE, TILESIZE,
+                                TILESIZE};
+                SDL_RenderCopy(renderer, sheet, &clips[ENERGIZER][DOWN], &dst);
             }
         }
     }

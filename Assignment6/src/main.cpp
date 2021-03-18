@@ -38,6 +38,7 @@ Uint32 gameUpdate(Uint32 interval, void * params)
         level->handleInput(RIGHT);  
 
     level->move();
+    level->checkCollision();
 
     // Move objects
     // Check for collission
@@ -52,6 +53,9 @@ int main(int /*argc*/, char ** /*argv*/)
         #include "board.def"
     }};
 
+    map[1][4] = 2;
+    
+
     for(auto &row : map) {
         for(auto &col : row) {
             std::cout << col << " ";
@@ -59,10 +63,8 @@ int main(int /*argc*/, char ** /*argv*/)
         std::cout << std::endl;
     }
     
-
-
     // Create a new ui object
-    UI ui(map); // <-- use map from your game objects.
+    UI ui(&map); // <-- use map from your game objects.
     
 
     
@@ -70,7 +72,7 @@ int main(int /*argc*/, char ** /*argv*/)
     // Create pacman, ghosts, lives, score
     // Example object, this can be removed later
 
-    LevelClass level = LevelClass(map);
+    LevelClass level = LevelClass(&map);
 
     // Start timer for game update, call this function every 100 ms.
     SDL_TimerID timer_id =
@@ -98,13 +100,13 @@ int main(int /*argc*/, char ** /*argv*/)
         }
 
         // Set the score
-        ui.setScore(12345); // <-- Pass correct value to the setter
+        ui.setScore(level.getScore()); // <-- Pass correct value to the setter
 
         // Set the amount of lives
-        ui.setLives(3); // <-- Pass correct value to the setter
+        ui.setLives(level.getLives()); // <-- Pass correct value to the setter
 
         // Render the scene
-        std::vector<GameObjectStruct> objects = {level.getPacman()};
+        std::vector<GameObjectStruct> objects = level.getObjects();
         // ^-- Your code should provide this vector somehow (e.g.
         // game->getStructs())
         ui.update(objects);

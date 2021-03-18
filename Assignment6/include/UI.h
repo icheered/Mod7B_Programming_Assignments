@@ -32,7 +32,7 @@ class UI
     /// bitmap on disk.
     ///
     /// \param map the map of the board
-    UI(std::vector<std::vector<int>> map);
+    UI(std::vector<std::vector<int>> *newmap);
 
     // UI objects should not be copied or moved.
     UI(const UI&) = delete;
@@ -74,7 +74,7 @@ class UI
 
     /// Draws walls onto the screen according to \p map
     /// \param map A 2-by-2 grid indicating which grid locations are walls.
-    void drawBackground(std::vector<std::vector<int>> &map);
+    void drawBackground(std::vector<std::vector<int>> *map);
 
     /// Draws the score onto the screen.
     void drawScore();
@@ -102,7 +102,7 @@ class UI
     SDL_Texture *sheet;
 
     /// 2d array containing the map, a 1 is a wall.
-    std::vector<std::vector<int>> map;
+    std::vector<std::vector<int>> *map;
 
     /// Map containing all the game objects.
     ///
