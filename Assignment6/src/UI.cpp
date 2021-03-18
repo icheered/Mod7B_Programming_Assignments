@@ -111,7 +111,12 @@ void UI::init()
 void UI::loadTextures()
 {
     // Load sprite sheet
-    sheet = this->loadTexture("C:/Users/soenk/Documents/mod7/programming/Code/Mod7B_Programming_Assignments/Assignment6/resources/sam_gfx.bmp");
+    #ifdef __linux__ 
+        sheet = this->loadTexture("resources/sam_gfx.bmp");
+    #elif _WIN32
+        sheet = this->loadTexture("C:/Users/soenk/Documents/mod7/programming/Code/Mod7B_Programming_Assignments/Assignment6/resources/sam_gfx.bmp");
+    #else
+    #endif
 
     loadMaps();
 }
@@ -259,7 +264,14 @@ void UI::drawBackground(std::vector<std::vector<int>> &map)
 
 SDL_Texture *UI::loadTexture(const std::string &file)
 {
-    SDL_Surface *surf = SDL_LoadBMP("C:/Users/soenk/Documents/mod7/programming/Code/Mod7B_Programming_Assignments/Assignment6/resources/sam_gfx.bmp");
+    #ifdef __linux__ 
+        SDL_Surface *surf = SDL_LoadBMP("resources/sam_gfx.bmp");
+    #elif _WIN32
+        SDL_Surface *surf = SDL_LoadBMP("C:/Users/soenk/Documents/mod7/programming/Code/Mod7B_Programming_Assignments/Assignment6/resources/sam_gfx.bmp");
+    #else
+    #endif
+
+    
     if (surf == nullptr) {
         std::cerr << "Error while loading texture bitmap: " << SDL_GetError() << std::endl;
     }

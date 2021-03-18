@@ -9,7 +9,7 @@
 
 #include "GameObjectStruct.h"
 #include "UI.h"
-#include <SDL2\SDL.h>
+#include <SDL2/SDL.h>
 #include <vector>
 
 /// Callback function to update the game state.
