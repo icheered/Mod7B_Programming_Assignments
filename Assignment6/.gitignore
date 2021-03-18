@@ -1,0 +1,9 @@
+html
+pacman
+Debug
+Release
+SDL2.dll
+obj
+*.exe
+pacman.exp
+pacman.lib

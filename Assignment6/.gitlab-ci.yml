@@ -1,0 +1,30 @@
+# Unfortunately there is no official clang docker image...
+# Perhaps subtitute with a RAM-specific build image that has a bunch of packages preinstalled (doxygen, clang-format, clang-tidy, even ROS?)
+image: gcc
+
+build:
+  stage: build
+  
+  before_script:
+    - apt-get update && apt -y install graphviz doxygen libsdl2-dev
+
+  script: 
+    # Build pacman
+    - g++ src/*.cpp -Werror -Wall -Wextra -std=c++14 -I include -o pacman -lSDL2
+    # Build documentation
+    - ( cat Doxyfile ; echo "WARN_AS_ERROR=YES" ) | doxygen -
+
+  
+  #artifacts:
+  #  paths:
+  #    - mybinary
+  # depending on your build setup it's most likely a good idea to cache outputs to reduce the build time
+  # cache:
+  #   paths:
+  #     - "*.o"
+
+# run tests using the binary built before
+#test:
+#  stage: test
+#  script:
+#    - ./runmytests.sh
