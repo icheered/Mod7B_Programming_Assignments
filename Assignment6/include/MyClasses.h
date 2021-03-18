@@ -14,6 +14,7 @@ private:
   double speed;
   int spawn_x, spawn_y;
 public:
+  Entity(double x, double y, std::string name);
   std::string getName();
   void setName(std::string newName);
   void setDirectin(Direction direc);
@@ -38,18 +39,20 @@ class Pacman : public Entity
 {
   private:
     bool chungus;
-    int points;
-    int dotsEaten;
+    //int points;
+    //int dotsEaten;
     int lives;
 
   public:
-    void eatDot(); 
+    Pacman(double x, double y, std::string name);
+    //void eatDot(); 
     void eatFruit(Type fruitEaten);
     void eatPowerrup();
     void removePowerup();
     bool isChungus();
-    int getDotsEaten();
+    //int getDotsEaten();
     void extraLife();
+    int getLives();
     bool isDead();
     void die() override;
 };
@@ -60,11 +63,12 @@ class Ghost : public Entity
     bool frightened;
     int timeOut; //subject to change, maybe bool is suited better later on
   public:
+    Ghost(double x, double y, std::string name);
     void Behaviour(); //quite complex, still has to be overriden.
     bool getFrightened();
     void setFrightened(bool newHuntStatus);
     void setTimeout(int newTimeout);
     int getTimeout();
-
+    void die() override;
 };
 
