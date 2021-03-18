@@ -24,9 +24,9 @@ Type Entity::getType() { return type; }
 
 void Entity::respawn() { setPos((double)getSpawnX(), (double)getSpawnY()); }
 
-int Entity::getX() { return x; }
+double Entity::getX() { return x; }
 
-int Entity::getY() { return y; }
+double Entity::getY() { return y; }
 
 void Entity::setX(double newX) { x = newX; }
 

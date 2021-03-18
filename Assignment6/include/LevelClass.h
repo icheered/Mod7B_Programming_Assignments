@@ -1,55 +1,61 @@
+#include "MyClasses.h"
+
+#include <vector>
+#include <math.h>
+
 class LevelClass
 {
 private:
-    // pacman
-    // ghosts
-    // map
+    Pacman pacman = Pacman(1,1,"pacman");
+    std::vector<Ghost> ghosts;
+    std::vector<std::vector<int>> map;
+    double epsilon = 0.001;
 
-    // int dots = number of empty spaces
-    // int score = 0
-    // int lives = 3
+    int dots, score, lives;
 
-
-    // start()
+    void start();
         // set score 0
         // set dots active
         // set pacman + ghosts location to spawn
         // set lives = 3
 
-    // reset()
+    void reset();
         // Set pacman and ghost location to spawn location
         // Wait for user input to start
 
 
-    // pacmanMurdered()
+    void pacmanMurdered();
         // lives--
         // If no lives left
             // game Over
         // else
             // reset()
-    
-    // gameOver()
+    void gameOver();
         // Display message
         // Wait for user input to restart
 
-
-
-    // bigChungus()
+    void ateEnergizer();
         // Make pacman powerful
         // Make ghosts frightened
-
-    // ateDot()
+    void ateDot();
         // score++
         // dots--
         // if dots == 0
             // gameWon()
-    
-    // gameWon()
+
+    void gameWon();
         // Display message
         // Wait for user input to restart
+        
 
 public:
+    // Constructor
+    LevelClass(std::vector<std::vector<int>> startMap);   
+
+    Pacman getPacman();
+
     void move();
+    void handleInput(Direction direc);
         // Check if not moving into a wall
     void checkCollision();
         // If pacman hit a ghost
@@ -62,8 +68,5 @@ public:
             // Energizer -> bigChungus()
         // If pacman hit a dot
             // ateDot()
-            
-    
-    // 
     
 };

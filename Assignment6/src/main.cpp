@@ -8,6 +8,7 @@
  */
 
 #include "GameObjectStruct.h"
+#include "LevelClass.h"
 #include "UI.h"
 #include <SDL2/SDL.h>
 #include <vector>
@@ -24,9 +25,20 @@
 Uint32 gameUpdate(Uint32 interval, void * params)
 {
     // Do game loop update here
-    GameObjectStruct* p = (GameObjectStruct*)params;
+    LevelClass* level = (LevelClass*)params;
+    
+    const Uint8 *state = SDL_GetKeyboardState(NULL);
+    if (state[SDL_SCANCODE_UP])
+        level->handleInput(UP);
+    else if (state[SDL_SCANCODE_DOWN])
+        level->handleInput(DOWN);
+    else if (state[SDL_SCANCODE_LEFT])
+        level->handleInput(LEFT);
+    else if (state[SDL_SCANCODE_RIGHT])
+        level->handleInput(RIGHT);  
 
-    std::cout << p->x << std::endl;
+    level->move();
+
     // Move objects
     // Check for collission
 
@@ -57,16 +69,12 @@ int main(int /*argc*/, char ** /*argv*/)
     // Call game init code here
     // Create pacman, ghosts, lives, score
     // Example object, this can be removed later
-    GameObjectStruct pacman;
-    pacman.x = 1;
-    pacman.y = 1;
-    pacman.type = PACMAN;
-    pacman.dir = UP;
 
+    LevelClass level = LevelClass(map);
 
     // Start timer for game update, call this function every 100 ms.
     SDL_TimerID timer_id =
-        SDL_AddTimer(100, gameUpdate, &pacman);
+        SDL_AddTimer(10, gameUpdate, &level);
 
     
     bool quit = false;
@@ -84,27 +92,8 @@ int main(int /*argc*/, char ** /*argv*/)
 
             // All keydown events
             if (e.type == SDL_KEYDOWN) {
-                switch (e.key.keysym.sym) {
-                case SDLK_LEFT: // YOUR CODE HERE
-                    pacman.dir = LEFT;
-                    pacman.x -= 0.1;
-                    break;
-                case SDLK_RIGHT: // YOUR CODE HERE
-                    pacman.dir = RIGHT;
-                    pacman.x += 0.1;
-                    break;
-                case SDLK_UP: // YOUR CODE HERE
-                    pacman.dir = UP;
-                    pacman.y -= 0.1;
-                    break;
-                case SDLK_DOWN: // YOUR CODE HERE
-                    pacman.dir = DOWN;
-                    pacman.y += 0.1;
-                    break;
-                case SDLK_ESCAPE:
+                if(e.key.keysym.sym == SDLK_ESCAPE)
                     quit = true;
-                    break;
-                }
             }
         }
 
@@ -115,7 +104,7 @@ int main(int /*argc*/, char ** /*argv*/)
         ui.setLives(3); // <-- Pass correct value to the setter
 
         // Render the scene
-        std::vector<GameObjectStruct> objects = {pacman};
+        std::vector<GameObjectStruct> objects = {level.getPacman()};
         // ^-- Your code should provide this vector somehow (e.g.
         // game->getStructs())
         ui.update(objects);

@@ -10,7 +10,7 @@ class Entity : public GameObjectStruct //class extends struct, there should be i
 	//type
 	//direction
 private:
-   std::string name;
+  std::string name;
   double speed;
   int spawn_x, spawn_y;
 public:
@@ -22,8 +22,8 @@ public:
   void setType(Type newType);
   Type getType();
   void respawn(); //sets the entity back to spawn, animationless
-  int getX();
-  int getY();
+  double getX();
+  double getY();
   void setX(double newX);
   void setY(double newY);
   void setPos(int newX, int newY);

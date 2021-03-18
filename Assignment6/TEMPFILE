@@ -1,0 +1,50 @@
+    switch(pacman.getDirection()){
+        case 0: {
+            std::cout << "UP" << std::endl;
+            if(!(map[round(pacman.getX())][round(pacman.getY())+1]))
+            {
+                pacman.setY(pacman.getY()+pacman.getSpeed());
+            }
+            else {
+                std::cout << "UP is blocked!" << std::endl;
+            }
+                
+            }
+            break;
+        case 3: {
+            std::cout << "RIGHT" << std::endl;
+            if(!(map[round(pacman.getX()+1)][round(pacman.getY())]))
+            {
+                pacman.setY(pacman.getX()+pacman.getSpeed());
+            }
+            else {
+                std::cout << "RIGHT is blocked!" << std::endl;
+            }
+                
+            }
+            break;
+        case 1: {
+            std::cout << "DOWN" << std::endl;
+            if(!(map[round(pacman.getX())][round(pacman.getY())-1]))
+            {
+                pacman.setY(pacman.getY()-pacman.getSpeed());
+            }
+            else {
+                std::cout << "DOWN is blocked!" << std::endl;
+            }
+                
+            }
+            break;
+        case 2: {
+            std::cout << "LEFT" << std::endl;
+            if(!(map[round(pacman.getX()-1)][round(pacman.getY())]))
+            {
+                pacman.setY(pacman.getY()-pacman.getSpeed());
+            }
+            else {
+                std::cout << "LEFT is blocked!" << std::endl;
+            }
+                
+            }
+            break;
+    }
