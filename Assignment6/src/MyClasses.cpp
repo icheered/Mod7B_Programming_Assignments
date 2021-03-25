@@ -106,7 +106,7 @@ bool Entity::canRotate(Direction direc)
                 if((*map)[floor(getY()-getSpeed())][floor(getX())] != 1)
                 {
                     //std::cout << "Rotating UP" << std::endl;
-                    setDirectin(direc);
+                    //setDirectin(direc);
                     return true;
                 }
                 else {
@@ -121,7 +121,7 @@ bool Entity::canRotate(Direction direc)
                 if((*map)[ceil(getY()+getSpeed())][floor(getX())] != 1)
                 {
                     //std::cout << "Rotating DOWN" << std::endl;
-                    setDirectin(direc);
+                    //setDirectin(direc);
                     return true;
                 }
                 else {

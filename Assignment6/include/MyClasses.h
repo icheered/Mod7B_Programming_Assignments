@@ -71,6 +71,7 @@ class Pacman : public Entity
 class Ghost : public Entity
 {
   private:
+    int HomeX, HomeY;
     bool frightened;
     int timeOut; //subject to change, maybe bool is suited better later on
   public:
