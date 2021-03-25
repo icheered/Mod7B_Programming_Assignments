@@ -3,17 +3,17 @@
 #include "LevelClass.h"
 #include <iostream>
 
-LevelClass::LevelClass(std::vector<std::vector<int>> *newmap){
+LevelClass::LevelClass(std::vector<std::vector<int>> *newmap, std::vector<std::vector<int>> ghostSpawns){
     map = newmap;
     pacman.setSpeed(0.05);
     pacman.setEpsilon(epsilon);
     pacman.setMap(map);
 
     // Create ghosts, pass their behaviour/name as argument
-    Ghost blinky(8, 1, "blinky", BLINKY);
-    Ghost pinky(9, 1, "pinky", PINKY);
-    Ghost inky(10, 1, "inky", INKY);
-    Ghost clyde(11, 1, "clyde", CLYDE);
+    Ghost blinky(ghostSpawns[0][0], ghostSpawns[0][1], "blinky", BLINKY);
+    Ghost pinky(ghostSpawns[1][0], ghostSpawns[1][1], "pinky", PINKY);
+    Ghost inky(ghostSpawns[2][0], ghostSpawns[2][1], "inky", INKY);
+    Ghost clyde(ghostSpawns[3][0], ghostSpawns[3][1], "clyde", CLYDE);
 
     ghosts.push_back(blinky);
     ghosts.push_back(pinky);
@@ -31,8 +31,9 @@ void LevelClass::move(){
 }
 
 void LevelClass::handleInput(Direction direc){
-    //std::cout << "Direction: " << direc << std::endl;
-    if(pacman.canRotate(direc)){ pacman.setDirectin(direc); }
+    std::cout << "Direction: " << direc << std::endl;
+    if(pacman.canRotate(direc)) { pacman.setDirectin(direc); }
+    else {std::cout<<"Can't" << std::endl;}
 }
 
 std::vector<GameObjectStruct> LevelClass::getObjects(){
