@@ -407,48 +407,26 @@ Ghost::Ghost(double x, double y, std::string name, Type ghostType)
     : Entity(x, y, name), frightened(false), timeOut(0)
 {
     //set target home pos
-    // switch (ghostType) {
-    // case INKY:
-    //     HomeX = 27;
-    //     HomeY = 26;
-    //     break;
-    // case PINKY:
-    //     HomeX = 0;
-    //     HomeY = 0;
-    //     break;
-    // case CLYDE:
-    //     HomeX = 0;
-    //     HomeY = 26;
-    //     break;
-    // case BLINKY:
-    //     HomeX = 27;
-    //     HomeY = 0;
-    //     break;
-    // default:
-    //     HomeX = 10;
-    //     HomeY = 10;
-    //     break;
-    // }
     switch (ghostType) {
     case INKY:
-        HomeX = 1;
-        HomeY = 1;
+        HomeX = 27;
+        HomeY = 26;
         break;
     case PINKY:
-        HomeX = 1;
-        HomeY = 1;
+        HomeX = 0;
+        HomeY = 0;
         break;
     case CLYDE:
-        HomeX = 1;
-        HomeY = 1;
+        HomeX = 0;
+        HomeY = 26;
         break;
     case BLINKY:
-        HomeX = 1;
-        HomeY = 1;
+        HomeX = 27;
+        HomeY = 0;
         break;
     default:
-        HomeX = 1;
-        HomeY = 1;
+        HomeX = 10;
+        HomeY = 10;
         break;
     }
     setType(ghostType);
