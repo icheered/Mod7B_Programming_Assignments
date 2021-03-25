@@ -28,7 +28,12 @@ double Entity::getX() { return x; }
 
 double Entity::getY() { return y; }
 
-void Entity::setX(double newX) { x = newX; }
+void Entity::setX(double newX) 
+{
+    if(newX < 0) { x = newX + 28;}
+    else if(newX > 28) { x = newX - 28;}
+    else { x = newX; }
+}
 
 void Entity::setY(double newY) { y = newY; }
 
@@ -84,7 +89,7 @@ bool Entity::canMove(Direction direc)
                 if((*map)[floor(getY())][ceil(getX())] != 1)
                 {
                     return true;
-                    //setX(getX()+getSpeed());
+                    
                     //std::cout << "Moving RIGHT!" << std::endl;
                 }
                 else {
@@ -106,7 +111,6 @@ bool Entity::canRotate(Direction direc)
                 if((*map)[floor(getY()-getSpeed())][floor(getX())] != 1)
                 {
                     //std::cout << "Rotating UP" << std::endl;
-                    setDirectin(direc);
                     return true;
                 }
                 else {
@@ -121,7 +125,6 @@ bool Entity::canRotate(Direction direc)
                 if((*map)[ceil(getY()+getSpeed())][floor(getX())] != 1)
                 {
                     //std::cout << "Rotating DOWN" << std::endl;
-                    setDirectin(direc);
                     return true;
                 }
                 else {
@@ -136,7 +139,6 @@ bool Entity::canRotate(Direction direc)
                 if((*map)[floor(getY())][floor(getX()-getSpeed())] != 1)
                 {
                     //std::cout << "Rotating  LEFT" << std::endl;
-                    //setDirectin(direc);
                     return true;
                 }
                 else {
@@ -152,7 +154,6 @@ bool Entity::canRotate(Direction direc)
                 if((*map)[floor(getY())][ceil(getX()+getSpeed())] != 1)
                 {
                     //std::cout << "Rotating RIGHT" << std::endl;
-                    //setDirectin(direc);
                     return true;
                 }
                 else {
@@ -203,7 +204,23 @@ Pacman::Pacman(double x, double y, std::string name)
 
 void Pacman::move()
 {
-    std::cout << "PacmanMove" << std::endl;
+    Direction direc = getDirection();
+    if(canMove(direc)) {
+        switch(direc){
+            case UP: {
+                setY(getY()-getSpeed());
+            } break;
+            case DOWN: {
+                setY(getY()+getSpeed());
+            } break;
+            case LEFT: {
+                setX(getX()-getSpeed());
+            } break;
+            case RIGHT: {
+                setX(getX()+getSpeed());
+            } break;
+        }
+    }
 }
 
 
