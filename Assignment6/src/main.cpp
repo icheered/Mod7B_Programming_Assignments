@@ -12,7 +12,9 @@
 #include "UI.h"
 #include <SDL2/SDL.h>
 #include <vector>
+#include <array>
 #include <iostream>
+
 
 /// Callback function to update the game state.
 ///
@@ -53,12 +55,32 @@ int main(int /*argc*/, char ** /*argv*/)
         #include "board.def"
     }};
 
-    
+    std::vector<int> pacmanSpawn {13, 15};
+
+    std::vector<std::vector<int>> ghostSpawns {
+        {12,13},
+        {13,13},
+        {14,13},
+        {15,13},
+    };
+
+    std::vector<std::vector<int>> energizers {
+        {1,1},
+        {1,25},
+        {26,1},
+        {26,25},
+        {18,11},
+        {9,11}
+    };
+
+
     // Fill board with dots
+    int dots = 0;
     for(auto &row : map) {
         for(auto &col : row) {
             if(col == 0){
                 col = 3;
+                dots++;
             }
             std::cout << col << " ";
         }
@@ -66,17 +88,25 @@ int main(int /*argc*/, char ** /*argv*/)
     }
 
     // Create an energizer
-    map[1][4] = 2;
+    for(auto &loc : energizers) {
+        dots--;
+        map[loc[1]][loc[0]] = 2;
+    }
+    // Remove dots on ghost spawn locations
+    for(auto &loc : ghostSpawns) {
+        dots--;
+        map[loc[1]][loc[0]] = 0;
+    }
+    // Remove dot on pacman spawn location
+    map[pacmanSpawn[1]][pacmanSpawn[0]] = 0;
+    dots--;
     
-
+    
     // Create a new ui object, pass pointer to map
     UI ui(&map);
     
-
-    
-
     // Create all game objects, pass pointer to map
-    LevelClass level = LevelClass(&map);
+    LevelClass level = LevelClass(&map, ghostSpawns);
 
 
     // Start timer for game update, call this function every 100 ms.

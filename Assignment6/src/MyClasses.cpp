@@ -28,16 +28,32 @@ double Entity::getX() { return x; }
 
 double Entity::getY() { return y; }
 
-void Entity::setX(double newX) { x = newX; }
+void Entity::setX(double newX) 
+{
+    if(newX < 0) { x = newX + 28;}
+    else if(newX > 28) { x = newX - 28;}
+    else { x = newX; }
+}
 
 void Entity::setY(double newY) { y = newY; }
 
 bool Entity::canMove(Direction direc) 
 {
+    double diffX, diffY;
+    if(abs(floor(getX()) - getX()) < abs(ceil(getX()) - getX())) {diffX = abs(floor(getX()) - getX());}
+    else {diffX = abs(ceil(getX()) - getX());}
+    if(abs(floor(getY()) - getY()) < abs(ceil(getY()) - getY())) {diffY = abs(floor(getY()) - getY());}
+    else {diffY = abs(ceil(getY()) - getY());}
+
     switch(direc){
         case UP: {
-            if(abs(floor(getX()) - getX()) < epsilon){
-                if((*map)[floor(getY()-getSpeed())][floor(getX())] != 1)
+            
+            if(diffX < epsilon){
+                int xTile;
+                if(abs(floor(getX()) - getX()) < abs(ceil(getX()) - getX())) {xTile = floor(getX());}
+                else {xTile = ceil(getX());}
+
+                if((*map)[floor(getY()-getSpeed()+epsilon)][xTile] != 1)
                 {
                     return true;
                     //std::cout << "Moving UP!" << std::endl;
@@ -46,12 +62,15 @@ bool Entity::canMove(Direction direc)
                     return false;
                     //std::cout << "UP is blocked!" << std::endl;
                 }
-            }
-        }
-            break;
+            } else { return false; }
+        } break;
         case DOWN: {
-            if(abs(floor(getX()) - getX()) < epsilon){
-                if((*map)[ceil(getY())][floor(getX())] != 1)
+            if(diffX < epsilon){
+                int xTile;
+                if(abs(floor(getX()) - getX()) < abs(ceil(getX()) - getX())) {xTile = floor(getX());}
+                else {xTile = ceil(getX());}
+
+                if((*map)[ceil(getY()+getSpeed()-epsilon)][xTile] != 1)
                 {
                     return true;
                     //setY(getY()+getSpeed());
@@ -59,14 +78,17 @@ bool Entity::canMove(Direction direc)
                 }
                 else {
                     return false;
-                    //std::cout << "DOWN is blocked!" << std::endl;
+                    std::cout << "DOWN is blocked!" << std::endl;
                 } 
-            }
-        }
-            break;
+            } else { return false; }
+        } break;
         case LEFT: {
-            if(abs(floor(getY()) - getY()) < epsilon){
-                if((*map)[floor(getY())][floor(getX()-getSpeed())] != 1)
+            if(diffY < epsilon){
+                int yTile;
+                if(abs(floor(getY()) - getY()) < abs(ceil(getY()) - getY())) {yTile = floor(getY());}
+                else {yTile = ceil(getY());}
+
+                if((*map)[yTile][floor(getX()-getSpeed()+epsilon)] != 1)
                 {
                     return true;
                     setX(getX()-getSpeed());
@@ -74,92 +96,116 @@ bool Entity::canMove(Direction direc)
                 }
                 else {
                     return false;
-                    //std::cout << "LEFT is blocked!" << std::endl;
+                    std::cout << "LEFT is blocked!" << std::endl;
                 } 
-            }
-        }
-            break;
+            } else { return false; }
+        } break;
         case RIGHT: {
-            if(abs(floor(getY()) - getY()) < epsilon){
-                if((*map)[floor(getY())][ceil(getX())] != 1)
+            if(diffY < epsilon){
+                int yTile;
+                if(abs(floor(getY()) - getY()) < abs(ceil(getY()) - getY())) {yTile = floor(getY());}
+                else {yTile = ceil(getY());}
+
+                if((*map)[yTile][ceil(getX()+getSpeed()-epsilon)] != 1)
                 {
                     return true;
-                    //setX(getX()+getSpeed());
+                    
                     //std::cout << "Moving RIGHT!" << std::endl;
                 }
                 else {
                     return false;
-                    //std::cout << "RIGHT is blocked!" << std::endl;
+                    std::cout << "RIGHT is blocked!" << std::endl;
                 }
-            }
-        }
-            break;
+            } else { return false; }
+        } break;
     }
 }
 
 bool Entity::canRotate(Direction direc) 
 {
+    double diffX, diffY;
+    if(abs(floor(getX()) - getX()) < abs(ceil(getX()) - getX())) {diffX = abs(floor(getX()) - getX());}
+    else {diffX = abs(ceil(getX()) - getX());}
+    if(abs(floor(getY()) - getY()) < abs(ceil(getY()) - getY())) {diffY = abs(floor(getY()) - getY());}
+    else {diffY = abs(ceil(getY()) - getY());}
+
+
+    // std::cout << "FloorX: " << abs(floor(getX()) - getX()) << ", CeilX: " << abs(ceil(getX()) - getX()) << std::endl;
+    // std::cout << "FloorY: " << abs(floor(getY()) - getY()) << ", CeilY: " << abs(ceil(getY()) - getY()) << std::endl;
+    //std::cout << "DiffX: " << diffX << ", DiffY: " << diffY << std::endl;
     switch(direc){
-        case UP: {
-            if(abs(floor(getX()) - getX()) < epsilon)
+        case 0: {
+            if(diffX < epsilon)
             {
-                if((*map)[floor(getY()-getSpeed())][floor(getX())] != 1)
+                int xTile;
+                if(abs(floor(getX()) - getX()) < abs(ceil(getX()) - getX())) {xTile = floor(getX());}
+                else {xTile = ceil(getX());}
+
+                if((*map)[floor(getY()-getSpeed())][xTile] != 1)
                 {
                     //std::cout << "Rotating UP" << std::endl;
-                    //setDirectin(direc);
                     return true;
                 }
                 else {
                     return false;
-                    //std::cout << "Won't rotate, UP blocked" << std::endl;
+                    std::cout << "Won't rotate, UP blocked" << std::endl;
                 }
-            }
+            } else {return false;}
         } break;
         case DOWN: {
-            if(abs(floor(getX()) - getX()) < epsilon)
+            if(diffX < epsilon)
             {
-                if((*map)[ceil(getY()+getSpeed())][floor(getX())] != 1)
+                int xTile;
+                if(abs(floor(getX()) - getX()) < abs(ceil(getX()) - getX())) {xTile = floor(getX());}
+                else {xTile = ceil(getX());}
+
+                if((*map)[ceil(getY()+getSpeed())][xTile] != 1)
                 {
                     //std::cout << "Rotating DOWN" << std::endl;
-                    //setDirectin(direc);
                     return true;
                 }
                 else {
                     return false;
-                    //std::cout << "Won't rotate, DOWN blocked" << std::endl;
+                    std::cout << "Won't rotate, DOWN blocked" << std::endl;
                 }
-            }
+            } else {return false;}
         } break;
         case LEFT: {
-            if(abs(floor(getY()) - getY()) < epsilon)
+            if(diffY < epsilon)
             {
-                if((*map)[floor(getY())][floor(getX()-getSpeed())] != 1)
+                int yTile;
+                if(abs(floor(getY()) - getY()) < abs(ceil(getY()) - getY())) {yTile = floor(getY());}
+                else {yTile = ceil(getY());}
+
+                if((*map)[yTile][floor(getX()-getSpeed())] != 1)
                 {
                     //std::cout << "Rotating  LEFT" << std::endl;
-                    //setDirectin(direc);
                     return true;
                 }
                 else {
                     return false;
-                    //std::cout << "Won't rotate, LEFT blocked" << std::endl;
+                    std::cout << "Won't rotate, LEFT blocked" << std::endl;
                 }
-            }
+            } else {return false;}
         } break;
-        case RIGHT: {         
-            
-            if(abs(floor(getY()) - getY()) < epsilon)
+        case RIGHT: {
+            if(diffY < epsilon)
             {
-                if((*map)[floor(getY())][ceil(getX()+getSpeed())] != 1)
+                int yTile;
+                if(abs(floor(getY()) - getY()) < abs(ceil(getY()) - getY())) {yTile = floor(getY());}
+                else {yTile = ceil(getY());}
+
+                if((*map)[yTile][ceil(getX()+getSpeed())] != 1)
                 {
                     //std::cout << "Rotating RIGHT" << std::endl;
-                    //setDirectin(direc);
                     return true;
                 }
                 else {
                     return false;
-                    //std::cout << "Won't rotate, RIGHT blocked" << std::endl;
+                    std::cout << "Won't rotate, RIGHT blocked" << std::endl;
                 }
             }
+            else {return false;}
         } break;
     }
 }
@@ -203,7 +249,24 @@ Pacman::Pacman(double x, double y, std::string name)
 
 void Pacman::move()
 {
-    std::cout << "PacmanMove" << std::endl;
+    Direction direc = getDirection();
+    std::cout << "x = " << getX() << ", y = " << getY() << std::endl;
+    if(canMove(direc)) {
+        switch(direc){
+            case UP: {
+                setY(getY()-getSpeed());
+            } break;
+            case DOWN: {
+                setY(getY()+getSpeed());
+            } break;
+            case LEFT: {
+                setX(getX()-getSpeed());
+            } break;
+            case RIGHT: {
+                setX(getX()+getSpeed());
+            } break;
+        }
+    }
 }
 
 

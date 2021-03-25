@@ -6,7 +6,7 @@
 class LevelClass
 {
 private:
-    Pacman pacman = Pacman(1,1,"pacman");
+    Pacman pacman = Pacman(13,15,"pacman");
     std::vector<Ghost> ghosts;
     std::vector<std::vector<int>> *map;
     double epsilon = 0.001;
@@ -50,7 +50,7 @@ private:
 
 public:
     // Constructor
-    LevelClass(std::vector<std::vector<int>> *newmap);   
+    LevelClass(std::vector<std::vector<int>> *newmap, std::vector<std::vector<int>> ghostSpawns);   
 
     std::vector<GameObjectStruct> getObjects();
     int getScore();
