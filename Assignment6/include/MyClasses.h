@@ -3,6 +3,8 @@
 #include "string"
 #include <math.h>
 #include <vector>
+#include <iostream>
+
 
 
 
@@ -81,5 +83,6 @@ class Ghost : public Entity
     void setTimeout(int newTimeout);
     int getTimeout();
     void die() override;
+    void move() override;
 };
 

@@ -190,6 +190,8 @@ void Entity::setSpawn(int newX, int newY)
 }
 
 void Entity::die() { return ; }
+void Entity::move() { return ; }
+
 
 //----------------------------------------------------Pacman_section---------------------------------------------------------------
 
@@ -201,8 +203,7 @@ Pacman::Pacman(double x, double y, std::string name)
 
 void Pacman::move()
 {
-    
-
+    std::cout << "PacmanMove" << std::endl;
 }
 
 
@@ -296,4 +297,9 @@ int Ghost::getTimeout() { return timeOut; }
 void Ghost::die() { 
     type = SCAREDINV;
     setPos(getSpawnX(), getSpawnY()); 
+}
+
+void Ghost::move()
+{
+    std::cout << "GhostMove" << std::endl;
 }
