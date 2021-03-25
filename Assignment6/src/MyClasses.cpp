@@ -463,46 +463,55 @@ void Ghost::Behaviour(int PacX, int PacY, int BlinkyX, int BlinkyY, Direction Pa
                 targetX = PacX + 4;
                 break;
             default:
+                targetX = 0;
+                targetY = 0;
                 break;
             }
             determineBestMove(targetX, targetY);
             break;
         case INKY:
             //determine target like for pinky with offset of 2
-            int targetX, targetY, finalX, finalY;
+            int pretargetX, pretargetY, finalX, finalY;
             switch (PacDir) {
             case UP:
-                targetY = PacY - 2;
-                targetX = PacX - 2;
+                pretargetY = PacY - 2;
+                pretargetX = PacX - 2;
                 break;
             case DOWN:
-                targetY = PacY + 2;
-                targetX = PacX;
+                pretargetY = PacY + 2;
+                pretargetX = PacX;
                 break;
             case LEFT:
-                targetY = PacY;
-                targetX = PacX - 2;
+                pretargetY = PacY;
+                pretargetX = PacX - 2;
                 break;
             case RIGHT:
-                targetY = PacY;
-                targetX = PacX + 2;
+                pretargetY = PacY;
+                pretargetX = PacX + 2;
                 break;
             default:
+                pretargetX = 0;
+                pretargetY = 0;
                 break;
             }
             //vector to Blinky
-            
+            int Xoffset, Yoffset;
+            Xoffset = BlinkyX - pretargetX;
+            Yoffset = BlinkyY - pretargetY;
             //turn vector arround
+            finalX = pretargetX - Xoffset;
+            finalY = pretargetY - Yoffset;
             //end of vector is final target pos
-            //determineBestMove(finalX, finalY);
+            determineBestMove(finalX, finalY);
             break;
         case CLYDE:
-            int distance = 0;
-            //determine distance to pacman
+            int distance;
+            //determine distance to 
+            distance = vectorLen(getX(), getY(), PacX, PacY);
             if (distance < 8) {
-                //determineBestMove(homeX, homeY);
+                determineBestMove(HomeX, HomeY);
             } else {
-                //determineBestMove(PacX, PacY);
+                determineBestMove(PacX, PacY);
             }
             break;
         default:
@@ -536,5 +545,22 @@ void Ghost::die() {
 
 void Ghost::move()
 {
-    std::cout << "GhostMove" << std::endl;
+    Direction direc = getDirection();
+    std::cout << "Ghostx = " << getX() << ", Ghosty = " << getY() << std::endl;
+    if (canMove(direc)) {
+        switch (direc) {
+        case UP: {
+            setY(getY() - getSpeed());
+        } break;
+        case DOWN: {
+            setY(getY() + getSpeed());
+        } break;
+        case LEFT: {
+            setX(getX() - getSpeed());
+        } break;
+        case RIGHT: {
+            setX(getX() + getSpeed());
+        } break;
+        }
+    }
 }

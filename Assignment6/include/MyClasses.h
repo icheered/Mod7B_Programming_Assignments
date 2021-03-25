@@ -81,6 +81,7 @@ class Ghost : public Entity
     int vectorLen(int x1, int y1, int x2, int y2); //since I only need coordinates and comparisons from the vectors they may be rounded to ints
     void determineBestMove(int targetX, int targetY); //finds the best move from ghost position to that field and executes it
     void turnArround(); // turns the ghost arround
+    void randomDirection();
   public:
     Ghost(double x, double y, std::string name, Type ghostType);
     void Behaviour(int PacX, int PacY, int BlinkyX, int BlinkyY, Direction PacDir, char Behaviour); //quite complex, still has to be overriden.
