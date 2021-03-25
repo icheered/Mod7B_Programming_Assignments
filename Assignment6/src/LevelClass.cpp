@@ -32,6 +32,11 @@ bool LevelClass::getRestart() {
 
 void LevelClass::move(){
     pacman.move();
+
+    for (auto &g : ghosts) { 
+        g.Behaviour(pacman.getX(), pacman.getY(), ghosts[0].getX(), ghosts[0].getY(), pacman.getDirection(), 's');
+    }
+
 }
 
 void LevelClass::handleInput(Direction direc){
