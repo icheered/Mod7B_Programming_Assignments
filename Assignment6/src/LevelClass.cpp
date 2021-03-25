@@ -3,7 +3,8 @@
 #include "LevelClass.h"
 #include <iostream>
 
-LevelClass::LevelClass(std::vector<std::vector<int>> *newmap, std::vector<std::vector<int>> ghostSpawns){
+LevelClass::LevelClass(std::vector<std::vector<int>> *newmap, std::vector<std::vector<int>> ghostSpawns, int numberOfDots){
+    dots = numberOfDots;
     map = newmap;
     pacman.setSpeed(0.05);
     pacman.setEpsilon(epsilon);
@@ -21,9 +22,12 @@ LevelClass::LevelClass(std::vector<std::vector<int>> *newmap, std::vector<std::v
     ghosts.push_back(clyde);
 
     // set dots, score, lives
-    dots = 100;
     score = 0;
     lives = 3;
+}
+
+bool LevelClass::getRestart() {
+    return restart;
 }
 
 void LevelClass::move(){
@@ -31,9 +35,9 @@ void LevelClass::move(){
 }
 
 void LevelClass::handleInput(Direction direc){
-    std::cout << "Direction: " << direc << std::endl;
+    //std::cout << "Direction: " << direc << std::endl;
     if(pacman.canRotate(direc)) { pacman.setDirectin(direc); }
-    else {std::cout<<"Can't" << std::endl;}
+    //else {std::cout<<"Can't" << std::endl;}
 }
 
 std::vector<GameObjectStruct> LevelClass::getObjects(){
@@ -94,6 +98,10 @@ void LevelClass::checkCollision() {
             }
         }
     }
+    if(pacman.isDead()) { 
+        std::cout << "Game Over" << std::endl;
+        restart = true; 
+    }
 
     // Check collision with energizer
     if((*map)[round(py)][round(px)] == 2){
@@ -101,13 +109,23 @@ void LevelClass::checkCollision() {
         LevelClass::ateEnergizer();
     }
 
+    // Check collision with dot
     if((*map)[round(py)][round(px)] == 3){
         (*map)[round(py)][round(px)] = 0;
         score += 10;
+        dots--;
+        if(dots == 0) {
+            gameWon();
+        }
     }
 
     
     // Check collision with powerups
     // Check collision with fruits
     // Check collision with dots
+}
+
+void LevelClass::gameWon(){
+    std::cout << "Win" << std::endl;
+    restart = true;
 }

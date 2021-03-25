@@ -51,6 +51,9 @@ Uint32 gameUpdate(Uint32 interval, void * params)
 /// Program entry point.
 int main(int /*argc*/, char ** /*argv*/)
 {
+    int a = 3;
+    int b = a;
+
     std::vector<std::vector<int>> map = {{
         #include "board.def"
     }};
@@ -100,13 +103,16 @@ int main(int /*argc*/, char ** /*argv*/)
     // Remove dot on pacman spawn location
     map[pacmanSpawn[1]][pacmanSpawn[0]] = 0;
     dots--;
+
+    std::vector<std::vector<int>> initialMap = map;
+    int initialDots = dots;
     
-    
+
     // Create a new ui object, pass pointer to map
     UI ui(&map);
     
     // Create all game objects, pass pointer to map
-    LevelClass level = LevelClass(&map, ghostSpawns);
+    LevelClass level = LevelClass(&map, ghostSpawns, dots);
 
 
     // Start timer for game update, call this function every 100 ms.
@@ -132,6 +138,12 @@ int main(int /*argc*/, char ** /*argv*/)
                 if(e.key.keysym.sym == SDLK_ESCAPE)
                     quit = true;
             }
+        }
+
+        if(level.getRestart()) {
+            map = initialMap;
+            dots = initialDots;
+            level = LevelClass(&map, ghostSpawns, dots);
         }
 
         // Set the score
