@@ -6,9 +6,10 @@
 LevelClass::LevelClass(std::vector<std::vector<int>> *newmap){
     map = newmap;
     pacman.setSpeed(0.05);
+    pacman.setEpsilon(epsilon);
+    pacman.setMap(map);
 
     // Create ghosts, pass their behaviour/name as argument
-
     Ghost blinky(8, 1, "blinky", BLINKY);
     Ghost pinky(9, 1, "pinky", PINKY);
     Ghost inky(10, 1, "inky", INKY);
@@ -26,119 +27,12 @@ LevelClass::LevelClass(std::vector<std::vector<int>> *newmap){
 }
 
 void LevelClass::move(){
-    switch(pacman.getDirection()){
-        case UP: {
-            if(abs(floor(pacman.getX()) - pacman.getX()) < epsilon){
-                if((*map)[floor(pacman.getY()-pacman.getSpeed())][floor(pacman.getX())] != 1)
-                {
-                    pacman.setY(pacman.getY()-pacman.getSpeed());
-                    //std::cout << "Moving UP!" << std::endl;
-                }
-                else {
-                    //std::cout << "UP is blocked!" << std::endl;
-                }
-            }
-        }
-            break;
-        case DOWN: {
-            if(abs(floor(pacman.getX()) - pacman.getX()) < epsilon){
-                if((*map)[ceil(pacman.getY())][floor(pacman.getX())] != 1)
-                {
-                    pacman.setY(pacman.getY()+pacman.getSpeed());
-                    //std::cout << "Moving DOWN!" << std::endl;
-                }
-                else {
-                    //std::cout << "DOWN is blocked!" << std::endl;
-                } 
-            }
-        }
-            break;
-        case LEFT: {
-            if(abs(floor(pacman.getY()) - pacman.getY()) < epsilon){
-                if((*map)[floor(pacman.getY())][floor(pacman.getX()-pacman.getSpeed())] != 1)
-                {
-                    pacman.setX(pacman.getX()-pacman.getSpeed());
-                    //std::cout << "Moving LEFT!" << std::endl;
-                }
-                else {
-                    //std::cout << "LEFT is blocked!" << std::endl;
-                } 
-            }
-        }
-            break;
-        case RIGHT: {
-            if(abs(floor(pacman.getY()) - pacman.getY()) < epsilon){
-                if((*map)[floor(pacman.getY())][ceil(pacman.getX())] != 1)
-                {
-                    pacman.setX(pacman.getX()+pacman.getSpeed());
-                    //std::cout << "Moving RIGHT!" << std::endl;
-                }
-                else {
-                    //std::cout << "RIGHT is blocked!" << std::endl;
-                }
-            }
-        }
-            break;
-    }
+    pacman.move();
 }
 
 void LevelClass::handleInput(Direction direc){
     //std::cout << "Direction: " << direc << std::endl;
-    switch(direc){
-        case UP: {
-            if(abs(floor(pacman.getX()) - pacman.getX()) < epsilon)
-            {
-                if((*map)[floor(pacman.getY()-pacman.getSpeed())][floor(pacman.getX())] != 1)
-                {
-                    //std::cout << "Rotating UP" << std::endl;
-                    pacman.setDirectin(direc);
-                }
-                else {
-                    //std::cout << "Won't rotate, UP blocked" << std::endl;
-                }
-            }
-        } break;
-        case DOWN: {
-            if(abs(floor(pacman.getX()) - pacman.getX()) < epsilon)
-            {
-                if((*map)[ceil(pacman.getY()+pacman.getSpeed())][floor(pacman.getX())] != 1)
-                {
-                    //std::cout << "Rotating DOWN" << std::endl;
-                    pacman.setDirectin(direc);
-                }
-                else {
-                    //std::cout << "Won't rotate, DOWN blocked" << std::endl;
-                }
-            }
-        } break;
-        case LEFT: {
-            if(abs(floor(pacman.getY()) - pacman.getY()) < epsilon)
-            {
-                if((*map)[floor(pacman.getY())][floor(pacman.getX()-pacman.getSpeed())] != 1)
-                {
-                    //std::cout << "Rotating  LEFT" << std::endl;
-                    pacman.setDirectin(direc);
-                }
-                else {
-                    //std::cout << "Won't rotate, LEFT blocked" << std::endl;
-                }
-            }
-        } break;
-        case RIGHT: {         
-            
-            if(abs(floor(pacman.getY()) - pacman.getY()) < epsilon)
-            {
-                if((*map)[floor(pacman.getY())][ceil(pacman.getX()+pacman.getSpeed())] != 1)
-                {
-                    //std::cout << "Rotating RIGHT" << std::endl;
-                    pacman.setDirectin(direc);
-                }
-                else {
-                    //std::cout << "Won't rotate, RIGHT blocked" << std::endl;
-                }
-            }
-        } break;
-    }
+    if(pacman.canRotate(direc)){ pacman.setDirectin(direc); }
 }
 
 std::vector<GameObjectStruct> LevelClass::getObjects(){
@@ -173,7 +67,6 @@ void LevelClass::hitGhost(Ghost &g) {
         pacman.die();
     }
 }
-
 
 
 void LevelClass::resetLevel() {

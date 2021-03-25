@@ -1,6 +1,9 @@
 #pragma once
 #include "GameObjectStruct.h"
 #include "string"
+#include <math.h>
+#include <vector>
+
 
 
 class Entity : public GameObjectStruct //class extends struct, there should be imlicit conv, structs are fully public
@@ -11,8 +14,13 @@ class Entity : public GameObjectStruct //class extends struct, there should be i
 	//direction
 private:
   std::string name;
-  double speed;
+  double speed; 
   int spawn_x, spawn_y;
+
+protected:  // Protected variables can be accessed by inherited classes
+  double epsilon;  // Epsilon is used for comparison of doubles
+  std::vector<std::vector<int>> *map;
+
 public:
   Entity(double x, double y, std::string name);
   std::string getName();
@@ -29,7 +37,11 @@ public:
   void setPos(int newX, int newY);
   double getSpeed();
   void setSpeed(float newSpeed);
-  void Move(); //maybe needs more input later on, will be implemented later
+  void setEpsilon(double newEpsilon);
+  void setMap(std::vector<std::vector<int>> *newmap);
+  bool canMove(Direction direc);  // Checks if entity can move in the current facing direction
+  bool canRotate(Direction direc);// Checks if entity can move in the current facing direction
+  virtual void move(); //maybe needs more input later on, will be implemented later
   int getSpawnY();
   int getSpawnX();
   void setSpawn(int newX, int newY);
@@ -53,6 +65,7 @@ class Pacman : public Entity
     int getLives();
     bool isDead();
     void die() override;
+    void move() override;
 };
 
 class Ghost : public Entity

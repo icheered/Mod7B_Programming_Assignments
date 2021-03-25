@@ -32,6 +32,138 @@ void Entity::setX(double newX) { x = newX; }
 
 void Entity::setY(double newY) { y = newY; }
 
+bool Entity::canMove(Direction direc) 
+{
+    switch(direc){
+        case UP: {
+            if(abs(floor(getX()) - getX()) < epsilon){
+                if((*map)[floor(getY()-getSpeed())][floor(getX())] != 1)
+                {
+                    return true;
+                    //std::cout << "Moving UP!" << std::endl;
+                }
+                else {
+                    return false;
+                    //std::cout << "UP is blocked!" << std::endl;
+                }
+            }
+        }
+            break;
+        case DOWN: {
+            if(abs(floor(getX()) - getX()) < epsilon){
+                if((*map)[ceil(getY())][floor(getX())] != 1)
+                {
+                    return true;
+                    //setY(getY()+getSpeed());
+                    //std::cout << "Moving DOWN!" << std::endl;
+                }
+                else {
+                    return false;
+                    //std::cout << "DOWN is blocked!" << std::endl;
+                } 
+            }
+        }
+            break;
+        case LEFT: {
+            if(abs(floor(getY()) - getY()) < epsilon){
+                if((*map)[floor(getY())][floor(getX()-getSpeed())] != 1)
+                {
+                    return true;
+                    setX(getX()-getSpeed());
+                    //std::cout << "Moving LEFT!" << std::endl;
+                }
+                else {
+                    return false;
+                    //std::cout << "LEFT is blocked!" << std::endl;
+                } 
+            }
+        }
+            break;
+        case RIGHT: {
+            if(abs(floor(getY()) - getY()) < epsilon){
+                if((*map)[floor(getY())][ceil(getX())] != 1)
+                {
+                    return true;
+                    //setX(getX()+getSpeed());
+                    //std::cout << "Moving RIGHT!" << std::endl;
+                }
+                else {
+                    return false;
+                    //std::cout << "RIGHT is blocked!" << std::endl;
+                }
+            }
+        }
+            break;
+    }
+}
+
+bool Entity::canRotate(Direction direc) 
+{
+    switch(direc){
+        case UP: {
+            if(abs(floor(getX()) - getX()) < epsilon)
+            {
+                if((*map)[floor(getY()-getSpeed())][floor(getX())] != 1)
+                {
+                    //std::cout << "Rotating UP" << std::endl;
+                    setDirectin(direc);
+                    return true;
+                }
+                else {
+                    return false;
+                    //std::cout << "Won't rotate, UP blocked" << std::endl;
+                }
+            }
+        } break;
+        case DOWN: {
+            if(abs(floor(getX()) - getX()) < epsilon)
+            {
+                if((*map)[ceil(getY()+getSpeed())][floor(getX())] != 1)
+                {
+                    //std::cout << "Rotating DOWN" << std::endl;
+                    setDirectin(direc);
+                    return true;
+                }
+                else {
+                    return false;
+                    //std::cout << "Won't rotate, DOWN blocked" << std::endl;
+                }
+            }
+        } break;
+        case LEFT: {
+            if(abs(floor(getY()) - getY()) < epsilon)
+            {
+                if((*map)[floor(getY())][floor(getX()-getSpeed())] != 1)
+                {
+                    //std::cout << "Rotating  LEFT" << std::endl;
+                    //setDirectin(direc);
+                    return true;
+                }
+                else {
+                    return false;
+                    //std::cout << "Won't rotate, LEFT blocked" << std::endl;
+                }
+            }
+        } break;
+        case RIGHT: {         
+            
+            if(abs(floor(getY()) - getY()) < epsilon)
+            {
+                if((*map)[floor(getY())][ceil(getX()+getSpeed())] != 1)
+                {
+                    //std::cout << "Rotating RIGHT" << std::endl;
+                    //setDirectin(direc);
+                    return true;
+                }
+                else {
+                    return false;
+                    //std::cout << "Won't rotate, RIGHT blocked" << std::endl;
+                }
+            }
+        } break;
+    }
+}
+
 
 void Entity::setPos(int newX, int newY)
 {
@@ -43,7 +175,9 @@ double Entity::getSpeed() { return speed; }
 
 void Entity::setSpeed(float newSpeed) { speed = newSpeed; }
 
-void Entity::Move() {} //needs implementation still
+void Entity::setEpsilon(double newEpsilon) { epsilon = newEpsilon; }
+
+void Entity::setMap(std::vector<std::vector<int>> *newmap) { map = newmap; }
 
 int Entity::getSpawnY() { return spawn_y; }
 
@@ -64,6 +198,14 @@ Pacman::Pacman(double x, double y, std::string name)
 {
     type = PACMAN;
 }
+
+void Pacman::move()
+{
+    
+
+}
+
+
 
 //void Pacman::eatDot()
 //{
@@ -93,6 +235,7 @@ int Pacman::eatFruit(Type fruitEaten)
         return 2000;
         break;
     default:
+        return 0;
         break;
     }
 }
