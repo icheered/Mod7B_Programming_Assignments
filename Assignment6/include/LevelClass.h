@@ -10,6 +10,7 @@ private:
     std::vector<Ghost> ghosts;
     std::vector<std::vector<int>> *map;
     double epsilon = 0.001;
+    bool restart = false;
 
     int dots, score, lives;
 
@@ -50,11 +51,13 @@ private:
 
 public:
     // Constructor
-    LevelClass(std::vector<std::vector<int>> *newmap, std::vector<std::vector<int>> ghostSpawns);   
+    LevelClass(std::vector<std::vector<int>> *newmap, std::vector<std::vector<int>> ghostSpawns, int numberOfDots);   
 
     std::vector<GameObjectStruct> getObjects();
     int getScore();
     int getLives();
+
+    bool getRestart();
 
     void move();
     void handleInput(Direction direc);

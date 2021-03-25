@@ -250,7 +250,7 @@ Pacman::Pacman(double x, double y, std::string name)
 void Pacman::move()
 {
     Direction direc = getDirection();
-    std::cout << "x = " << getX() << ", y = " << getY() << std::endl;
+    //std::cout << "x = " << getX() << ", y = " << getY() << std::endl;
     if(canMove(direc)) {
         switch(direc){
             case UP: {
