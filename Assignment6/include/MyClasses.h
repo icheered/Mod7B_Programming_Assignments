@@ -73,12 +73,17 @@ class Pacman : public Entity
 class Ghost : public Entity
 {
   private:
+      //corners are (0,0) (0, 26) (27,0) (27,26)
     int HomeX, HomeY;
-    bool frightened;
+    bool frightened, eaten;
     int timeOut; //subject to change, maybe bool is suited better later on
+    //some helper funcs for the behaviour
+    int vectorLen(int x1, int y1, int x2, int y2); //since I only need coordinates and comparisons from the vectors they may be rounded to ints
+    void determineBestMove(int targetX, int targetY); //finds the best move from ghost position to that field and executes it
+    void turnArround(); // turns the ghost arround
   public:
     Ghost(double x, double y, std::string name, Type ghostType);
-    void Behaviour(int PacX, int PacY, Direction PacDir); //quite complex, still has to be overriden.
+    void Behaviour(int PacX, int PacY, int BlinkyX, int BlinkyY, Direction PacDir, char Behaviour); //quite complex, still has to be overriden.
     bool getFrightened();
     void setFrightened(bool newHuntStatus);
     void setTimeout(int newTimeout);

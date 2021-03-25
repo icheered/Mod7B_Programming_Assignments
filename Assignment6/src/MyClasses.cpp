@@ -274,13 +274,184 @@ void Pacman::die()
 
 //----------------------------------------------------Ghost_section---------------------------------------------------------------
 
+int Ghost::vectorLen(int x1, int y1, int x2, int y2)
+{
+    int len = 0;
+    len = sqrt(pow((x1 - x2), 2) + pow((y1 - y2), 2));
+    return len;
+}
+
+void Ghost::determineBestMove(int targetX, int targetY) {
+    int shortestLength = 1000;
+    Direction moveToDir = UP;
+    //find the best possible move for the ghost to its target, because of the order it also choses the prefered movement if there are same lengths
+    if (canRotate(RIGHT) && getDirection() != LEFT) {// rightLen
+        if (shortestLength >= vectorLen(getX() + 1, getY(), targetX, targetY)) {
+            shortestLength = vectorLen(getX() + 1, getY(), targetX, targetY);
+            moveToDir = RIGHT;
+        }
+    }                                                    
+    if (canRotate(DOWN) && getDirection() != UP) {// downLen
+        if (shortestLength >= vectorLen(getX(), getY()+1, targetX, targetY)) {
+            shortestLength = vectorLen(getX(), getY()+1, targetX, targetY);
+            moveToDir = DOWN;
+        }
+    }                                                
+    if (canRotate(LEFT) && getDirection() != RIGHT) {// leftLen
+        if (shortestLength >= vectorLen(getX() - 1, getY(), targetX, targetY)) {
+            shortestLength = vectorLen(getX() - 1, getY(), targetX, targetY);
+            moveToDir = LEFT;
+        }
+    }                                            
+    if (canRotate(UP) && getDirection() != DOWN) // upLen
+        if (shortestLength >= vectorLen(getX(), getY()-1, targetX, targetY)) {
+            shortestLength = vectorLen(getX(), getY()-1, targetX, targetY);
+            moveToDir = UP;
+        }
+    setDirectin(moveToDir);
+    move();
+}
+void Ghost::turnArround()
+{
+    switch (dir) {
+    case UP:
+        setDirectin(DOWN);
+        break;
+    case DOWN:
+        setDirectin(UP);
+        break;
+    case LEFT:
+        setDirectin(RIGHT);
+        break;
+    case RIGHT:
+        setDirectin(LEFT);
+        break;
+    default:
+        break;
+    }
+}
+ 
+
+
+
 Ghost::Ghost(double x, double y, std::string name, Type ghostType)
     : Entity(x, y, name), frightened(false), timeOut(0)
 {
+    //set target home pos
+    switch (ghostType) {
+    case INKY:
+        HomeX = 27;
+        HomeY = 26;
+        break;
+    case PINKY:
+        HomeX = 0;
+        HomeY = 0;
+        break;
+    case CLYDE:
+        HomeX = 0;
+        HomeY = 26;
+        break;
+    case BLINKY:
+        HomeX = 27;
+        HomeY = 0;
+        break;
+    default:
+        HomeX = 10;
+        HomeY = 10;
+        break;
+    }
     setType(ghostType);
 }
 
-void Ghost::Behaviour(int PacX, int PacY, Direction PacDir) {
+void Ghost::Behaviour(int PacX, int PacY, int BlinkyX, int BlinkyY, Direction PacDir, char Behaviour) {
+    switch (Behaviour) {
+    case 's': //scatter
+        //ghost tries to move to its home 
+        determineBestMove(HomeX, HomeY);
+        break;
+    case 'f': //frightened
+        //Ghost turns arround
+        turnArround();
+        //Ghost moves random at intersec
+        break;
+    case 'c': //chase
+        //Ghost turns arround
+        switch (type) {
+        case BLINKY:
+            determineBestMove(PacX, PacY);
+            break;
+        case PINKY:
+            int targetX, targetY;
+            switch (PacDir) {
+            case UP:
+                targetY = PacY - 4;
+                targetX = PacX - 4;
+                break;
+            case DOWN:
+                targetY = PacY + 4;
+                targetX = PacX;
+                break;
+            case LEFT:
+                targetY = PacY;
+                targetX = PacX - 4;
+                break;
+            case RIGHT:
+                targetY = PacY;
+                targetX = PacX + 4;
+                break;
+            default:
+                break;
+            }
+            determineBestMove(targetX, targetY);
+            break;
+        case INKY:
+            //determine target like for pinky with offset of 2
+            int targetX, targetY, finalX, finalY;
+            switch (PacDir) {
+            case UP:
+                targetY = PacY - 2;
+                targetX = PacX - 2;
+                break;
+            case DOWN:
+                targetY = PacY + 2;
+                targetX = PacX;
+                break;
+            case LEFT:
+                targetY = PacY;
+                targetX = PacX - 2;
+                break;
+            case RIGHT:
+                targetY = PacY;
+                targetX = PacX + 2;
+                break;
+            default:
+                break;
+            }
+            //vector to Blinky
+            
+            //turn vector arround
+            //end of vector is final target pos
+            //determineBestMove(finalX, finalY);
+            break;
+        case CLYDE:
+            int distance = 0;
+            //determine distance to pacman
+            if (distance < 8) {
+                //determineBestMove(homeX, homeY);
+            } else {
+                //determineBestMove(PacX, PacY);
+            }
+            break;
+        default:
+            break;
+        }
+        break;
+    case 'e': //eaten
+        //ghost moves back to base because it was eaten
+        break;
+    default:
+        break;
+    }
 } // needs implementation
 
 bool Ghost::getFrightened() { return frightened; }
