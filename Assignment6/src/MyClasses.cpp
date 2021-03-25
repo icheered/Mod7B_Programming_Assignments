@@ -129,21 +129,24 @@ bool Entity::canRotate(Direction direc)
     if(abs(floor(getY()) - getY()) < abs(ceil(getY()) - getY())) {diffY = abs(floor(getY()) - getY());}
     else {diffY = abs(ceil(getY()) - getY());}
 
-
+    
     // std::cout << "FloorX: " << abs(floor(getX()) - getX()) << ", CeilX: " << abs(ceil(getX()) - getX()) << std::endl;
     // std::cout << "FloorY: " << abs(floor(getY()) - getY()) << ", CeilY: " << abs(ceil(getY()) - getY()) << std::endl;
     //std::cout << "DiffX: " << diffX << ", DiffY: " << diffY << std::endl;
     switch(direc){
-        case 0: {
+        case UP: {
+            
             if(diffX < epsilon)
             {
                 int xTile;
                 if(abs(floor(getX()) - getX()) < abs(ceil(getX()) - getX())) {xTile = floor(getX());}
                 else {xTile = ceil(getX());}
+                
 
                 if((*map)[floor(getY()-getSpeed())][xTile] != 1)
                 {
                     //std::cout << "Rotating UP" << std::endl;
+                    std::cout << "3" << std::endl;
                     return true;
                 }
                 else {
@@ -347,6 +350,7 @@ int Ghost::vectorLen(int x1, int y1, int x2, int y2)
 void Ghost::determineBestMove(int targetX, int targetY) {
     int shortestLength = 1000;
     Direction moveToDir = UP;
+    
     //find the best possible move for the ghost to its target, because of the order it also choses the prefered movement if there are same lengths
     if (canRotate(RIGHT) && getDirection() != LEFT) {// rightLen
         if (shortestLength >= vectorLen(getX() + 1, getY(), targetX, targetY)) {
@@ -365,12 +369,14 @@ void Ghost::determineBestMove(int targetX, int targetY) {
             shortestLength = vectorLen(getX() - 1, getY(), targetX, targetY);
             moveToDir = LEFT;
         }
-    }                                            
-    if (canRotate(UP) && getDirection() != DOWN) // upLen
+    }                  
+
+    if (canRotate(UP) && getDirection() != DOWN) {// upLen
         if (shortestLength >= vectorLen(getX(), getY()-1, targetX, targetY)) {
             shortestLength = vectorLen(getX(), getY()-1, targetX, targetY);
             moveToDir = UP;
         }
+    }
     setDirectin(moveToDir);
     move();
 }
@@ -401,35 +407,58 @@ Ghost::Ghost(double x, double y, std::string name, Type ghostType)
     : Entity(x, y, name), frightened(false), timeOut(0)
 {
     //set target home pos
+    // switch (ghostType) {
+    // case INKY:
+    //     HomeX = 27;
+    //     HomeY = 26;
+    //     break;
+    // case PINKY:
+    //     HomeX = 0;
+    //     HomeY = 0;
+    //     break;
+    // case CLYDE:
+    //     HomeX = 0;
+    //     HomeY = 26;
+    //     break;
+    // case BLINKY:
+    //     HomeX = 27;
+    //     HomeY = 0;
+    //     break;
+    // default:
+    //     HomeX = 10;
+    //     HomeY = 10;
+    //     break;
+    // }
     switch (ghostType) {
     case INKY:
-        HomeX = 27;
-        HomeY = 26;
+        HomeX = 1;
+        HomeY = 1;
         break;
     case PINKY:
-        HomeX = 0;
-        HomeY = 0;
+        HomeX = 1;
+        HomeY = 1;
         break;
     case CLYDE:
-        HomeX = 0;
-        HomeY = 26;
+        HomeX = 1;
+        HomeY = 1;
         break;
     case BLINKY:
-        HomeX = 27;
-        HomeY = 0;
+        HomeX = 1;
+        HomeY = 1;
         break;
     default:
-        HomeX = 10;
-        HomeY = 10;
+        HomeX = 1;
+        HomeY = 1;
         break;
     }
     setType(ghostType);
 }
 
 void Ghost::Behaviour(int PacX, int PacY, int BlinkyX, int BlinkyY, Direction PacDir, char Behaviour) {
+    
     switch (Behaviour) {
     case 's': //scatter
-        //ghost tries to move to its home 
+        //ghost tries to move to its home
         determineBestMove(HomeX, HomeY);
         break;
     case 'f': //frightened

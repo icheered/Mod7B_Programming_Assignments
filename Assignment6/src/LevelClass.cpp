@@ -12,9 +12,21 @@ LevelClass::LevelClass(std::vector<std::vector<int>> *newmap, std::vector<std::v
 
     // Create ghosts, pass their behaviour/name as argument
     Ghost blinky(ghostSpawns[0][0], ghostSpawns[0][1], "blinky", BLINKY);
+    blinky.setSpeed(0.05);
+    blinky.setMap(map);
+    blinky.setEpsilon(epsilon);
     Ghost pinky(ghostSpawns[1][0], ghostSpawns[1][1], "pinky", PINKY);
+    pinky.setSpeed(0.05);
+    pinky.setMap(map);
+    pinky.setEpsilon(epsilon);
     Ghost inky(ghostSpawns[2][0], ghostSpawns[2][1], "inky", INKY);
+    inky.setSpeed(0.05);
+    inky.setMap(map);
+    inky.setEpsilon(epsilon);
     Ghost clyde(ghostSpawns[3][0], ghostSpawns[3][1], "clyde", CLYDE);
+    clyde.setSpeed(0.05);
+    clyde.setMap(map);
+    clyde.setEpsilon(epsilon);
 
     ghosts.push_back(blinky);
     ghosts.push_back(pinky);
