@@ -77,7 +77,7 @@ class Ghost : public Entity
     int timeOut; //subject to change, maybe bool is suited better later on
   public:
     Ghost(double x, double y, std::string name, Type ghostType);
-    void Behaviour(); //quite complex, still has to be overriden.
+    void Behaviour(int PacX, int PacY, Direction PacDir); //quite complex, still has to be overriden.
     bool getFrightened();
     void setFrightened(bool newHuntStatus);
     void setTimeout(int newTimeout);

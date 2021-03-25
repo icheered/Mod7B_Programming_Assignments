@@ -280,7 +280,8 @@ Ghost::Ghost(double x, double y, std::string name, Type ghostType)
     setType(ghostType);
 }
 
-void Ghost::Behaviour() {} // needs implementation
+void Ghost::Behaviour(int PacX, int PacY, Direction PacDir) {
+} // needs implementation
 
 bool Ghost::getFrightened() { return frightened; }
 
