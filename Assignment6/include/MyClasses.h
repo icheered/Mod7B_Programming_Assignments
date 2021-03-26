@@ -74,6 +74,7 @@ class Ghost : public Entity
 {
   private:
       //corners are (0,0) (0, 26) (27,0) (27,26)
+    char lastBehaviour = 's';
     int HomeX, HomeY;
     bool frightened, eaten;
     int timeOut; //subject to change, maybe bool is suited better later on
