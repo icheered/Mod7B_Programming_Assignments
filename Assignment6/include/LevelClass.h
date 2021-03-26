@@ -12,7 +12,6 @@ private:
     std::vector<Ghost> ghosts;
     std::vector<std::vector<int>> *map;
     double epsilon = 0.001;
-    bool scatter = true;
     bool restart = false;
     bool extraLife = false;
     int dots, score, lives;
