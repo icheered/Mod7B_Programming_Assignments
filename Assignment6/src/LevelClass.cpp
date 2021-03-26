@@ -178,9 +178,9 @@ void LevelClass::checkCollision() {
     if((*map)[round(py)][round(px)] == 4) { score += 100; (*map)[round(py)][round(px)] = 0;} // Cherry
     if((*map)[round(py)][round(px)] == 5) { score += 200; (*map)[round(py)][round(px)] = 0;} // Strawberry
     if((*map)[round(py)][round(px)] == 6) { score += 300; (*map)[round(py)][round(px)] = 0;} // Orange
-    if((*map)[round(py)][round(px)] == 8) { score += 500; (*map)[round(py)][round(px)] = 0;} // Lemon
-    if((*map)[round(py)][round(px)] == 7) { score += 700; (*map)[round(py)][round(px)] = 0;} // Apple
-    if((*map)[round(py)][round(px)] == 8) { score += 1000; (*map)[round(py)][round(px)] = 0;} // Grapes
+    if((*map)[round(py)][round(px)] == 7) { score += 500; (*map)[round(py)][round(px)] = 0;} // Lemon
+    if((*map)[round(py)][round(px)] == 8) { score += 700; (*map)[round(py)][round(px)] = 0;} // Apple
+    if((*map)[round(py)][round(px)] == 9) { score += 1000; (*map)[round(py)][round(px)] = 0;} // Grapes
 
     
     
@@ -193,6 +193,6 @@ void LevelClass::gameWon(){
 
 void LevelClass::spawnFruit() {
     std::cout << "Spawn fruit" << std::endl;
-    int fruit = rand() % 6 + 3;
+    int fruit = rand() % 6 + 4;
     (*map)[15][13] = fruit;
 }
