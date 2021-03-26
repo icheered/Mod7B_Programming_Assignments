@@ -51,6 +51,7 @@ Uint32 gameUpdate(Uint32 interval, void * params)
 /// Program entry point.
 int main(int /*argc*/, char ** /*argv*/)
 {
+    srand (time(NULL));
     int a = 3;
     int b = a;
 

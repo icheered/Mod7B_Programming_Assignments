@@ -304,6 +304,42 @@ void UI::drawBackground(std::vector<std::vector<int>> *map)
                                 TILESIZE};
                 SDL_RenderCopy(renderer, sheet, &clips[DOT][DOWN], &dst);
             }
+            else if((*map)[i][j] == 4) {
+                SDL_Rect dst = {static_cast<int>(j) * TILESIZE,
+                                static_cast<int>(i) * TILESIZE, TILESIZE,
+                                TILESIZE};
+                SDL_RenderCopy(renderer, sheet, &clips[CHERRY][DOWN], &dst);
+            }
+            else if((*map)[i][j] == 5) {
+                SDL_Rect dst = {static_cast<int>(j) * TILESIZE,
+                                static_cast<int>(i) * TILESIZE, TILESIZE,
+                                TILESIZE};
+                SDL_RenderCopy(renderer, sheet, &clips[STRAWBERRY][DOWN], &dst);
+            }
+            else if((*map)[i][j] == 6) {
+                SDL_Rect dst = {static_cast<int>(j) * TILESIZE,
+                                static_cast<int>(i) * TILESIZE, TILESIZE,
+                                TILESIZE};
+                SDL_RenderCopy(renderer, sheet, &clips[ORANGE][DOWN], &dst);
+            }
+            else if((*map)[i][j] == 7) {
+                SDL_Rect dst = {static_cast<int>(j) * TILESIZE,
+                                static_cast<int>(i) * TILESIZE, TILESIZE,
+                                TILESIZE};
+                SDL_RenderCopy(renderer, sheet, &clips[LEMON][DOWN], &dst);
+            }
+            else if((*map)[i][j] == 8) {
+                SDL_Rect dst = {static_cast<int>(j) * TILESIZE,
+                                static_cast<int>(i) * TILESIZE, TILESIZE,
+                                TILESIZE};
+                SDL_RenderCopy(renderer, sheet, &clips[APPLE][DOWN], &dst);
+            }
+            else if((*map)[i][j] == 9) {
+                SDL_Rect dst = {static_cast<int>(j) * TILESIZE,
+                                static_cast<int>(i) * TILESIZE, TILESIZE,
+                                TILESIZE};
+                SDL_RenderCopy(renderer, sheet, &clips[GRAPES][DOWN], &dst);
+            }
         }
     }
 }

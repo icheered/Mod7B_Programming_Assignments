@@ -16,6 +16,7 @@ private:
     bool extraLife = false;
     int dots, score, lives;
 
+
     void start();
         // set score 0
         // set dots active
@@ -45,6 +46,8 @@ private:
         // dots--
         // if dots == 0
             // gameWon()
+        
+    void spawnFruit();
 
     void gameWon();
         // Display message
