@@ -426,6 +426,7 @@ void Ghost::turnArround()
 
 void Ghost::randomDirection()
 {
+    Direction moveToDir;
     std::default_random_engine generator;
     std::vector<Direction> possibleDirs;
     int test = -1;
@@ -445,8 +446,12 @@ void Ghost::randomDirection()
         possibleDirs.push_back(UP);
         test++;
     }
+    if (test > 0) {
     std::uniform_int_distribution<int> distribution(0, test);
-    Direction moveToDir = possibleDirs.at(distribution(generator));
+    moveToDir = possibleDirs.at(distribution(generator));
+    } else {
+    moveToDir = possibleDirs.at(0);
+    }
     setDirectin(moveToDir);
     move();
 }

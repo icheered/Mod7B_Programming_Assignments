@@ -139,12 +139,16 @@ int main(int /*argc*/, char ** /*argv*/)
                     quit = true;
             }
         }
-
+        //restart Level
         if(level.getRestart()) {
             map = initialMap;
             dots = initialDots;
             level = LevelClass(&map, ghostSpawns, dots);
         }
+
+        //add one extra life when player hits 10k points
+        if (!level.getExtraLife())
+            level.setExtraLife();
 
         // Set the score
         ui.setScore(level.getScore()); // <-- Pass correct value to the setter

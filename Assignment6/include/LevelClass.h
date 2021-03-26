@@ -7,13 +7,14 @@ class LevelClass
 {
 private:
     int scatterCount = 0;
+    bool scatter = true;
     Pacman pacman = Pacman(13,15,"pacman");
     std::vector<Ghost> ghosts;
     std::vector<std::vector<int>> *map;
     double epsilon = 0.001;
     bool scatter = true;
     bool restart = false;
-
+    bool extraLife = false;
     int dots, score, lives;
 
     void start();
@@ -60,7 +61,8 @@ public:
     int getLives();
 
     bool getRestart();
-
+    bool getExtraLife();
+    void setExtraLife();
     void move();
     void handleInput(Direction direc);
         // Check if not moving into a wall
