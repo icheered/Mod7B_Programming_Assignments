@@ -1,3 +1,11 @@
+//==============================================================
+// Filename : MyCLasses.h
+// Authors : Tjeerd Bakker and Soenke van Loh
+// Version : 1
+// License :
+// Description : Interfaces for classes Entity, Pacman and Ghost
+//==============================================================
+
 #pragma once
 #include "GameObjectStruct.h"
 #include "string"

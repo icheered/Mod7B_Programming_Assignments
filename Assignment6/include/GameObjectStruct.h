@@ -6,6 +6,14 @@
  *      Author: frits
  *       Group: TA's
  */
+//altered by:
+//==============================================================
+// Filename : GameObjectStruct.h
+// Authors : Tjeerd Bakker and Soenke van Loh
+// Version : 1
+// License :
+// Description : changed the positions from ints to doubles for smoother game experience
+//==============================================================
 
 #ifndef SRC_GAMEOBJECTSTRUCT_H
 #define SRC_GAMEOBJECTSTRUCT_H

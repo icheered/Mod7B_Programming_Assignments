@@ -5,7 +5,16 @@
  *  Created on: Jan 29, 2015
  *      Author:
  *       Group:
- */
+ */ 
+//altered by:
+//==============================================================
+// Filename : main.cpp
+// Authors : Tjeerd Bakker and Soenke van Loh
+// Version : 1
+// License :
+// Description : changes in the given main.cpp in order to use the functionality that was written for the pacman game from our own files
+//==============================================================
+
 
 #include "GameObjectStruct.h"
 #include "LevelClass.h"
