@@ -565,23 +565,48 @@ void Ghost::Behaviour(int PacX, int PacY, int BlinkyX, int BlinkyY, Direction Pa
 
 bool Ghost::getFrightened() { return frightened; }
 
-void Ghost::setFrightened(bool newHuntStatus) { 
+void Ghost::setFrightened(bool newHuntStatus) 
+{ 
     frightened = newHuntStatus;
-    if(frightened) type = SCARED;
-
+    if(frightened) { 
+        type = SCARED;
+        // Change behaviour pattern
+        // Change speed
     }
+    else{
+        if(getName() == "blinky") {setType(BLINKY);}
+        if(getName() == "pinky") {setType(PINKY);}
+        if(getName() == "inky") {setType(INKY);}
+        if(getName() == "clyde") {setType(CLYDE);}
+    }
+}
 
 void Ghost::setTimeout(int newTimeout) { timeOut = newTimeout; }
+
+void Ghost::decrementTimeout()
+{
+    timeOut--;
+    if(timeOut == 0) {
+        setFrightened(false);
+    }
+    else if(timeOut % 10 == 0) {
+        if(getType() == SCARED) {setType(SCAREDINV);}
+        else if(getType() == SCAREDINV) {setType(SCARED);}
+    }
+}
 
 int Ghost::getTimeout() { return timeOut; }
 
 void Ghost::die() { 
-    type = SCAREDINV;
     setPos(getSpawnX(), getSpawnY()); 
+    setFrightened(false);
+    setTimeout(0);
 }
 
 void Ghost::move()
 {
+    if(getFrightened()) { decrementTimeout(); }
+
     Direction direc = getDirection();
     std::cout << "Ghostx = " << getX() << ", Ghosty = " << getY() << std::endl;
     if (canMove(direc)) {

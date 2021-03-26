@@ -87,6 +87,7 @@ void LevelClass::ateEnergizer() {
     score += pacman.eatPowerup();
     for (auto &g : ghosts) {
         g.setFrightened(true);
+        g.setTimeout(100);
     }
 }
 

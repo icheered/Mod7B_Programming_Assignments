@@ -89,6 +89,7 @@ class Ghost : public Entity
     bool getFrightened();
     void setFrightened(bool newHuntStatus);
     void setTimeout(int newTimeout);
+    void decrementTimeout();
     int getTimeout();
     void die() override;
     void move() override;
