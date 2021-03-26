@@ -13,7 +13,7 @@ private:
     std::vector<std::vector<int>> *map;
     double epsilon = 0.001;
     bool restart = false;
-
+    bool extraLife = false;
     int dots, score, lives;
 
     void start();
@@ -60,7 +60,8 @@ public:
     int getLives();
 
     bool getRestart();
-
+    bool getExtraLife();
+    void setExtraLife();
     void move();
     void handleInput(Direction direc);
         // Check if not moving into a wall

@@ -39,7 +39,16 @@ LevelClass::LevelClass(std::vector<std::vector<int>> *newmap, std::vector<std::v
 }
 
 bool LevelClass::getRestart() {
-    return restart;
+    return restart; }
+
+bool LevelClass::getExtraLife() { return extraLife; }
+
+void LevelClass::setExtraLife()
+{
+    if (getScore() > 10000) {
+        extraLife = true;
+        pacman.extraLife();
+    }
 }
 
 void LevelClass::move(){
