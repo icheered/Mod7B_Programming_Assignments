@@ -44,13 +44,12 @@ public:
   void setEpsilon(double newEpsilon);
   void setMap(std::vector<std::vector<int>> *newmap);
   bool canMove(Direction direc);  // Checks if entity can move in the current facing direction
-  bool canRotate(Direction direc);// Checks if entity can move in the current facing direction
-  virtual void move(); //maybe needs more input later on, will be implemented later
+  bool canRotate(Direction direc);// Checks if entity can move in the desired facing direction
+  virtual void move(); 
   int getSpawnY();
   int getSpawnX();
   void setSpawn(int newX, int newY);
   virtual void die();
-  //Type Collision(); //subject to change as tjeerd is designing it, only placeholder propably not called in entity anyway
 };
 
 class Pacman : public Entity

@@ -333,6 +333,7 @@ int Pacman::eatFruit(Type fruitEaten)
 int Pacman::eatPowerup()
 {
     chungus = true;
+    setSpeed(0.5);
     return 50;
 }
 
@@ -430,6 +431,7 @@ void Ghost::randomDirection()
     std::default_random_engine generator;
     std::vector<Direction> possibleDirs;
     int test = -1;
+    std::cout << getDirection() << std::endl;
     if (canRotate(RIGHT) && getDirection() != LEFT && getDirection() != LEFTA) { // rightLen
         possibleDirs.push_back(RIGHT);
         test++;
@@ -447,10 +449,10 @@ void Ghost::randomDirection()
         test++;
     }
     if (test > 0) {
-    std::uniform_int_distribution<int> distribution(0, test);
-    moveToDir = possibleDirs.at(distribution(generator));
+        std::uniform_int_distribution<int> distribution(0, test);
+        moveToDir = possibleDirs.at(distribution(generator));
     } else {
-    moveToDir = possibleDirs.at(0);
+        moveToDir = possibleDirs.at(0);
     }
     setDirectin(moveToDir);
     move();
@@ -598,7 +600,7 @@ void Ghost::setFrightened(bool newHuntStatus)
     frightened = newHuntStatus;
     if(frightened) { 
         type = SCARED;
-        setSpeed(0.15);
+        setSpeed(0.25);
         // Change behaviour pattern
         // Change speed
     }
@@ -614,7 +616,8 @@ void Ghost::setTimeout(int newTimeout) { timeOut = newTimeout; }
 
 void Ghost::decrementTimeout()
 {
-    timeOut--;
+    if(timeOut) { timeOut--; }
+    
     if(timeOut == 0) {
         setFrightened(false);
     }
@@ -637,7 +640,7 @@ void Ghost::move()
 {   
     if(getFrightened()) { decrementTimeout(); }
 
-    int animationInterval = 10;
+    unsigned int animationInterval = 3;
     Direction direc = getDirection();
     //std::cout << "x = " << getX() << ", y = " << getY() << std::endl;
     if(canMove(direc)) {
@@ -664,7 +667,7 @@ void Ghost::move()
                 if(frameCounter % animationInterval == 0) 
                 {
                     if(direc == LEFT) { setDirectin(LEFTA); }
-                    else { setDirectin(LEFT);
+                    else { setDirectin(LEFT); }
                 }
             } break;
             case RIGHT: case RIGHTA: {
@@ -677,5 +680,4 @@ void Ghost::move()
             } break;
         }
     }
-}
 }

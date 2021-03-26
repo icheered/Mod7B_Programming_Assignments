@@ -184,7 +184,7 @@ void UI::loadMaps()
 
     std::map<Direction, SDL_Rect> scared;
     scared[UP] = {o + size * 12, o + size * 6, size, size};
-    scared[UPA] = {o + size * 12, o + size * 6, size, size};
+    scared[UPA] = scared[UP];
     scared[DOWN] = scared[UP];
     scared[DOWNA] = scared[UP];
     scared[LEFT] = scared[UP];
@@ -195,7 +195,7 @@ void UI::loadMaps()
 
     std::map<Direction, SDL_Rect> scaredinv;
     scaredinv[UP] = {o + size * 4, o + size * 11, size, size};
-    scaredinv[UPA] = {o + size * 4, o + size * 11, size, size};
+    scaredinv[UPA] = scaredinv[UP];
     scaredinv[DOWN] = scaredinv[UP];
     scaredinv[DOWNA] = scaredinv[UP];
     scaredinv[LEFT] = scaredinv[UP];
@@ -270,9 +270,13 @@ void UI::loadMaps()
     for (int i = 0; i < 10; i++) {
         std::map<Direction, SDL_Rect> nr;
         nr[UP] = {o + (size / 2) * i, o + 1 + size * 0, size / 2, size / 2};
+        nr[UPA] = nr[UP];
         nr[DOWN] = nr[UP];
+        nr[DOWNA] = nr[UP];
         nr[LEFT] = nr[UP];
+        nr[LEFTA] = nr[UP];
         nr[RIGHT] = nr[UP];
+        nr[RIGHTA] = nr[UP];
         clips[(Type)(ZERO + i)] = nr;
     }
 }
