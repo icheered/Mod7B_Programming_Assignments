@@ -7,7 +7,6 @@
 #include <random>
 
 
-
 class Entity : public GameObjectStruct //class extends struct, there should be imlicit conv, structs are fully public
 {
 //from the GameObjectStruct:

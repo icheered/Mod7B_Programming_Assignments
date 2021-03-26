@@ -53,6 +53,7 @@ void LevelClass::setExtraLife()
 
 void LevelClass::move(){
     pacman.move();
+
     for (auto &g : ghosts) {
         if (g.getFrightened()) {
             g.Behaviour(pacman.getX(), pacman.getY(), ghosts[0].getX(),
@@ -75,9 +76,7 @@ void LevelClass::move(){
 }
 
 void LevelClass::handleInput(Direction direc){
-    //std::cout << "Direction: " << direc << std::endl;
     if(pacman.canRotate(direc)) { pacman.setDirectin(direc); }
-    //else {std::cout<<"Can't" << std::endl;}
 }
 
 std::vector<GameObjectStruct> LevelClass::getObjects(){
@@ -141,9 +140,6 @@ void LevelClass::checkCollision() {
     for (auto &g : ghosts) { 
         if( px + 1 > g.x && g.x + 1 > px ){
             if( py + 1 > g.y && g.y + 1 > py ){
-                // Pacman collides with ghost
-                // Check if Pacman is bigChungus
-                //std::cout << "Ghost Collision" << std::endl;
                 LevelClass::hitGhost(g);
             }
         }
