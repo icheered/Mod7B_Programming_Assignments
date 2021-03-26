@@ -46,7 +46,7 @@ bool Entity::canMove(Direction direc)
     else {diffY = abs(ceil(getY()) - getY());}
 
     switch(direc){
-        case UP: {
+        case UP:case UPA: {
             
             if(diffX < epsilon){
                 int xTile;
@@ -64,7 +64,7 @@ bool Entity::canMove(Direction direc)
                 }
             } else { return false; }
         } break;
-        case DOWN: {
+        case DOWN:case DOWNA: {
             if(diffX < epsilon){
                 int xTile;
                 if(abs(floor(getX()) - getX()) < abs(ceil(getX()) - getX())) {xTile = floor(getX());}
@@ -82,7 +82,7 @@ bool Entity::canMove(Direction direc)
                 } 
             } else { return false; }
         } break;
-        case LEFT: {
+        case LEFT:case LEFTA: {
             if(diffY < epsilon){
                 int yTile;
                 if(abs(floor(getY()) - getY()) < abs(ceil(getY()) - getY())) {yTile = floor(getY());}
@@ -100,7 +100,7 @@ bool Entity::canMove(Direction direc)
                 } 
             } else { return false; }
         } break;
-        case RIGHT: {
+        case RIGHT:case RIGHTA: {
             if(diffY < epsilon){
                 int yTile;
                 if(abs(floor(getY()) - getY()) < abs(ceil(getY()) - getY())) {yTile = floor(getY());}
@@ -134,7 +134,7 @@ bool Entity::canRotate(Direction direc)
     // std::cout << "FloorY: " << abs(floor(getY()) - getY()) << ", CeilY: " << abs(ceil(getY()) - getY()) << std::endl;
     //std::cout << "DiffX: " << diffX << ", DiffY: " << diffY << std::endl;
     switch(direc){
-        case UP: {
+        case UP:case UPA: {
             
             if(diffX < epsilon)
             {
@@ -155,7 +155,7 @@ bool Entity::canRotate(Direction direc)
                 }
             } else {return false;}
         } break;
-        case DOWN: {
+        case DOWN:case DOWNA: {
             if(diffX < epsilon)
             {
                 int xTile;
@@ -173,7 +173,7 @@ bool Entity::canRotate(Direction direc)
                 }
             } else {return false;}
         } break;
-        case LEFT: {
+        case LEFT:case LEFTA: {
             if(diffY < epsilon)
             {
                 int yTile;
@@ -191,7 +191,7 @@ bool Entity::canRotate(Direction direc)
                 }
             } else {return false;}
         } break;
-        case RIGHT: {
+        case RIGHT:case RIGHTA: {
             if(diffY < epsilon)
             {
                 int yTile;
@@ -252,7 +252,7 @@ Pacman::Pacman(double x, double y, std::string name)
 
 void Pacman::move()
 {
-    int animationInterval = 10;
+    int animationInterval = 2;
     Direction direc = getDirection();
     //std::cout << "x = " << getX() << ", y = " << getY() << std::endl;
     if(canMove(direc)) {
@@ -260,7 +260,7 @@ void Pacman::move()
         switch(direc){
             case UP: case UPA: {
                 setY(getY()-getSpeed());
-                if(frameCounter % animationInterval) 
+                if(frameCounter % animationInterval == 0) 
                 {
                     if(direc == UP) { setDirectin(UPA); }
                     else { setDirectin(UP); }
@@ -268,7 +268,7 @@ void Pacman::move()
             } break;
             case DOWN: case DOWNA: {
                 setY(getY()+getSpeed());
-                if(frameCounter % animationInterval) 
+                if(frameCounter % animationInterval == 0) 
                 {
                     if(direc == DOWN) { setDirectin(DOWNA); }
                     else { setDirectin(DOWN); }
@@ -276,7 +276,7 @@ void Pacman::move()
             } break;
             case LEFT: case LEFTA: {
                 setX(getX()-getSpeed());
-                if(frameCounter % animationInterval) 
+                if(frameCounter % animationInterval == 0) 
                 {
                     if(direc == LEFT) { setDirectin(LEFTA); }
                     else { setDirectin(LEFT);
@@ -284,7 +284,7 @@ void Pacman::move()
             } break;
             case RIGHT: case RIGHTA: {
                 setX(getX()+getSpeed());
-                if(frameCounter % animationInterval) 
+                if(frameCounter % animationInterval == 0) 
                 {
                     if(direc == RIGHT) { setDirectin(RIGHTA); }
                     else { setDirectin(RIGHT); }
@@ -375,27 +375,27 @@ void Ghost::determineBestMove(int targetX, int targetY) {
     Direction moveToDir = UP;
     
     //find the best possible move for the ghost to its target, because of the order it also choses the prefered movement if there are same lengths
-    if (canRotate(RIGHT) && getDirection() != LEFT) {// rightLen
+    if (canRotate(RIGHT) && getDirection() != LEFT && getDirection() != LEFTA) {// rightLen
         
         if (shortestLength >= vectorLen(getX() + 1, getY(), targetX, targetY)) {
             shortestLength = vectorLen(getX() + 1, getY(), targetX, targetY);
             moveToDir = RIGHT;
         }
     }                                                    
-    if (canRotate(DOWN) && getDirection() != UP) {// downLen
+    if (canRotate(DOWN) && getDirection() != UP && getDirection() != UPA) {// downLen
         if (shortestLength >= vectorLen(getX(), getY()+1, targetX, targetY)) {
             shortestLength = vectorLen(getX(), getY()+1, targetX, targetY);
             moveToDir = DOWN;
         }
     }                                                
-    if (canRotate(LEFT) && getDirection() != RIGHT) {// leftLen
+    if (canRotate(LEFT) && getDirection() != RIGHT && getDirection() != RIGHTA) {// leftLen
         if (shortestLength >= vectorLen(getX() - 1, getY(), targetX, targetY)) {
             shortestLength = vectorLen(getX() - 1, getY(), targetX, targetY);
             moveToDir = LEFT;
         }
     }                  
 
-    if (canRotate(UP) && getDirection() != DOWN) {// upLen
+    if (canRotate(UP) && getDirection() != DOWN && getDirection() != DOWNA) {// upLen
         if (shortestLength >= vectorLen(getX(), getY() -1, targetX, targetY)) {
             shortestLength = vectorLen(getX(), getY() -1, targetX, targetY);
             moveToDir = UP;
@@ -407,16 +407,16 @@ void Ghost::determineBestMove(int targetX, int targetY) {
 void Ghost::turnArround()
 {
     switch (dir) {
-    case UP:
+    case UP: case UPA:
         setDirectin(DOWN);
         break;
-    case DOWN:
+    case DOWN: case DOWNA:
         setDirectin(UP);
         break;
-    case LEFT:
+    case LEFT: case LEFTA:
         setDirectin(RIGHT);
         break;
-    case RIGHT:
+    case RIGHT: case RIGHTA:
         setDirectin(LEFT);
         break;
     default:
@@ -429,19 +429,19 @@ void Ghost::randomDirection()
     std::default_random_engine generator;
     std::vector<Direction> possibleDirs;
     int test = -1;
-    if (canRotate(RIGHT) && getDirection() != LEFT) { // rightLen
+    if (canRotate(RIGHT) && getDirection() != LEFT && getDirection() != LEFTA) { // rightLen
         possibleDirs.push_back(RIGHT);
         test++;
     }
-    if (canRotate(DOWN) && getDirection() != UP) { // downLen
+    if (canRotate(DOWN) && getDirection() != UP && getDirection() != UPA) { // downLen
         possibleDirs.push_back(DOWN);
         test++;
     }
-    if (canRotate(LEFT) && getDirection() != RIGHT) { // leftLen
+    if (canRotate(LEFT) && getDirection() != RIGHT && getDirection() != RIGHTA) { // leftLen
         possibleDirs.push_back(LEFT);
         test++;
     }
-    if (canRotate(UP) && getDirection() != DOWN) { // upLen
+    if (canRotate(UP) && getDirection() != DOWN && getDirection() != DOWNA) { // upLen
         possibleDirs.push_back(UP);
         test++;
     }
@@ -505,19 +505,19 @@ void Ghost::Behaviour(int PacX, int PacY, int BlinkyX, int BlinkyY, Direction Pa
         case PINKY:
             int targetX, targetY;
             switch (PacDir) {
-            case UP:
+            case UP:case UPA:
                 targetY = PacY - 4;
                 targetX = PacX - 4;
                 break;
-            case DOWN:
+            case DOWN: case DOWNA:
                 targetY = PacY + 4;
                 targetX = PacX;
                 break;
-            case LEFT:
+            case LEFT: case LEFTA:
                 targetY = PacY;
                 targetX = PacX - 4;
                 break;
-            case RIGHT:
+            case RIGHT: case RIGHTA:
                 targetY = PacY;
                 targetX = PacX + 4;
                 break;
@@ -532,19 +532,19 @@ void Ghost::Behaviour(int PacX, int PacY, int BlinkyX, int BlinkyY, Direction Pa
             //determine target like for pinky with offset of 2
             int pretargetX, pretargetY, finalX, finalY;
             switch (PacDir) {
-            case UP:
+            case UP: case UPA:
                 pretargetY = PacY - 2;
                 pretargetX = PacX - 2;
                 break;
-            case DOWN:
+            case DOWN: case DOWNA:
                 pretargetY = PacY + 2;
                 pretargetX = PacX;
                 break;
-            case LEFT:
+            case LEFT: case LEFTA:
                 pretargetY = PacY;
                 pretargetX = PacX - 2;
                 break;
-            case RIGHT:
+            case RIGHT: case RIGHTA:
                 pretargetY = PacY;
                 pretargetX = PacX + 2;
                 break;
@@ -593,6 +593,7 @@ void Ghost::setFrightened(bool newHuntStatus)
     frightened = newHuntStatus;
     if(frightened) { 
         type = SCARED;
+        setSpeed(0.15);
         // Change behaviour pattern
         // Change speed
     }
@@ -623,29 +624,53 @@ int Ghost::getTimeout() { return timeOut; }
 void Ghost::die() { 
     setPos(getSpawnX(), getSpawnY()); 
     setFrightened(false);
+    setSpeed(0.25);
     setTimeout(0);
 }
 
 void Ghost::move()
-{
+{   
     if(getFrightened()) { decrementTimeout(); }
 
+    int animationInterval = 10;
     Direction direc = getDirection();
-    std::cout << "Ghostx = " << getX() << ", Ghosty = " << getY() << std::endl;
-    if (canMove(direc)) {
-        switch (direc) {
-        case UP: {
-            setY(getY() - getSpeed());
-        } break;
-        case DOWN: {
-            setY(getY() + getSpeed());
-        } break;
-        case LEFT: {
-            setX(getX() - getSpeed());
-        } break;
-        case RIGHT: {
-            setX(getX() + getSpeed());
-        } break;
+    //std::cout << "x = " << getX() << ", y = " << getY() << std::endl;
+    if(canMove(direc)) {
+        frameCounter++;
+        switch(direc){
+            case UP: case UPA: {
+                setY(getY()-getSpeed());
+                if(frameCounter % animationInterval == 0) 
+                {
+                    if(direc == UP) { setDirectin(UPA); }
+                    else { setDirectin(UP); }
+                }
+            } break;
+            case DOWN: case DOWNA: {
+                setY(getY()+getSpeed());
+                if(frameCounter % animationInterval == 0) 
+                {
+                    if(direc == DOWN) { setDirectin(DOWNA); }
+                    else { setDirectin(DOWN); }
+                }
+            } break;
+            case LEFT: case LEFTA: {
+                setX(getX()-getSpeed());
+                if(frameCounter % animationInterval == 0) 
+                {
+                    if(direc == LEFT) { setDirectin(LEFTA); }
+                    else { setDirectin(LEFT);
+                }
+            } break;
+            case RIGHT: case RIGHTA: {
+                setX(getX()+getSpeed());
+                if(frameCounter % animationInterval == 0) 
+                {
+                    if(direc == RIGHT) { setDirectin(RIGHTA); }
+                    else { setDirectin(RIGHT); }
+                }
+            } break;
         }
     }
+}
 }

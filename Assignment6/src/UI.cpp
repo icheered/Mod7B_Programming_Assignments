@@ -184,16 +184,24 @@ void UI::loadMaps()
 
     std::map<Direction, SDL_Rect> scared;
     scared[UP] = {o + size * 12, o + size * 6, size, size};
+    scared[UPA] = {o + size * 12, o + size * 6, size, size};
     scared[DOWN] = scared[UP];
+    scared[DOWNA] = scared[UP];
     scared[LEFT] = scared[UP];
+    scared[LEFTA] = scared[UP];
     scared[RIGHT] = scared[UP];
+    scared[RIGHTA] = scared[UP];
     clips[SCARED] = scared;
 
     std::map<Direction, SDL_Rect> scaredinv;
     scaredinv[UP] = {o + size * 4, o + size * 11, size, size};
+    scaredinv[UPA] = {o + size * 4, o + size * 11, size, size};
     scaredinv[DOWN] = scaredinv[UP];
+    scaredinv[DOWNA] = scaredinv[UP];
     scaredinv[LEFT] = scaredinv[UP];
+    scaredinv[LEFTA] = scaredinv[UP];
     scaredinv[RIGHT] = scaredinv[UP];
+    scaredinv[RIGHTA] = scaredinv[UP];
     clips[SCAREDINV] = scaredinv;
 
     std::map<Direction, SDL_Rect> strawberry;
