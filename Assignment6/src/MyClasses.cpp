@@ -30,8 +30,8 @@ double Entity::getY() { return y; }
 
 void Entity::setX(double newX) 
 {
-    if(newX < 0) { x = newX + 28;}
-    else if(newX > 28) { x = newX - 28;}
+    if(newX < 0.25) { x = newX + 26.75;}
+    else if(newX > 26.75) { x = 0.25;}
     else { x = newX; }
 }
 
@@ -399,6 +399,33 @@ void Ghost::turnArround()
     default:
         break;
     }
+}
+
+void Ghost::randomDirection()
+{
+    std::default_random_engine generator;
+    std::vector<Direction> possibleDirs;
+    int test = -1;
+    if (canRotate(RIGHT) && getDirection() != LEFT) { // rightLen
+        possibleDirs.push_back(RIGHT);
+        test++;
+    }
+    if (canRotate(DOWN) && getDirection() != UP) { // downLen
+        possibleDirs.push_back(DOWN);
+        test++;
+    }
+    if (canRotate(LEFT) && getDirection() != RIGHT) { // leftLen
+        possibleDirs.push_back(LEFT);
+        test++;
+    }
+    if (canRotate(UP) && getDirection() != DOWN) { // upLen
+        possibleDirs.push_back(UP);
+        test++;
+    }
+    std::uniform_int_distribution<int> distribution(0, test);
+    Direction moveToDir = possibleDirs.at(distribution(generator));
+    setDirectin(moveToDir);
+    move();
 }
  
 
