@@ -2,7 +2,7 @@
 //------------------------------------------Entity_Section-----------------------------------------------------
 
 Entity::Entity(double x, double y, std::string name)
-    : spawn_x(x), spawn_y(y), name(name), speed(0)
+    : spawn_x(x), spawn_y(y), name(name), speed(0), frameCounter(0)
 {
     setX(x);
     setY(y);
@@ -252,24 +252,47 @@ Pacman::Pacman(double x, double y, std::string name)
 
 void Pacman::move()
 {
+    int animationInterval = 10;
     Direction direc = getDirection();
     //std::cout << "x = " << getX() << ", y = " << getY() << std::endl;
     if(canMove(direc)) {
+        frameCounter++;
         switch(direc){
-            case UP: {
+            case UP: case UPA: {
                 setY(getY()-getSpeed());
+                if(frameCounter % animationInterval) 
+                {
+                    if(direc == UP) { setDirectin(UPA); }
+                    else { setDirectin(UP); }
+                }
             } break;
-            case DOWN: {
+            case DOWN: case DOWNA: {
                 setY(getY()+getSpeed());
+                if(frameCounter % animationInterval) 
+                {
+                    if(direc == DOWN) { setDirectin(DOWNA); }
+                    else { setDirectin(DOWN); }
+                }
             } break;
-            case LEFT: {
+            case LEFT: case LEFTA: {
                 setX(getX()-getSpeed());
+                if(frameCounter % animationInterval) 
+                {
+                    if(direc == LEFT) { setDirectin(LEFTA); }
+                    else { setDirectin(LEFT);
+                }
             } break;
-            case RIGHT: {
+            case RIGHT: case RIGHTA: {
                 setX(getX()+getSpeed());
+                if(frameCounter % animationInterval) 
+                {
+                    if(direc == RIGHT) { setDirectin(RIGHTA); }
+                    else { setDirectin(RIGHT); }
+                }
             } break;
         }
     }
+}
 }
 
 

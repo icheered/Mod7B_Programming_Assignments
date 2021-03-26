@@ -129,37 +129,57 @@ void UI::loadMaps()
     const int o = 4; // offset in bitmap (both in x and y)
     std::map<Direction, SDL_Rect> pacman;
     pacman[UP] = {o + size * 1, o + size * 11, size, size};
+    pacman[UPA] = {o + size * 3, o + size * 11, size, size};
     pacman[DOWN] = {o + size * 13, o + size * 7, size, size};
+    pacman[DOWNA] = {o + size * 15, o + size * 7, size, size};
     pacman[LEFT] = {o + size * 0, o + size * 11, size, size};
+    pacman[LEFTA] = {o + size * 2, o + size * 11, size, size};
     pacman[RIGHT] = {o + size * 12, o + size * 7, size, size};
+    pacman[RIGHTA] = {o + size * 14, o + size * 7, size, size};
     clips[PACMAN] = pacman;
 
     std::map<Direction, SDL_Rect> pinky;
     pinky[UP] = {o + size * 6, o + size * 9, size, size};
+    pinky[UPA] = {o + size * 7, o + size * 9, size, size};
     pinky[DOWN] = {o + size * 2, o + size * 9, size, size};
+    pinky[DOWNA] = {o + size * 3, o + size * 9, size, size};
     pinky[RIGHT] = {o + size * 0, o + size * 9, size, size};
+    pinky[RIGHTA] = {o + size * 1, o + size * 9, size, size};
     pinky[LEFT] = {o + size * 4, o + size * 9, size, size};
+    pinky[LEFTA] = {o + size * 5, o + size * 9, size, size};
     clips[PINKY] = pinky;
 
     std::map<Direction, SDL_Rect> blinky;
     blinky[UP] = {o + size * 6, o + size * 7, size, size};
+    blinky[UPA] = {o + size * 7, o + size * 7, size, size};
     blinky[DOWN] = {o + size * 2, o + size * 7, size, size};
+    blinky[DOWNA] = {o + size * 3, o + size * 7, size, size};
     blinky[RIGHT] = {o + size * 0, o + size * 7, size, size};
+    blinky[RIGHTA] = {o + size * 1, o + size * 7, size, size};
     blinky[LEFT] = {o + size * 4, o + size * 7, size, size};
+    blinky[LEFTA] = {o + size * 5, o + size * 7, size, size};
     clips[BLINKY] = blinky;
 
     std::map<Direction, SDL_Rect> clyde;
     clyde[UP] = {o + size * 6, o + size * 10, size, size};
+    clyde[UPA] = {o + size * 7, o + size * 10, size, size};
     clyde[DOWN] = {o + size * 2, o + size * 10, size, size};
+    clyde[DOWNA] = {o + size * 3, o + size * 10, size, size};
     clyde[RIGHT] = {o + size * 0, o + size * 10, size, size};
+    clyde[RIGHTA] = {o + size * 1, o + size * 10, size, size};
     clyde[LEFT] = {o + size * 4, o + size * 10, size, size};
+    clyde[LEFTA] = {o + size * 5, o + size * 10, size, size};
     clips[CLYDE] = clyde;
 
     std::map<Direction, SDL_Rect> inky;
     inky[UP] = {o + size * 14, o + size * 9, size, size};
+    inky[UPA] = {o + size * 15, o + size * 9, size, size};
     inky[DOWN] = {o + size * 10, o + size * 9, size, size};
+    inky[DOWNA] = {o + size * 11, o + size * 9, size, size};
     inky[LEFT] = {o + size * 12, o + size * 9, size, size};
+    inky[LEFTA] = {o + size * 13, o + size * 9, size, size};
     inky[RIGHT] = {o + size * 8, o + size * 9, size, size};
+    inky[RIGHTA] = {o + size * 9, o + size * 9, size, size};
     clips[INKY] = inky;
 
     std::map<Direction, SDL_Rect> scared;

@@ -22,6 +22,7 @@ private:
 protected:  // Protected variables can be accessed by inherited classes
   double epsilon;  // Epsilon is used for comparison of doubles
   std::vector<std::vector<int>> *map;
+  unsigned int frameCounter; // Used for animation
 
 public:
   Entity(double x, double y, std::string name);

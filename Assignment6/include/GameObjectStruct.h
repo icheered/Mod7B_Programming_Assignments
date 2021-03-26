@@ -41,7 +41,7 @@ enum Type {
 };
 
 /// An enum to denote the direction of an item on screen.
-enum Direction { UP, DOWN, LEFT, RIGHT };
+enum Direction { UP, UPA, DOWN, DOWNA, LEFT, LEFTA, RIGHT, RIGHTA };
 
 /// This represents an item that is drawn onto the screen.
 struct GameObjectStruct {
