@@ -52,17 +52,18 @@ public:
   void setMap(std::vector<std::vector<int>> *newmap);
   bool canMove(Direction direc);  // Checks if entity can move in the current facing direction
   bool canRotate(Direction direc);// Checks if entity can move in the desired facing direction
-  virtual void move(); 
+  virtual void move(); // Pure virtual function, overriden by inherited classes
+  virtual void die(); // Pure virtual function, overriden by inherited classes
   int getSpawnY();
   int getSpawnX();
   void setSpawn(int newX, int newY);
-  virtual void die();
+  
 };
 
 class Pacman : public Entity
 {
   private:
-    bool chungus; //pacman can eat ghosts, this is an representative name trust us :D
+    bool chungus; //pacman can eat ghosts, this is a representative name trust us :D. For more info: https://fghsnews.com/wp-content/uploads/2019/01/chunkus.jpg
     int lives;
 
   public:
@@ -81,11 +82,12 @@ class Pacman : public Entity
 class Ghost : public Entity
 {
   private:
-      //corners are (0,0) (0, 26) (27,0) (27,26)
+    //corners are (0,0) (0, 26) (27,0) (27,26)
     char lastBehaviour = 's';
     int HomeX, HomeY;
     bool frightened, eaten;
-    int timeOut; //subject to change, maybe bool is suited better later on
+    int timeOut;
+
     //some helper funcs for the behaviour
     int vectorLen(int x1, int y1, int x2, int y2); //since I only need coordinates and comparisons from the vectors they may be rounded to ints
     void determineBestMove(int targetX, int targetY); //finds the best move from ghost position to that field and executes it
