@@ -484,7 +484,6 @@ Ghost::Ghost(double x, double y, std::string name, Type ghostType)
 }
 
 void Ghost::Behaviour(int PacX, int PacY, int BlinkyX, int BlinkyY, Direction PacDir, char Behaviour) {
-    
     switch (Behaviour) {
     case 's': //scatter
         //ghost tries to move to its home
@@ -492,11 +491,13 @@ void Ghost::Behaviour(int PacX, int PacY, int BlinkyX, int BlinkyY, Direction Pa
         break;
     case 'f': //frightened
         //Ghost turns arround
-        turnArround();
+        if(lastBehaviour != Behaviour) turnArround();
         //Ghost moves random at intersec
+        randomDirection();
         break;
     case 'c': //chase
         //Ghost turns arround
+        if (lastBehaviour != Behaviour) turnArround();
         switch (type) {
         case BLINKY:
             determineBestMove(PacX, PacY);
@@ -576,12 +577,13 @@ void Ghost::Behaviour(int PacX, int PacY, int BlinkyX, int BlinkyY, Direction Pa
             break;
         }
         break;
-    case 'e': //eaten
+    //case 'e': //eaten
         //ghost moves back to base because it was eaten
-        break;
+      //  break;
     default:
         break;
     }
+    lastBehaviour = Behaviour;
 } // needs implementation
 
 bool Ghost::getFrightened() { return frightened; }

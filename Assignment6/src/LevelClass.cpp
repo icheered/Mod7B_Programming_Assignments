@@ -44,9 +44,19 @@ bool LevelClass::getRestart() {
 
 void LevelClass::move(){
     pacman.move();
-
-    for (auto &g : ghosts) { 
+    for (auto &g : ghosts) {
+        if (g.getFrightened()) {
+            g.Behaviour(pacman.getX(), pacman.getY(), ghosts[0].getX(),
+                        ghosts[0].getY(), pacman.getDirection(), 'f');
+        }
+        else if (scatterCount < 2000) {
+            scatterCount += 10;
         g.Behaviour(pacman.getX(), pacman.getY(), ghosts[0].getX(), ghosts[0].getY(), pacman.getDirection(), 's');
+        }
+        else {
+            scatterCount--;
+            g.Behaviour(pacman.getX(), pacman.getY(), ghosts[0].getX(), ghosts[0].getY(), pacman.getDirection(), 'c');
+        }
     }
 
 }

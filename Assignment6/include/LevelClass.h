@@ -6,6 +6,7 @@
 class LevelClass
 {
 private:
+    int scatterCount = 0;
     Pacman pacman = Pacman(13,15,"pacman");
     std::vector<Ghost> ghosts;
     std::vector<std::vector<int>> *map;
