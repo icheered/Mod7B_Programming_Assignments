@@ -105,12 +105,12 @@ void LevelClass::ateEnergizer() {
 }
 
 void LevelClass::hitGhost(Ghost &g) {
-    if(pacman.isChungus() && g.getType() == SCARED){
+    if(pacman.isChungus() && g.getFrightened()){
         g.die();
         score += 100;
     }
-    else if(g.getType() != SCAREDINV){
-        pacman.die();
+    else if(g.getType() != SCAREDINV && !g.getFrightened()){
+        resetLevel();
     }
 }
 

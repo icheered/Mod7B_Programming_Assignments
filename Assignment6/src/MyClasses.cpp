@@ -78,7 +78,7 @@ bool Entity::canMove(Direction direc)
                 }
                 else {
                     return false;
-                    std::cout << "DOWN is blocked!" << std::endl;
+                    //std::cout << "DOWN is blocked!" << std::endl;
                 } 
             } else { return false; }
         } break;
@@ -96,7 +96,7 @@ bool Entity::canMove(Direction direc)
                 }
                 else {
                     return false;
-                    std::cout << "LEFT is blocked!" << std::endl;
+                    //std::cout << "LEFT is blocked!" << std::endl;
                 } 
             } else { return false; }
         } break;
@@ -114,7 +114,7 @@ bool Entity::canMove(Direction direc)
                 }
                 else {
                     return false;
-                    std::cout << "RIGHT is blocked!" << std::endl;
+                    //std::cout << "RIGHT is blocked!" << std::endl;
                 }
             } else { return false; }
         } break;
@@ -146,12 +146,12 @@ bool Entity::canRotate(Direction direc)
                 if((*map)[floor(getY()-getSpeed())][xTile] != 1)
                 {
                     //std::cout << "Rotating UP" << std::endl;
-                    std::cout << "3" << std::endl;
+                    //std::cout << "3" << std::endl;
                     return true;
                 }
                 else {
                     return false;
-                    std::cout << "Won't rotate, UP blocked" << std::endl;
+                    //std::cout << "Won't rotate, UP blocked" << std::endl;
                 }
             } else {return false;}
         } break;
@@ -169,7 +169,7 @@ bool Entity::canRotate(Direction direc)
                 }
                 else {
                     return false;
-                    std::cout << "Won't rotate, DOWN blocked" << std::endl;
+                    //std::cout << "Won't rotate, DOWN blocked" << std::endl;
                 }
             } else {return false;}
         } break;
@@ -187,7 +187,7 @@ bool Entity::canRotate(Direction direc)
                 }
                 else {
                     return false;
-                    std::cout << "Won't rotate, LEFT blocked" << std::endl;
+                    //std::cout << "Won't rotate, LEFT blocked" << std::endl;
                 }
             } else {return false;}
         } break;
@@ -205,7 +205,7 @@ bool Entity::canRotate(Direction direc)
                 }
                 else {
                     return false;
-                    std::cout << "Won't rotate, RIGHT blocked" << std::endl;
+                    //std::cout << "Won't rotate, RIGHT blocked" << std::endl;
                 }
             }
             else {return false;}
@@ -359,6 +359,7 @@ void Pacman::die()
 {
     lives--;
     setPos(getSpawnX(), getSpawnY());
+    std::cout << "You died" << std::endl;
 }
 
 //----------------------------------------------------Ghost_section---------------------------------------------------------------
@@ -430,7 +431,7 @@ void Ghost::randomDirection()
     std::default_random_engine generator;
     std::vector<Direction> possibleDirs;
     int test = -1;
-    std::cout << getDirection() << std::endl;
+    //std::cout << getDirection() << std::endl;
     if (canRotate(RIGHT) && getDirection() != LEFT && getDirection() != LEFTA) { // rightLen
         possibleDirs.push_back(RIGHT);
         test++;

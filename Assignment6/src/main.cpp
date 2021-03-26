@@ -85,9 +85,9 @@ int main(int /*argc*/, char ** /*argv*/)
                 col = 3;
                 dots++;
             }
-            std::cout << col << " ";
+            //std::cout << col << " ";
         }
-        std::cout << std::endl;
+        //std::cout << std::endl;
     }
 
     // Create an energizer
@@ -121,6 +121,7 @@ int main(int /*argc*/, char ** /*argv*/)
 
     
     bool quit = false;
+    std::cout << "Game Started" << std::endl;
     while (!quit) {
         // set timeout to limit frame rate
         Uint32 timeout = SDL_GetTicks() + 20;
