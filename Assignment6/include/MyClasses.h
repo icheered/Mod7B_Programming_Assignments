@@ -55,7 +55,7 @@ public:
 class Pacman : public Entity
 {
   private:
-    bool chungus;
+    bool chungus; //pacman can eat ghosts, this is an representative name trust us :D
     int lives;
 
   public:

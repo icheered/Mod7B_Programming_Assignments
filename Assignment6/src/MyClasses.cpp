@@ -574,7 +574,7 @@ void Ghost::Behaviour(int PacX, int PacY, int BlinkyX, int BlinkyY, Direction Pa
             break;
         case CLYDE:
             int distance;
-            //determine distance to 
+            //determine distance to pacman
             distance = vectorLen(getX(), getY(), PacX, PacY);
             if (distance < 8) {
                 determineBestMove(HomeX, HomeY);
@@ -603,7 +603,6 @@ void Ghost::setFrightened(bool newHuntStatus)
     if(frightened) { 
         type = SCARED;
         // Change behaviour pattern
-        // Change speed or rather not as it brakes the game
     }
     else{
         if(getName() == "blinky") {setType(BLINKY);}

@@ -54,21 +54,22 @@ void LevelClass::setExtraLife()
 void LevelClass::move(){
     pacman.move();
     for (auto &g : ghosts) {
+        //ghost behave differently depending on the state of the game
         if (g.getFrightened()) {
             g.Behaviour(pacman.getX(), pacman.getY(), ghosts[0].getX(),
-                        ghosts[0].getY(), pacman.getDirection(), 'f');
+                        ghosts[0].getY(), pacman.getDirection(), 'f'); //frightend behaviour
         }
         else if (scatter) {
             scatterCount += 10;
             if (scatterCount > 2000)
                 scatter = false;
-        g.Behaviour(pacman.getX(), pacman.getY(), ghosts[0].getX(), ghosts[0].getY(), pacman.getDirection(), 's');
+        g.Behaviour(pacman.getX(), pacman.getY(), ghosts[0].getX(), ghosts[0].getY(), pacman.getDirection(), 's'); //scatter behaviour
         }
         else {
             scatterCount--;
             if (scatterCount < 1)
                 scatter = true;
-            g.Behaviour(pacman.getX(), pacman.getY(), ghosts[0].getX(), ghosts[0].getY(), pacman.getDirection(), 'c');
+            g.Behaviour(pacman.getX(), pacman.getY(), ghosts[0].getX(), ghosts[0].getY(), pacman.getDirection(), 'c'); //chase behaviour
         }
     }
 
@@ -194,5 +195,5 @@ void LevelClass::gameWon(){
 void LevelClass::spawnFruit() {
     std::cout << "Spawn fruit" << std::endl;
     int fruit = rand() % 6 + 3;
-    (*map)[15][13] = fruit;
+    (*map)[15][13] = fruit; //fruits spawn where pacman spawns initially
 }
