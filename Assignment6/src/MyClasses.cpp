@@ -446,14 +446,16 @@ void Ghost::randomDirection()
         possibleDirs.push_back(UP);
         test++;
     }
-    if (test > 0) {
-    std::uniform_int_distribution<int> distribution(0, test);
-    moveToDir = possibleDirs.at(distribution(generator));
-    } else {
-    moveToDir = possibleDirs.at(0);
+    if (!(test < 0)) {
+        if (test > 0) {
+            std::uniform_int_distribution<int> distribution(0, test);
+            moveToDir = possibleDirs.at(distribution(generator));
+        } else {
+            moveToDir = possibleDirs.at(0);
+        }
+        setDirectin(moveToDir);
+        move();
     }
-    setDirectin(moveToDir);
-    move();
 }
  
 
@@ -598,9 +600,9 @@ void Ghost::setFrightened(bool newHuntStatus)
     frightened = newHuntStatus;
     if(frightened) { 
         type = SCARED;
-        setSpeed(0.15);
+        //setSpeed(0.125);
         // Change behaviour pattern
-        // Change speed
+        // Change speed or rather not as it brakes the game
     }
     else{
         if(getName() == "blinky") {setType(BLINKY);}
