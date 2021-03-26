@@ -86,7 +86,7 @@ class Ghost : public Entity
     void randomDirection();
   public:
     Ghost(double x, double y, std::string name, Type ghostType);
-    void Behaviour(int PacX, int PacY, int BlinkyX, int BlinkyY, Direction PacDir, char Behaviour); //quite complex, still has to be overriden.
+    void Behaviour(int PacX, int PacY, int BlinkyX, int BlinkyY, Direction PacDir, char Behaviour);
     bool getFrightened();
     void setFrightened(bool newHuntStatus);
     void setTimeout(int newTimeout);

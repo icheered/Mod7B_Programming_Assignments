@@ -333,7 +333,6 @@ int Pacman::eatFruit(Type fruitEaten)
 int Pacman::eatPowerup()
 {
     chungus = true;
-    setSpeed(0.5);
     return 50;
 }
 
@@ -448,14 +447,16 @@ void Ghost::randomDirection()
         possibleDirs.push_back(UP);
         test++;
     }
-    if (test > 0) {
-        std::uniform_int_distribution<int> distribution(0, test);
-        moveToDir = possibleDirs.at(distribution(generator));
-    } else {
-        moveToDir = possibleDirs.at(0);
+    if (!(test < 0)) {
+        if (test > 0) {
+            std::uniform_int_distribution<int> distribution(0, test);
+            moveToDir = possibleDirs.at(distribution(generator));
+        } else {
+            moveToDir = possibleDirs.at(0);
+        }
+        setDirectin(moveToDir);
+        move();
     }
-    setDirectin(moveToDir);
-    move();
 }
  
 
@@ -600,9 +601,8 @@ void Ghost::setFrightened(bool newHuntStatus)
     frightened = newHuntStatus;
     if(frightened) { 
         type = SCARED;
-        setSpeed(0.25);
         // Change behaviour pattern
-        // Change speed
+        // Change speed or rather not as it brakes the game
     }
     else{
         if(getName() == "blinky") {setType(BLINKY);}
@@ -645,6 +645,7 @@ void Ghost::move()
     //std::cout << "x = " << getX() << ", y = " << getY() << std::endl;
     if(canMove(direc)) {
         frameCounter++;
+        if(getFrightened() && frameCounter % 2 == 0) { return; }
         switch(direc){
             case UP: case UPA: {
                 setY(getY()-getSpeed());
