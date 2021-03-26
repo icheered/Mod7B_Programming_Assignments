@@ -26,9 +26,10 @@
 /// regarding multithreading issues.
 Uint32 gameUpdate(Uint32 interval, void * params)
 {
-    // Do game loop update here
+    // Dereference the passed paramenters
     LevelClass* level = (LevelClass*)params;
     
+    // Handle user input
     const Uint8 *state = SDL_GetKeyboardState(NULL);
     if (state[SDL_SCANCODE_UP])
         level->handleInput(UP);
@@ -39,11 +40,9 @@ Uint32 gameUpdate(Uint32 interval, void * params)
     else if (state[SDL_SCANCODE_RIGHT])
         level->handleInput(RIGHT);  
 
+    // Move the objects and check for collission
     level->move();
     level->checkCollision();
-
-    // Move objects
-    // Check for collission
 
     return interval;
 }
@@ -52,13 +51,14 @@ Uint32 gameUpdate(Uint32 interval, void * params)
 int main(int /*argc*/, char ** /*argv*/)
 {
     srand (time(NULL));
-    int a = 3;
-    int b = a;
 
+    // Get the map
     std::vector<std::vector<int>> map = {{
         #include "board.def"
     }};
 
+
+    // Some coordinates for entities
     std::vector<int> pacmanSpawn {13, 15};
 
     std::vector<std::vector<int>> ghostSpawns {
@@ -86,12 +86,12 @@ int main(int /*argc*/, char ** /*argv*/)
                 col = 3;
                 dots++;
             }
-            //std::cout << col << " ";
+            //std::cout << col << " ";  // Print the map
         }
         //std::cout << std::endl;
     }
 
-    // Create an energizer
+    // Create energizers on the map
     for(auto &loc : energizers) {
         dots--;
         map[loc[1]][loc[0]] = 2;
@@ -116,7 +116,7 @@ int main(int /*argc*/, char ** /*argv*/)
     LevelClass level = LevelClass(&map, ghostSpawns, dots);
 
 
-    // Start timer for game update, call this function every 100 ms.
+    // Start timer for game update, call this function every 50 ms.
     SDL_TimerID timer_id =
         SDL_AddTimer(50, gameUpdate, &level);
 

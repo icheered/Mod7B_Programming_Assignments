@@ -39,6 +39,10 @@ void Entity::setY(double newY) { y = newY; }
 
 bool Entity::canMove(Direction direc) 
 {
+
+    // This block figures out how close to the center an entity is
+    // It only needs to check if it can move if it is sufficiently close to the edge
+    // (You can't move UP if you're between 2 blocks on the x-axis)
     double diffX, diffY;
     if(abs(floor(getX()) - getX()) < abs(ceil(getX()) - getX())) {diffX = abs(floor(getX()) - getX());}
     else {diffX = abs(ceil(getX()) - getX());}
@@ -47,13 +51,14 @@ bool Entity::canMove(Direction direc)
 
     switch(direc){
         case UP:case UPA: {
-            
             if(diffX < epsilon){
+
+                // Check if the entity is aligned on the x-axis
                 int xTile;
                 if(abs(floor(getX()) - getX()) < abs(ceil(getX()) - getX())) {xTile = floor(getX());}
                 else {xTile = ceil(getX());}
 
-                if((*map)[floor(getY()-getSpeed()+epsilon)][xTile] != 1)
+                if((*map)[floor(getY()-getSpeed()+epsilon)][xTile] != 1) // If next block is not a wall
                 {
                     return true;
                     //std::cout << "Moving UP!" << std::endl;
@@ -123,27 +128,28 @@ bool Entity::canMove(Direction direc)
 
 bool Entity::canRotate(Direction direc) 
 {
+
+    // This block figures out how close to the center an entity is
+    // It only needs to check if it can rotate if it is sufficiently close to the center
+    // (You can't rotate if you're halfway on a block)
     double diffX, diffY;
     if(abs(floor(getX()) - getX()) < abs(ceil(getX()) - getX())) {diffX = abs(floor(getX()) - getX());}
     else {diffX = abs(ceil(getX()) - getX());}
     if(abs(floor(getY()) - getY()) < abs(ceil(getY()) - getY())) {diffY = abs(floor(getY()) - getY());}
     else {diffY = abs(ceil(getY()) - getY());}
 
-    
-    // std::cout << "FloorX: " << abs(floor(getX()) - getX()) << ", CeilX: " << abs(ceil(getX()) - getX()) << std::endl;
-    // std::cout << "FloorY: " << abs(floor(getY()) - getY()) << ", CeilY: " << abs(ceil(getY()) - getY()) << std::endl;
-    //std::cout << "DiffX: " << diffX << ", DiffY: " << diffY << std::endl;
+
     switch(direc){
         case UP:case UPA: {
-            
             if(diffX < epsilon)
             {
+                // Check if the entity is aligned with the map on the x-axis
                 int xTile;
                 if(abs(floor(getX()) - getX()) < abs(ceil(getX()) - getX())) {xTile = floor(getX());}
                 else {xTile = ceil(getX());}
                 
 
-                if((*map)[floor(getY()-getSpeed())][xTile] != 1)
+                if((*map)[floor(getY()-getSpeed())][xTile] != 1) // If target direction is not a wall
                 {
                     //std::cout << "Rotating UP" << std::endl;
                     //std::cout << "3" << std::endl;
@@ -158,11 +164,12 @@ bool Entity::canRotate(Direction direc)
         case DOWN:case DOWNA: {
             if(diffX < epsilon)
             {
+                // Check if the entity is aligned with the map on the x-axis
                 int xTile;
                 if(abs(floor(getX()) - getX()) < abs(ceil(getX()) - getX())) {xTile = floor(getX());}
                 else {xTile = ceil(getX());}
 
-                if((*map)[ceil(getY()+getSpeed())][xTile] != 1)
+                if((*map)[ceil(getY()+getSpeed())][xTile] != 1) // If target direction is not a wall
                 {
                     //std::cout << "Rotating DOWN" << std::endl;
                     return true;
@@ -176,11 +183,13 @@ bool Entity::canRotate(Direction direc)
         case LEFT:case LEFTA: {
             if(diffY < epsilon)
             {
+
+                // Check if the entity is aligned with the map on the y-axis
                 int yTile;
                 if(abs(floor(getY()) - getY()) < abs(ceil(getY()) - getY())) {yTile = floor(getY());}
                 else {yTile = ceil(getY());}
 
-                if((*map)[yTile][floor(getX()-getSpeed())] != 1)
+                if((*map)[yTile][floor(getX()-getSpeed())] != 1) // If target direction is not a wall
                 {
                     //std::cout << "Rotating  LEFT" << std::endl;
                     return true;
@@ -194,11 +203,12 @@ bool Entity::canRotate(Direction direc)
         case RIGHT:case RIGHTA: {
             if(diffY < epsilon)
             {
+                // Check if the entity is aligned with the map on the y-axis
                 int yTile;
                 if(abs(floor(getY()) - getY()) < abs(ceil(getY()) - getY())) {yTile = floor(getY());}
                 else {yTile = ceil(getY());}
 
-                if((*map)[yTile][ceil(getX()+getSpeed())] != 1)
+                if((*map)[yTile][ceil(getX()+getSpeed())] != 1) // If target direction is not a wall
                 {
                     //std::cout << "Rotating RIGHT" << std::endl;
                     return true;
@@ -252,17 +262,17 @@ Pacman::Pacman(double x, double y, std::string name)
 
 void Pacman::move()
 {
-    int animationInterval = 2;
+    int animationInterval = 2; // Used to animate pacman 
     Direction direc = getDirection();
-    //std::cout << "x = " << getX() << ", y = " << getY() << std::endl;
+
     if(canMove(direc)) {
         frameCounter++;
         switch(direc){
             case UP: case UPA: {
-                setY(getY()-getSpeed());
+                setY(getY()-getSpeed());    // Move pacman
                 if(frameCounter % animationInterval == 0) 
                 {
-                    if(direc == UP) { setDirectin(UPA); }
+                    if(direc == UP) { setDirectin(UPA); } // Change pacman sprite
                     else { setDirectin(UP); }
                 }
             } break;
@@ -295,13 +305,6 @@ void Pacman::move()
 }
 }
 
-
-
-//void Pacman::eatDot()
-//{
-//    points += 10;
-//    dotsEaten++;
-//}
 
 int Pacman::eatFruit(Type fruitEaten)
 {
@@ -340,8 +343,6 @@ void Pacman::removePowerup() { chungus = false; }
 
 bool Pacman::isChungus() { return chungus; }
 
-//int Pacman::getDotsEaten() { return dotsEaten; }
-
 void Pacman::extraLife() { lives++; }
 
 int Pacman::getLives() { return lives; }
@@ -364,7 +365,7 @@ void Pacman::die()
 
 //----------------------------------------------------Ghost_section---------------------------------------------------------------
 
-int Ghost::vectorLen(int x1, int y1, int x2, int y2)
+int Ghost::vectorLen(int x1, int y1, int x2, int y2) // Helper function
 {
     int len = 0;
     len = sqrt(pow((x1 - x2), 2) + pow((y1 - y2), 2));
@@ -431,7 +432,6 @@ void Ghost::randomDirection()
     std::default_random_engine generator;
     std::vector<Direction> possibleDirs;
     int test = -1;
-    //std::cout << getDirection() << std::endl;
     if (canRotate(RIGHT) && getDirection() != LEFT && getDirection() != LEFTA) { // rightLen
         possibleDirs.push_back(RIGHT);
         test++;
@@ -448,6 +448,8 @@ void Ghost::randomDirection()
         possibleDirs.push_back(UP);
         test++;
     }
+
+    // To avoid crashes, make sure that there is at least 1 possible direction
     if (!(test < 0)) {
         if (test > 0) {
             std::uniform_int_distribution<int> distribution(0, test);
@@ -593,7 +595,7 @@ void Ghost::Behaviour(int PacX, int PacY, int BlinkyX, int BlinkyY, Direction Pa
         break;
     }
     lastBehaviour = Behaviour;
-} // needs implementation
+} 
 
 bool Ghost::getFrightened() { return frightened; }
 
@@ -602,7 +604,6 @@ void Ghost::setFrightened(bool newHuntStatus)
     frightened = newHuntStatus;
     if(frightened) { 
         type = SCARED;
-        // Change behaviour pattern
     }
     else{
         if(getName() == "blinky") {setType(BLINKY);}
@@ -640,18 +641,18 @@ void Ghost::move()
 {   
     if(getFrightened()) { decrementTimeout(); }
 
-    unsigned int animationInterval = 3;
+    unsigned int animationInterval = 3; // Switch sprite every 3 move() calls
     Direction direc = getDirection();
-    //std::cout << "x = " << getX() << ", y = " << getY() << std::endl;
+
     if(canMove(direc)) {
         frameCounter++;
         if(getFrightened() && frameCounter % 2 == 0) { return; }
         switch(direc){
             case UP: case UPA: {
-                setY(getY()-getSpeed());
+                setY(getY()-getSpeed());    // Move the ghost
                 if(frameCounter % animationInterval == 0) 
                 {
-                    if(direc == UP) { setDirectin(UPA); }
+                    if(direc == UP) { setDirectin(UPA); } // Change the sprite
                     else { setDirectin(UP); }
                 }
             } break;

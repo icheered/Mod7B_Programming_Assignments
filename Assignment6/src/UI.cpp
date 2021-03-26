@@ -127,6 +127,9 @@ void UI::loadMaps()
 {
     const int size = TILESIZE;
     const int o = 4; // offset in bitmap (both in x and y)
+
+    // Display the sprites. Every direction with an 'A' suffix is a different
+    // Sprite for the same entity to animate the entity.
     std::map<Direction, SDL_Rect> pacman;
     pacman[UP] = {o + size * 1, o + size * 11, size, size};
     pacman[UPA] = {o + size * 3, o + size * 11, size, size};
@@ -283,7 +286,11 @@ void UI::loadMaps()
 
 void UI::drawBackground(std::vector<std::vector<int>> *map)
 {
-    // Draw a wall on each position containing a one
+    // Draw the map
+    // 1 = Wall
+    // 2 = Energizer
+    // 3 = Dot
+    // 4-8 = Fruit
     for (size_t i = 0; i < (*map).size(); i++) {
         for (size_t j = 0; j < (*map)[i].size(); j++) {
             if ((*map)[i][j] == 1) {
@@ -346,6 +353,7 @@ void UI::drawBackground(std::vector<std::vector<int>> *map)
 
 SDL_Texture *UI::loadTexture(const std::string &file)
 {
+    // Load the bitmap. This gave some issues on windows, hence this #ifdef statement
     #ifdef __linux__ 
         SDL_Surface *surf = SDL_LoadBMP("resources/sam_gfx.bmp");
     #elif _WIN32
