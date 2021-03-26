@@ -353,6 +353,7 @@ void Ghost::determineBestMove(int targetX, int targetY) {
     
     //find the best possible move for the ghost to its target, because of the order it also choses the prefered movement if there are same lengths
     if (canRotate(RIGHT) && getDirection() != LEFT) {// rightLen
+        
         if (shortestLength >= vectorLen(getX() + 1, getY(), targetX, targetY)) {
             shortestLength = vectorLen(getX() + 1, getY(), targetX, targetY);
             moveToDir = RIGHT;
@@ -372,8 +373,8 @@ void Ghost::determineBestMove(int targetX, int targetY) {
     }                  
 
     if (canRotate(UP) && getDirection() != DOWN) {// upLen
-        if (shortestLength >= vectorLen(getX(), getY()-1, targetX, targetY)) {
-            shortestLength = vectorLen(getX(), getY()-1, targetX, targetY);
+        if (shortestLength >= vectorLen(getX(), getY() -1, targetX, targetY)) {
+            shortestLength = vectorLen(getX(), getY() -1, targetX, targetY);
             moveToDir = UP;
         }
     }
@@ -417,7 +418,7 @@ Ghost::Ghost(double x, double y, std::string name, Type ghostType)
         HomeY = 0;
         break;
     case CLYDE:
-        HomeX = 0;
+        HomeX = 2;
         HomeY = 26;
         break;
     case BLINKY:

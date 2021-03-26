@@ -117,7 +117,7 @@ int main(int /*argc*/, char ** /*argv*/)
 
     // Start timer for game update, call this function every 100 ms.
     SDL_TimerID timer_id =
-        SDL_AddTimer(10, gameUpdate, &level);
+        SDL_AddTimer(50, gameUpdate, &level);
 
     
     bool quit = false;

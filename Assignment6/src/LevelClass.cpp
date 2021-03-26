@@ -6,25 +6,25 @@
 LevelClass::LevelClass(std::vector<std::vector<int>> *newmap, std::vector<std::vector<int>> ghostSpawns, int numberOfDots){
     dots = numberOfDots;
     map = newmap;
-    pacman.setSpeed(0.05);
+    pacman.setSpeed(0.25);
     pacman.setEpsilon(epsilon);
     pacman.setMap(map);
 
     // Create ghosts, pass their behaviour/name as argument
     Ghost blinky(ghostSpawns[0][0], ghostSpawns[0][1], "blinky", BLINKY);
-    blinky.setSpeed(0.05);
+    blinky.setSpeed(0.25);
     blinky.setMap(map);
     blinky.setEpsilon(epsilon);
     Ghost pinky(ghostSpawns[1][0], ghostSpawns[1][1], "pinky", PINKY);
-    pinky.setSpeed(0.05);
+    pinky.setSpeed(0.25);
     pinky.setMap(map);
     pinky.setEpsilon(epsilon);
     Ghost inky(ghostSpawns[2][0], ghostSpawns[2][1], "inky", INKY);
-    inky.setSpeed(0.05);
+    inky.setSpeed(0.25);
     inky.setMap(map);
     inky.setEpsilon(epsilon);
     Ghost clyde(ghostSpawns[3][0], ghostSpawns[3][1], "clyde", CLYDE);
-    clyde.setSpeed(0.05);
+    clyde.setSpeed(0.25);
     clyde.setMap(map);
     clyde.setEpsilon(epsilon);
 
