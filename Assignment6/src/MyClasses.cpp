@@ -1,3 +1,11 @@
+//==============================================================
+// Filename : MyClasses.cpp
+// Authors : Tjeerd Bakker and Soenke van Loh
+// Version : 1
+// License :
+// Description : source code for MyClasses.h
+//==============================================================
+
 #include "MyClasses.h"
 //------------------------------------------Entity_Section-----------------------------------------------------
 

@@ -1,3 +1,11 @@
+//==============================================================
+// Filename : LevelClass.cpp
+// Authors : Tjeerd Bakker and Soenke van Loh
+// Version : 1
+// License :
+// Description : sourcecode for the level class
+//==============================================================
+
 #pragma once
 
 #include "LevelClass.h"

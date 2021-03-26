@@ -1,5 +1,12 @@
-#include "MyClasses.h"
+//==============================================================
+// Filename : LevelClass.h
+// Authors : Tjeerd Bakker and Soenke van Loh
+// Version : 1
+// License :
+// Description : interface for the level class
+//==============================================================
 
+#include "MyClasses.h"
 #include <vector>
 #include <math.h>
 
