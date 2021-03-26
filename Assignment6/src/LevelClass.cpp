@@ -49,12 +49,16 @@ void LevelClass::move(){
             g.Behaviour(pacman.getX(), pacman.getY(), ghosts[0].getX(),
                         ghosts[0].getY(), pacman.getDirection(), 'f');
         }
-        else if (scatterCount < 2000) {
+        else if (scatter) {
             scatterCount += 10;
+            if (scatterCount > 2000)
+                scatter = false;
         g.Behaviour(pacman.getX(), pacman.getY(), ghosts[0].getX(), ghosts[0].getY(), pacman.getDirection(), 's');
         }
         else {
             scatterCount--;
+            if (scatterCount < 1)
+                scatter = true;
             g.Behaviour(pacman.getX(), pacman.getY(), ghosts[0].getX(), ghosts[0].getY(), pacman.getDirection(), 'c');
         }
     }
